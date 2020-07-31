@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoViewModel" />
+    </data>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blanco"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/tool_bar_autodiagnostico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/autodiagnostico_titulo" />
+            </com.google.android.material.appbar.MaterialToolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <View
+                android:id="@+id/view_uno"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/circulo_coloreado_rosa"
+                app:layout_constraintEnd_toStartOf="@+id/view_dos"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_uno_linea"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@{viewModel.pasoActual > 1 ? @color/rosaPrincipal : @color/divisor}"
+                app:layout_constraintBottom_toBottomOf="@+id/view_dos"
+                app:layout_constraintEnd_toStartOf="@+id/view_dos"
+                app:layout_constraintStart_toEndOf="@+id/view_uno"
+                app:layout_constraintTop_toTopOf="@+id/view_dos" />
+
+            <View
+                android:id="@+id/view_dos"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="32dp"
+                android:background="@{viewModel.pasoActual > 1 ? @drawable/circulo_coloreado_rosa : @drawable/circulo_borde_gris}"
+                app:layout_constraintEnd_toStartOf="@+id/view_tres"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/view_uno"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_dos_linea"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@{viewModel.pasoActual > 2 ? @color/rosaPrincipal : @color/divisor}"
+                app:layout_constraintBottom_toBottomOf="@+id/view_tres"
+                app:layout_constraintEnd_toStartOf="@+id/view_tres"
+                app:layout_constraintStart_toEndOf="@+id/view_dos"
+                app:layout_constraintTop_toTopOf="@+id/view_tres"
+                tools:visibility="gone" />
+
+            <View
+                android:id="@+id/view_tres"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="32dp"
+                android:background="@{viewModel.pasoActual > 2 ? @drawable/circulo_coloreado_rosa : @drawable/circulo_borde_gris}"
+                app:layout_constraintEnd_toStartOf="@+id/view_cuatro"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/view_dos"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_tres_linea"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@{viewModel.pasoActual > 3 ? @color/rosaPrincipal : @color/divisor}"
+                app:layout_constraintBottom_toBottomOf="@+id/view_cuatro"
+                app:layout_constraintEnd_toStartOf="@+id/view_cuatro"
+                app:layout_constraintStart_toEndOf="@+id/view_tres"
+                app:layout_constraintTop_toTopOf="@+id/view_cuatro"
+                tools:visibility="gone" />
+
+            <View
+                android:id="@+id/view_cuatro"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="32dp"
+                android:background="@{viewModel.pasoActual > 3 ? @drawable/circulo_coloreado_rosa : @drawable/circulo_borde_gris}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/view_tres"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/progress_circles_group"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:constraint_referenced_ids="view_uno,view_dos,view_tres,view_cuatro,view_uno_linea,view_dos_linea,view_tres_linea" />
+
+            <LinearLayout
+                android:id="@+id/banner_autodiagnostico"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:layout_marginTop="44dp"
+                android:background="@color/color_fondo_edittext"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_cuatro">
+
+                <ImageView
+                    android:id="@+id/icon_medical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/icon_medical" />
+
+                <TextView
+                    android:id="@+id/autodiagnostico_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="@string/autodiagnostico_banner"
+                    android:textColor="@color/negro"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/nav_autodiagnostico"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="32dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/banner_autodiagnostico"
+                app:navGraph="@navigation/nav_autodiagnostico" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

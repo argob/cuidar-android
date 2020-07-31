@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_header"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blanco"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="bottom">
+
+    <ImageView
+        android:id="@+id/h_icono_equis"
+        android:layout_width="@dimen/drawer_icon_mini_size"
+        android:layout_height="@dimen/drawer_icon_mini_size"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_equiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/h_icono_perfil"
+        android:layout_width="@dimen/drawer_icon_size"
+        android:layout_height="@dimen/drawer_icon_size"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@null"
+        android:src="@drawable/icon_user_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/h_icono_equis" />
+
+    <TextView
+        android:id="@+id/nombre_de_usuario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_bold"
+        android:maxLines="2"
+        android:textColor="@color/gris_oscuro"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/h_icono_perfil"
+        app:layout_constraintTop_toTopOf="@+id/h_icono_perfil"
+        tools:text="Felipe Martinez Paez" />
+
+    <TextView
+        android:id="@+id/h_dni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/dni_colon"
+        android:textColor="@color/gris"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/nombre_de_usuario"
+        app:layout_constraintTop_toBottomOf="@id/nombre_de_usuario" />
+
+    <TextView
+        android:id="@+id/numero_dni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/gris"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/h_dni"
+        app:layout_constraintTop_toTopOf="@id/h_dni"
+        tools:text="1.112.112" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/divisor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/h_dni" />
+
+    <ImageView
+        android:id="@+id/h_icono_telefono"
+        android:layout_width="@dimen/drawer_icon_mini_size"
+        android:layout_height="@dimen/drawer_icon_mini_size"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_phone_nav"
+        android:tint="@color/negro"
+        app:layout_constraintEnd_toEndOf="@id/h_icono_perfil"
+        app:layout_constraintStart_toStartOf="@id/h_icono_perfil"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <TextView
+        android:id="@+id/h_telefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/telefono"
+        android:textColor="@color/gris"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/h_dni"
+        app:layout_constraintTop_toTopOf="@id/h_icono_telefono" />
+
+    <TextView
+        android:id="@+id/h_telefono_numero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/gris_oscuro"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/h_telefono"
+        app:layout_constraintTop_toBottomOf="@id/h_telefono"
+        tools:text="300453343" />
+
+    <ImageView
+        android:id="@+id/h_icono_casa"
+        android:layout_width="@dimen/drawer_icon_mini_size"
+        android:layout_height="@dimen/drawer_icon_mini_size"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_direccion"
+        app:layout_constraintStart_toStartOf="@id/h_icono_telefono"
+        app:layout_constraintTop_toBottomOf="@id/h_telefono_numero" />
+
+    <TextView
+        android:id="@+id/h_direccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/direccion_actual"
+        android:textColor="@color/gris"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/h_telefono_numero"
+        app:layout_constraintTop_toTopOf="@id/h_icono_casa" />
+
+    <TextView
+        android:id="@+id/h_direccion_valor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris_oscuro"
+        app:layout_constraintEnd_toStartOf="@+id/h_icono_equis"
+        app:layout_constraintStart_toStartOf="@+id/h_direccion"
+        app:layout_constraintTop_toBottomOf="@+id/h_direccion"
+        tools:text="Calle 40, # 501, Piso 2 , Pueerta C\n La Puerta - Buenos Aires" />
+
+    <TextView
+        android:id="@+id/h_editar_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/editar_informacion"
+        android:textAllCaps="true"
+        android:textColor="@color/azul_degradado_final"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@id/h_direccion_valor"
+        app:layout_constraintTop_toBottomOf="@id/h_direccion_valor" />
+
+    <ImageView
+        android:id="@+id/h_icono_cerrar_sesion"
+        android:layout_width="@dimen/drawer_icon_mini_size"
+        android:layout_height="@dimen/drawer_icon_mini_size"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_cerrar_cesion"
+        app:layout_constraintBottom_toTopOf="@id/h_menu_container"
+        app:layout_constraintStart_toStartOf="@id/h_icono_casa"
+        app:layout_constraintTop_toBottomOf="@id/h_editar_info" />
+
+
+    <TextView
+        android:id="@+id/h_cerrar_sesion_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/cerrar_cesion"
+        android:textAllCaps="true"
+        android:textColor="@color/azul_degradado_final"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/h_icono_cerrar_sesion"
+        app:layout_constraintStart_toStartOf="@id/h_direccion_valor"
+        app:layout_constraintTop_toTopOf="@id/h_icono_cerrar_sesion" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/h_menu_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/azul_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/pba_group"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:constraint_referenced_ids="pba_icon, h_pba" />
+
+        <ImageView
+            android:id="@+id/pba_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_pba"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/h_pba"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:text="@string/pba"
+            android:textColor="@color/negro"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/h_view_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pba_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/h_view_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/divisor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pba_icon"
+            app:layout_goneMarginTop="0dp" />
+
+        <ImageView
+            android:id="@+id/h_icon_video_call"
+            android:layout_width="@dimen/drawer_icon_mini_size"
+            android:layout_height="@dimen/drawer_icon_mini_size"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_video_llamada"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/h_view_1" />
+
+        <TextView
+            android:id="@+id/h_video_llamada_label"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:text="@string/video_llamada_label"
+            android:textColor="@color/negro"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/h_view_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/h_icon_video_call"
+            app:layout_constraintTop_toBottomOf="@id/h_view_1" />
+
+        <View
+            android:id="@+id/h_view_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/divisor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/h_icon_video_call" />
+
+        <ImageView
+            android:id="@+id/h_icono_informacion"
+            android:layout_width="@dimen/drawer_icon_mini_size"
+            android:layout_height="@dimen/drawer_icon_mini_size"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_alerta_octagono"
+            app:layout_constraintStart_toStartOf="@id/h_icon_video_call"
+            app:layout_constraintTop_toBottomOf="@id/h_view_2" />
+
+        <TextView
+            android:id="@+id/h_info_label"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:text="@string/informacion_importante"
+            android:textColor="@color/negro"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/h_view_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/h_video_llamada_label"
+            app:layout_constraintTop_toBottomOf="@id/h_view_2" />
+
+        <View
+            android:id="@+id/h_view_3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/divisor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/h_icono_informacion" />
+
+        <ImageView
+            android:id="@+id/h_icono_redes"
+            android:layout_width="@dimen/drawer_icon_mini_size"
+            android:layout_height="@dimen/drawer_icon_mini_size"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_twitter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/h_icono_informacion"
+            app:layout_constraintTop_toBottomOf="@id/h_view_3"
+            app:layout_constraintVertical_bias="0.932" />
+
+        <TextView
+            android:id="@+id/h_redes_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="bottom"
+            android:text="@string/redes_sociales_label"
+            android:textColor="@color/negro"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/h_icono_redes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/h_info_label"
+            app:layout_constraintTop_toTopOf="@id/h_icono_redes" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

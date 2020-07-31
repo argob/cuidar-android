@@ -1,0 +1,281 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="DrawerIcon" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/black</item>
+    </style>
+
+    <style name="DefaultInputTextLayout" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="colorPrimary">@color/rosaPrincipal</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Roboto.Regular" parent="android:TextAppearance">
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Roboto.Medium" parent="android:TextAppearance">
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Roboto.Bold" parent="android:TextAppearance">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Roboto.Black" parent="android:TextAppearance">
+        <item name="fontFamily">@font/roboto_black</item>
+    </style>
+
+    <style name="botonFondoObscuro">
+        <item name="android:background">@color/azulBoton</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="pbaButton">
+        <item name="android:background">@color/pba_blue</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="botonFondoClaro">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:textColor">@color/darkSkyBlue</item>
+    </style>
+
+    <style name="header_resultado_diagnostico">
+        <item name="android:paddingTop">18dp</item>
+        <item name="android:paddingBottom">18dp</item>
+        <item name="android:paddingStart">24sp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAppearance">@style/Roboto.Black</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <style name="header_rosa_bordes_redondeados" parent="header_resultado_diagnostico">
+        <item name="android:background">@drawable/top_borde_redondeado_rosa</item>
+    </style>
+
+    <style name="header_verde_bordes_redondeados" parent="header_resultado_diagnostico">
+        <item name="android:background">@drawable/top_borde_redondeado_verde</item>
+    </style>
+
+    <style name="principalRosaClaro">
+        <item name="android:background">@color/rosaClaro</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="BotonRedondeado">
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">@font/encode_semi_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/background_ovalado_azul</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="BotonAzulRedondeado" parent="BotonRedondeado">
+        <item name="android:background">@drawable/background_ovalado_azul</item>
+        <item name="android:textColor">@drawable/texto_boton_redondeado_azul</item>
+    </style>
+
+    <style name="BotonBlancoRedondeado" parent="BotonRedondeado">
+        <item name="android:background">@drawable/borde_redondeado_azul</item>
+        <item name="android:textColor">@color/azulBoton</item>
+    </style>
+
+    <style name="BotonBlancoRellenoRedondeado" parent="BotonRedondeado">
+        <item name="android:background">@drawable/background_ovalado_blanco</item>
+        <item name="android:textColor">@drawable/texto_boton_redondeado_blanco</item>
+    </style>
+
+    <style name="BotonAutodiagnostico" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/azulBoton</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="BotonAutodiagnosticoClaro" parent="BotonAutodiagnostico">
+        <item name="backgroundTint">@color/blanco</item>
+        <item name="android:textColor">@color/azulBoton</item>
+    </style>
+
+    <style name="BotonRedondo" parent="Widget.MaterialComponents.Button">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="BotonRedondo.Forma" parent="Widget.MaterialComponents.Button">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="colorAccent">@color/negro_claro</item>
+        <item name="colorSurface">@color/negro_claro</item>
+        <item name="colorSecondary">@color/negro_claro</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/negro_claro</item>
+        <item name="android:paddingStart">32dp</item>
+        <item name="android:textAppearance">@style/Roboto.Regular</item>
+    </style>
+
+    <style name="RadioButton.allCapsFalse" parent="RadioButton">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="CheckBox.Antecedentes" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="colorAccent">@color/negro_claro</item>
+        <item name="colorSurface">@color/negro_claro</item>
+        <item name="colorSecondary">@color/negro_claro</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:textAppearance">@style/Roboto.Regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="texto_medium_roboto_bold">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/text_roboto_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">7dp</item>
+    </style>
+
+    <style name="texto_medium_roboto_bold.no_line_spacing" parent="texto_medium_roboto_bold">
+        <item name="android:lineSpacingExtra">0dp</item>
+    </style>
+
+    <style name="texto_regular_roboto">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/negro_claro</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="texto_medium_roboto">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/text_roboto_bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="texto_medium_roboto.black" parent="texto_medium_roboto">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="texto_small_roboto_bold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textColor">@color/text_roboto_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="normal_edittext">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="materialAlertDialogTitleTextStyle">@style/Alert.Title.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Neutral</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Alert.Button.Neutral</item>
+    </style>
+
+    <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/azulBoton</item>
+        <item name="android:textColor">@color/azulDialogo</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Alert.Button.Neutral" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/azulBoton</item>
+        <item name="android:textColor">@color/azulDialogo</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Alert.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/negro</item>
+        <item name="android:textAppearance">@style/Roboto.Bold</item>
+    </style>
+
+    <style name="LogoCuidarFragmentHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:contentDescription">@string/app_name</item>
+        <item name="srcCompat">@drawable/icon_cuidar</item>
+    </style>
+
+    <style name="CheckBox.AceptarTyC" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="colorAccent">@color/divisor</item>
+        <item name="colorSurface">@color/divisor</item>
+        <item name="colorSecondary">@color/divisor</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAppearance">@style/Roboto.Regular</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="text_input_edittext_layout">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

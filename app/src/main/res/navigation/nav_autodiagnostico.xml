@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_autodiagnostico.xml"
+    android:label="@string/autodiagnostico_titulo"
+    app:startDestination="@id/autodiagnosticoTemperaturaFragment">
+
+    <fragment
+        android:id="@+id/autodiagnosticoTemperaturaFragment"
+        android:name="ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoTemperaturaFragment"
+        tools:layout="@layout/fragment_autodiagnostico_temperatura">
+        <action
+            android:id="@+id/action_autodiagnosticoTemperaturaFragment_to_autodiagnosticoSintomasFragment"
+            app:destination="@id/autodiagnosticoSintomasFragment" />
+        <argument
+            android:name="pasoActual"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/autodiagnosticoSintomasFragment"
+        android:name="ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoSintomasFragment"
+        tools:layout="@layout/fragment_autodiagnostico_sintomas">
+        <action
+            android:id="@+id/action_autodiagnosticoSintomasFragment_to_autodiagnosticoAntecedentesFragment"
+            app:destination="@id/autodiagnosticoAntecedentesFragment" />
+
+        <argument
+            android:name="pasoActual"
+            android:defaultValue="2"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/autodiagnosticoAntecedentesFragment"
+        android:name="ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoAntecedentesFragment"
+        tools:layout="@layout/fragment_autodiagnostico_antecedentes">
+        <action
+            android:id="@+id/action_autodiagnosticoAntecedentesFragment_to_autodiagnosticoConfirmacionFragment"
+            app:destination="@id/autodiagnosticoConfirmacionFragment" />
+        <argument
+            android:name="pasoActual"
+            android:defaultValue="3"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/autodiagnosticoConfirmacionFragment"
+        android:name="ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoConfirmacionFragment"
+        tools:layout="@layout/fragment_autodiagnostico_confirmacion">
+        <action
+            android:id="@+id/action_autodiagnosticoConfirmacionFragment_to_autodiagnosticoTemperaturaFragment"
+            app:destination="@id/autodiagnosticoTemperaturaFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/autodiagnosticoTemperaturaFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="pasoActual"
+            android:defaultValue="4"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_autodiagnosticoConfirmacionFragment_to_phoneConfirmationDialog"
+            app:destination="@id/phoneConfirmationDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneConfirmationDialog"
+        android:name="ar.gob.coronavirus.flujos.autodiagnostico.PhoneConfirmationFragment"
+        tools:layout="@layout/fragment_phone_confirmation" />
+</navigation>

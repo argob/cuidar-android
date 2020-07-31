@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_consejos_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/consejos_medir_temperatura"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                style="@style/Roboto.Bold"
+                android:textColor="@color/negro_claro"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/consejo_uno"
+                layout="@layout/item_consejo_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:consejo="@{@string/consejo_uno_temperatura}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_consejos_medir_temperatura"
+                app:numero='@{"1"}' />
+
+            <include
+                android:id="@+id/consejo_dos"
+                layout="@layout/item_consejo_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:consejo="@{@string/consejo_dos_temperatura}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consejo_uno"
+                app:numero='@{"2"}' />
+
+            <include
+                android:id="@+id/consejo_tres"
+                layout="@layout/item_consejo_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:consejo="@{@string/consejo_tres_temperatura}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consejo_dos"
+                app:numero='@{"3"}' />
+
+            <include
+                android:id="@+id/consejo_cuatro"
+                layout="@layout/item_consejo_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:consejo="@{@string/consejo_cuatro_temperatura}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consejo_tres"
+                app:numero='@{"4"}' />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

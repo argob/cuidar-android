@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/autodiag_desc"
+                style="@style/Roboto.Regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/azul_claro"
+                android:text="@string/autodiagnostico_desc"
+                android:textAlignment="viewStart"
+                android:textColor="@color/negro_claro"
+                android:textSize="14sp"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_temperatura_corporal_label"
+                style="@style/Roboto.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/cual_es_temperatura"
+                android:textAlignment="center"
+                android:textColor="@color/text_roboto_bold"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/autodiag_desc"
+                app:layout_constraintWidth_percent=".5" />
+
+            <ImageView
+                android:id="@+id/btn_decrementar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_temperatura_actual"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_temperatura_corporal_label"
+                app:srcCompat="@drawable/ic_quitar" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tv_temperatura_actual"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                app:boxBackgroundColor="@color/blanco"
+                app:boxBackgroundMode="none"
+                app:boxStrokeColor="@color/azulBoton"
+                app:layout_constraintEnd_toStartOf="@+id/btn_incrementar"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/btn_decrementar"
+                app:layout_constraintTop_toTopOf="@+id/btn_incrementar"
+                app:layout_constraintWidth_percent=".25">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_temperatura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:digits="0123456789,"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:paddingTop="0dp"
+                    android:textColor="@color/text_roboto_bold"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_temperatura_corporal_label"
+                    app:layout_constraintTop_toTopOf="@+id/btn_incrementar" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/btn_incrementar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/tv_temperatura_actual"
+                app:layout_constraintTop_toBottomOf="@id/tv_temperatura_corporal_label"
+                app:srcCompat="@drawable/ic_add" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_consejos_medir_temperatura"
+                style="@style/Roboto.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:text="@string/consejos_medir_temperatura"
+                android:textAlignment="center"
+                android:textColor="@color/text_roboto_bold"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_temperatura_actual" />
+
+            <include
+                android:id="@+id/consejo_uno"
+                layout="@layout/item_consejo_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                app:consejo="@{@string/consejo_uno_temperatura}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_consejos_medir_temperatura"
+                app:numero='@{"1"}' />
+
+            <include
+                android:id="@+id/consejo_dos"
+                layout="@layout/item_consejo_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                app:consejo="@{@string/consejo_dos_temperatura}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consejo_uno"
+                app:numero='@{"2"}' />
+
+            <include
+                android:id="@+id/consejo_tres"
+                layout="@layout/item_consejo_medir_temperatura"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                app:consejo="@{@string/consejo_tres_temperatura}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consejo_dos"
+                app:numero='@{"3"}' />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_mas_info"
+                style="@style/Roboto.Regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:text="@string/mas_informacion_subrayado"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/divisor"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consejo_tres" />
+
+            <TextView
+                android:id="@+id/btn_siguiente"
+                style="@style/BotonAzulRedondeado"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/siguiente"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_mas_info"
+                app:layout_constraintVertical_bias="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

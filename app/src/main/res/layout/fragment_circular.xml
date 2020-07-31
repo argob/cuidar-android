@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/seccion_qr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintTop_toBottomOf="@id/divisor">
+
+        <TextView
+            android:id="@+id/qr_titulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/certificado_unico_circulacion_qr"
+            android:textColor="@color/gris_2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/qr_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/habilitado"
+            android:textColor="@color/covid_verde"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/qr_titulo"
+            app:layout_constraintTop_toBottomOf="@id/qr_titulo" />
+
+        <TextView
+            android:id="@+id/qr_status_esencial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/esencial"
+            android:textColor="@color/covid_azul_2"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/qr_mas_info"
+            app:layout_constraintEnd_toStartOf="@id/qr_imagen"
+            app:layout_constraintStart_toStartOf="@id/qr_titulo"
+            app:layout_constraintTop_toBottomOf="@id/qr_status"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/qr_fecha_expira"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vence"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/qr_status"
+            app:layout_constraintTop_toBottomOf="@id/qr_status" />
+
+        <TextView
+            android:id="@+id/qr_mas_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/encode_medium"
+            android:paddingBottom="8dp"
+            android:text="@string/mas_informacion"
+            android:textAllCaps="true"
+            android:textColor="@color/links"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/divisor_qr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/qr_status_esencial"
+            app:layout_goneMarginTop="60dp" />
+
+        <ImageView
+            android:id="@+id/qr_imagen"
+            android:layout_width="166dp"
+            android:layout_height="166dp"
+            android:paddingStart="10dp"
+            android:paddingTop="1dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/placeholder_qr"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divisor_qr"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/divisor2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        layout="@layout/current_state_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="24dp"
+        app:layout_constraintTop_toBottomOf="@id/seccion_qr" />
+
+</LinearLayout>

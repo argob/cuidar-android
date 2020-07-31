@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="numero"
+            type="String" />
+
+        <variable
+            name="consejo"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/btn_incrementar"
+            style="@style/Roboto.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="@{numero}"
+            android:textColor="@color/blanco"
+            android:textSize="14sp"
+            android:background="@drawable/circulo_gris"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_consejo_uno"
+            style="@style/Roboto.Regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textColor="@color/negro_claro"
+            android:text="@{consejo}"
+            android:textAlignment="viewStart" />
+
+    </LinearLayout>
+</layout>

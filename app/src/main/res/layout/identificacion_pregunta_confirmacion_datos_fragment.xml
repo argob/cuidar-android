@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contenedor_barra_de_progreso"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/icono_informacion_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/icon_informacion_usuario_activo" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/rosaPrincipal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintStart_toEndOf="@+id/icono_informacion_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/divisor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_telefono_image_view"
+            app:layout_constraintStart_toStartOf="@+id/divider"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icono_telefono_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_ubicacion_image_view"
+            app:layout_constraintStart_toEndOf="@+id/icono_informacion_image_view"
+            app:srcCompat="@drawable/icon_telefono_inactivo" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_telefono_image_view"
+            app:layout_constraintStart_toEndOf="@+id/icono_informacion_image_view"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/divisor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_ubicacion_image_view"
+            app:layout_constraintStart_toEndOf="@+id/icono_telefono_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icono_ubicacion_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/icon_ubicacion" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_texto_confirmacion_datos_identificacion_fragment"
+        style="@style/texto_medium_roboto_bold"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/confirmar_tus_datos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contenedor_barra_de_progreso"
+        app:layout_constraintWidth_percent=".7" />
+
+    <ImageView
+        android:id="@+id/im_profile_confirmacion_datos_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_texto_confirmacion_datos_identificacion_fragment"
+        app:srcCompat="@drawable/icon_user_24" />
+
+    <TextView
+        android:id="@+id/nombre_completo_text_view"
+        style="@style/texto_small_roboto_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dni_colon"
+        app:layout_constraintStart_toStartOf="@+id/tv_nombre_completo_confirmacion_identificacion_fragment"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nombre_completo_confirmacion_identificacion_fragment" />
+
+    <TextView
+        android:id="@+id/tv_dni_response_identificacion_fragment"
+        style="@style/texto_medium_roboto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nombre_completo_text_view"
+        app:layout_constraintStart_toEndOf="@+id/nombre_completo_text_view"
+        app:layout_constraintTop_toTopOf="@+id/nombre_completo_text_view"
+        tools:text="125T668GJG67EFH" />
+
+    <TextView
+        android:id="@+id/tv_nombre_completo_confirmacion_identificacion_fragment"
+        style="@style/texto_medium_roboto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        app:layout_constraintStart_toEndOf="@+id/im_profile_confirmacion_datos_fragment"
+        app:layout_constraintTop_toTopOf="@+id/im_profile_confirmacion_datos_fragment"
+        tools:text="Julian Casablancas" />
+
+    <TextView
+        android:id="@+id/fecha_de_nacimiento_text_view"
+        style="@style/texto_small_roboto_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fecha_nacimiento"
+        app:layout_constraintStart_toStartOf="@+id/nombre_completo_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_completo_text_view" />
+
+    <TextView
+        android:id="@+id/tv_fecha_nacimiento_response_identificacion_fragment"
+        style="@style/texto_medium_roboto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fecha_de_nacimiento_text_view"
+        app:layout_constraintStart_toEndOf="@+id/fecha_de_nacimiento_text_view"
+        app:layout_constraintTop_toTopOf="@+id/fecha_de_nacimiento_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/contenedor_barra_de_progreso"
+        tools:text="12/09/1990" />
+
+    <TextView
+        android:id="@+id/sexo_text_view"
+        style="@style/texto_small_roboto_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sexo"
+        app:layout_constraintStart_toStartOf="@+id/fecha_de_nacimiento_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fecha_nacimiento_response_identificacion_fragment" />
+
+    <TextView
+        android:id="@+id/tv_sexo_response_identificacion_fragment"
+        style="@style/texto_medium_roboto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sexo_text_view"
+        app:layout_constraintStart_toEndOf="@+id/sexo_text_view"
+        app:layout_constraintTop_toTopOf="@+id/sexo_text_view"
+        tools:text="Masculino" />
+
+    <TextView
+        android:id="@+id/btn_siguiente_confirmacion_datos_identificacion_fragment"
+        style="@style/BotonAzulRedondeado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/siguiente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sexo_response_identificacion_fragment"
+        app:layout_constraintVertical_bias="1.0" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

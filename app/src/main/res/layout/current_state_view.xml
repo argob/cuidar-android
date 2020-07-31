@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/seccion_sintoma"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/sintoma_autodiagnostico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/auto_diagnostico"
+        android:textColor="@color/gris_2"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sintoma_resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/sintomas_resultado_sin_sintomas"
+        android:textColor="@color/covid_azul"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/sintoma_autodiagnostico"
+        app:layout_constraintTop_toBottomOf="@id/sintoma_autodiagnostico" />
+
+    <TextView
+        android:id="@+id/sintoma_vencimiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/gris"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/sintoma_resultado"
+        app:layout_constraintTop_toBottomOf="@id/sintoma_resultado"
+        tools:text="@string/sintomas_vencimiento" />
+
+    <TextView
+        android:id="@+id/pims_reason"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="8dp"
+        android:autoLink="web"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/gris"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/sintomas_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sintoma_vencimiento"
+        tools:text="Estuviste en contacto con un caso confirmado, por favor comunicate con el sistema de " />
+
+    <TextView
+        android:id="@+id/sintoma_mas_informacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/encode_medium"
+        android:text="@string/mas_informacion"
+        android:textAllCaps="true"
+        android:textColor="@color/links"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/sintoma_vencimiento"
+        app:layout_constraintTop_toBottomOf="@id/pims_reason" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sintomas_layout"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borde_redondeado_gris"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/emoji_uno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/encode_bold"
+            android:paddingTop="5dp"
+            android:textColor="@color/gris"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/emoji_dos"
+            app:layout_constraintEnd_toStartOf="@+id/emoji_dos"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/emoji_dos"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/emoji_dos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/encode_bold"
+            android:paddingTop="5dp"
+            android:textColor="@color/gris"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/emoji_uno"
+            app:layout_constraintEnd_toStartOf="@+id/emoji_tres"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/emoji_uno"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/emoji_tres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/encode_bold"
+            android:paddingTop="5dp"
+            android:textColor="@color/gris"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/emoji_dos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/emoji_dos"
+            app:layout_constraintTop_toTopOf="@+id/emoji_dos"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/sintomas_token_seguridad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:paddingStart="13dp"
+            android:paddingBottom="7dp"
+            android:text="@string/sintomas_token_seguridad"
+            android:textColor="@color/gris"
+            android:textSize="12sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emoji_tres" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/boton_nuevo_diagnostico"
+        style="@style/BotonBlancoRedondeado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/sintomas_otro_autodiagnostico"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/sintomas_layout"
+        app:layout_constraintStart_toStartOf="@id/sintoma_mas_informacion"
+        app:layout_constraintTop_toBottomOf="@id/sintoma_mas_informacion" />
+
+    <View
+        android:id="@+id/divisor2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/divisor2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/boton_nuevo_diagnostico" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,368 @@
+<resources>
+    <string name="app_name">Covid19-AR</string>
+    <string name="patalla_de_inicio">Patalla de Inicio</string>
+    <string name="terminos">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,</string>
+    <string name="landing_subtitulo">Te vamos a ayudar a realizar una autoevaluación de tus síntomas, con lo que vas a poder postularte para sacar un Pasaporte Sanitario.</string>
+    <string name="landing_titulo">Intro sobre el propósito de la aplicación</string>
+    <string name="landing_pie_subtitulo">Este pasaporte sanitario, junto con el correspondiente permiso de circulación y tu DNI, te permitirán circular en espacios públicos.</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_contacto">NO PODÉS ESTAR EN CONTACTO CON OTRAS PERSONAS</string>
+    <string name="dias_restantes">Días\nrestantes</string>
+    <string name="derivado">DERIVADO A SALUD LOCAL</string>
+    <string name="estado_aislado">Contactate con el sistema de Salud. Mientras tanto, mantené el aislamiento y minimizá el contacto con otras personas.</string>
+    <string name="_dias_ejemplo">10</string>
+    <string name="covid_positivo">DERIVADO A SALUD: COVID-19 POSITIVO</string>
+    <string name="obetener_numero_tramite"><u>¿Cómo obtengo mi número de trámite?</u></string>
+    <string name="femenino">Femenino</string>
+    <string name="masculio">Masculino</string>
+    <string name="confirmar_tus_datos">Para continuar necesitamos que confirmes tus datos</string>
+    <string name="dni_colon">DNI:</string>
+    <string name="numero_de_tramite">Número de trámite:</string>
+    <string name="numero_de_tramite_sin_puntos">Número de trámite</string>
+    <string name="fecha_nacimiento">Fecha de nacimiento:</string>
+    <string name="fecha_nac">Fecha de nac:</string>
+    <string name="sexo">Sexo:</string>
+    <string name="gracias_por_tu_ayuda">¡MUCHAS GRACIAS POR TU AYUDA!</string>
+    <string name="ahora_podemos_continuar">Ahora podremos continuar con el diagnóstico.</string>
+    <string name="hubo_error">HUBO UN ERROR</string>
+    <string name="hubo_error_desc">Por favor vuelve a intentarlo.</string>
+    <string name="continuar">CONTINUAR</string>
+    <string name="escanear_dni">ESCANEAR DNI</string>
+    <string name="permiso_cicular">Recordá las medidas sanitarias al volver a tu casa</string>
+    <string name="horas_restantes">Horas\nrestantes</string>
+    <string name="horas_48">48</string>
+    <string name="podes_circular">Podés ir a trabajar</string>
+    <string name="nuevo_autodiagnostico">Nuevo autodiagnóstico</string>
+    <string name="actualizar_certificado">Refrescar información</string>
+    <string name="mas_informacion">Más información</string>
+    <string name="mas_informacion_subrayado"><u>Más información</u></string>
+    <string name="horas">horas</string>
+    <string name="recomendacion_test_cada_x_horas">Es recomendable que\nhagas el test cada</string>
+    <string name="token_de_seguridad">Token de Seguridad</string>
+    <string name="token_de_seguridad_usuario_con_qr">Certificado único de circulación</string>
+    <string name="cert_valido_con_token">Esta credencial es válida sólo si coincide el token de seguridad entre teléfonos</string>
+    <string name="horas_10">10</string>
+    <string name="quedate_en_casa">Quedate en casa</string>
+    <string name="estas_en_cuarentena">Estás en cuarentena, salí solo para hacer las compras.</string>
+    <string name="habilitar_circulacion">Agregar certificado</string>
+    <string name="ampliar_movilidad">Para ampliar tu movilidad, deberás complementar a este diagnóstico, la habilitación por circulación por transporte.</string>
+    <string name="fecha_resultado">Fecha resultado:</string>
+    <string name="texto_resultado_positivo_uno">%1$s, %2$s de acuerdo a los análisis de laboratorio. \n\nDebés seguir estrictamente las recomendaciones médicas y permanecer en aislamiento.\n\nSi tus síntomas empeoran o necesitás asistencia médica o psicológica, ponete en contacto otra vez con el teléfono de asistencia:</string>
+    <string name="texto_resultado_positivo_dos">el sistema de salud de tu jurisdicción confirmó tu diagnóstico positivo de coronavirus (COVID-19)</string>
+    <string name="ministerio_de_salud">Ministerio de Salud en CABA 148</string>
+    <string name="mira_recomendaciones_de_salud">Mira las recomendaciones de salud</string>
+    <string name="no_automediques">Es fundamental que conozcas cómo cuidarte a vos y a tus conocidos. No te automediques y consulta siempre al sistema de salud.</string>
+    <string name="aceptar">aceptar</string>
+    <string name="covid_negativo">Covid-19 negativo</string>
+    <string name="texto_resultado_negativo">, El sistema de Salud confirmó tu resultado negativo en el test por coronavirus (COVID-19) de acuerdo a los análisis de laboratorio. \n\n Sigue las medidas de prevención y evitar salir de tu casa, para cuidarte vos y no exponer a otras personas. \n\n Si tenés que salir de casa, te recomendamos que lleves tu DNI y solicite el Certificado único habilitante para circulación.</string>
+    <string name="autodiagnostico_titulo">Autoevaluación</string>
+    <string name="realiza_autodiagnostico">Por favor realiza el autodiagnóstico</string>
+    <string name="sintomas_titulo">Síntomas</string>
+    <string name="caba_telefonos">CABA: 107 + Whatsapp: 11-5050-0147</string>
+    <string name="desvincular_dni"><u>Desvincular DNI \n (cerrará la sesión actual)</u></string>
+    <string name="msg_no_tiene_sintomas">%1$s, no tenés síntomas compatibles con COVID-19.</string>
+    <string name="numero_de_horas_cada_autodiagnostico">48</string>
+    <string name="txt_rocomedar_tiempo_autodiagnostico">Es recomendable que hagas el autodiagnóstico cada:</string>
+    <string name="txt_sin_sintomas_title">sin síntomas covid 19</string>
+    <string name="msg_evitar_salir">Seguí las medidas de prevención y evitá salir de tu casa, para cuidarte vos y no exponer a otras personas.</string>
+    <string name="msg_recordatorio_resultado_puede_circular_fragment">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía. Para otros movimientos necesitás el Certificado Único Habilitante para Circulación.</string>
+    <string name="msg_instrucciones_llamar">Si presentás síntomas o necesitás asistencia médica o psicológica llamá a:</string>
+    <string name="msg_instrucciones_llamar_resultado_negativo">Si tenés síntomas o necesitás recibir asistencia médica o psicológica podés llamar al:</string>
+    <string name="msg_numero_llamar">CABA: 107 + Whatsapp: 11–5050–0147</string>
+    <string name="titulo_en_evaluacion">en evaluación</string>
+    <string name="msg_sintomas_compatibles_y_reportados">%1$s, tu autodiagnóstico tiene síntomas compatibles con COVID-19 y fueron reportados.</string>
+    <string name="msg_peticion_no_salir">Te pedimos que no salgas de tu domicilio hasta que no tengas un diagnóstico definitivo.</string>
+    <string name="msg_mirar_recomendaciones">Mira nuestras recomendaciones</string>
+    <string name="ver_resultado">Ver resultado</string>
+    <string name="cual_es_temperatura">¿Cuál es tu temperatura corporal actual?</string>
+    <string name="consejos_medir_temperatura">Consejos para medir la temperatura</string>
+    <string name="consejo_uno_temperatura">Medir la temperatura siempre en el mismo lugar (oído y axila), ya que de otro modo pueden variar los valores.</string>
+    <string name="consejo_dos_temperatura">No se debe tomar la temperatura después del baño o de haber realizado una actividad física. Se debe esperar por lo menos 20 minutos.</string>
+    <string name="consejo_tres_temperatura">La fiebre hay que medirla, no hay que fiarse de la percepción que se tenga al tocar la frente.</string>
+    <string name="consejo_cuatro_temperatura">Los termómetros deben ser seguros, que no se rompan.</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="sintoma_tos">¿Tenés tos?</string>
+    <string name="sintoma_dolor_de_garganta">¿Tenés dolor de garganta?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="sintoma_dificultad_respiratoria">¿Tenés dificultad respiratoria o falta de aire?</string>
+
+    <string name="antecedentes_titulo">Si tu situación de salud contempla alguna de las siguientes opciones, seleccioná las que correspondan</string>
+    <string name="antecedentes_embarazo">Estoy embarazada</string>
+    <string name="antecedentes_cancer">Tengo/tuve cancer</string>
+    <string name="antecedentes_diabetes">Tengo diabetes</string>
+    <string name="antecedentes_enfermedad_hepatica">Tengo alguna enfermedad hepática</string>
+    <string name="antecedentes_enfermedad_renal">Tengo enfermedad renal crónica</string>
+    <string name="antecedentes_enfermedad_respiratoria">Tengo alguna enfermedad respiratoria</string>
+    <string name="antecedentes_enfermedad_cardiaca">Tengo alguna enfermedad cardiológica</string>
+    <string name="antecedentes_contacto_estrecho_1">Trabajo o convivo con una persona que actualmente es caso confirmado COVID-19</string>
+    <string name="antecedentes_contacto_estrecho_1_short">Trabajo o convivo con caso confirmado</string>
+    <string name="antecedentes_contacto_estrecho_2">Pasé en los últimos 14 días al menos 15 minutos cerca de una persona que actualmente es caso confirmado COVID-19</string>
+    <string name="antecedentes_contacto_estrecho_2_short">Contacto estrecho esporádico con confirmado</string>
+    <string name="antecedentes_defensas_bajas">Tengo alguna condición que baja las defensas</string>
+    <string name="antecedentes_defensas_bajas_short">Tengo condición que baja las defensas</string>
+
+    <string name="autodiagnostico_confirmacion">COVID19 - Ministerio de salud</string>
+    <string name="autodiagnostico_confirmacion_message">Este formulario tiene carácter de declaración jurada, hacer una falsa declaración es considerada una <b>contravención grave.</b></string>
+    <string name="cancelar">Cancelar</string>
+    <string name="enviar">Enviar</string>
+    <string name="terminos_condiciones">Términos y Condiciones</string>
+    <string name="tu_informacion_esta_protegida">Tu información está protegida por la ley  y es para uso exclusivo de las autoridades sanitarias.</string>
+    <string name="dni_usuario">DNI: %s</string>
+    <string name="opcional">Opcional</string>
+    <string name="seleccionar_sintoma">Debé seleccionar las opciones que correspondan</string>
+    <string name="codigo_area_mas_numeor">Código de área + Número</string>
+    <string name="numero_de_telefono">Número de teléfono</string>
+    <string name="tus_datos_de_contacto">Teléfono de contacto</string>
+    <string name="login_pregunta_datos_personales">Para empezar necesitamos tus datos personales</string>
+
+    <string name="entendido">Entendido</string>
+    <string name="acepto_terminos">Acepto los &lt;u>&lt;b>Términos y Condiciones&lt;/b>&lt;/u> de la Aplicación Cuidar así como a la Política de Privacidad establecida en el punto 5 de los Términos y Condiciones. </string>
+    <string name="erro_numero_tramite">El número de trámite es necesario</string>
+    <string name="erro_numero_tramite_invalido">El número de trámite es inválido</string>
+    <string name="calle">Calle</string>
+    <string name="numero_casa">Número</string>
+    <string name="codigo_postal">Código Postal</string>
+    <string name="puerta">Puerta</string>
+    <string name="piso">Piso</string>
+    <string name="otros">Otros</string>
+    <string name="provincia">Provincia</string>
+    <string name="localidades">Localidad</string>
+    <string name="erro_dni">Este dato es necesario</string>
+    <string name="prefijo_telefono">+54</string>
+    <string name="erro_dni_invalido">Este valor es inválido</string>
+    <string name="invalid_phone_error">Número inválido</string>
+    <string name="conocer_tu_localizacion">Conocer tu localización es necesario para poder asociarte a tu centro de salud más cercano en caso de necesidad.</string>
+    <string name="habilitar_manualmente_ubicacion">Cuidar no tiene acceso a tu ubicación. Para activar el acceso, pulsá Configuración > Permisos > Habilitar Permiso de Ubicación</string>
+    <string name="permitir">PERMITIR</string>
+    <string name="temperatura_vacia_error">No se puede dejar este campo vacio</string>
+    <string name="temperatura_error_limite">Debés ingresar un valor entre %1$.1f y %2$.1f</string>
+    <string name="quedate_en_casa_azul">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía. Para otros movimientos necesitás el Certificado Único Habilitante para Circulación.</string>
+    <string name="pregunta_actualizar_certificado">Consultar actualizaciones en la información de tu certificado</string>
+    <string name="confirmacion">Confirmación</string>
+    <string name="verificar_datos">Por favor, verificar los datos ingresados</string>
+    <string name="sintoma_perdida_olfato">¿Percibiste una marcada pérdida del olfato de manera repentina?</string>
+    <string name="sintoma_perdida_gusto">¿Percibiste una marcada pérdida del gusto (sabor de los alimentos) de manera repentina?</string>
+    <string name="no_sos_contagioso">-</string>
+    <string name="pregunta_desvincular_dni">¿Estás seguro que deseás desvincular el DNI?</string>
+    <string name="mensaje_error_escanear_dni">Hubo un error en la identificación del DNI escaneado. Por favor, ingresá los datos manualmente</string>
+    <string name="derivado_a_salud_local_banner">DERIVADO A SALUD: EN OBSERVACIÓN</string>
+    <string name="obligatorio">*Obligatorio</string>
+    <string name="credencial">Credencial</string>
+    <string name="dialog_version_message">Por favor descarga la nueva versión desde la tienda</string>
+    <string name="dialog_version_title">Tu aplicación está desactualizada!</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="tu_direccion">Tu dirección</string>
+    <string name="localidad_departamento_partido">Localidad – Departamento/Partido</string>
+    <string name="notificacion_rastreo_titulo">App is running background</string>
+    <string name="notificacion_rastreo_contenido">Estamos rastreando tu ubicacion</string>
+    <string name="autodiagnostico_banner">Por favor realiza el\nautodiagnóstico</string>
+    <string name="provinvia_y_telefono">%1$s : %2$s</string>
+    <string name="conexion_a_internet">Conexión a internet</string>
+    <string name="sin_conexion_intenet">No hay conexión a internet. Intente más tarde.</string>
+    <string name="no_hay_internet">No hay conexión a internet.</string>
+    <string name="telefono">Teléfono</string>
+    <string name="direccion_actual">Dirección actual</string>
+    <string name="cerrar_cesion">Cerrar sesión</string>
+    <string name="video_llamada_label">Servicio de video llamada para \npersonas sordas e hipoacúsicas</string>
+    <string name="redes_sociales_label">Más información</string>
+    <string name="informacion_importante">Información sobre coronavirus</string>
+    <string name="abrir">abrir</string>
+    <string name="autodiagnostico_desc">Realizá el autodiagnóstico para ayudarte a determinar los pasos a seguir según tus síntomas y factores de riesgo. Recordá que un autodiagnóstico sin síntomas asociados al COVID-19 dura 48hs, y que podés volver a realizarlo cuando lo consideres necesario.</string>
+    <string name="editar_informacion">Editar Información</string>
+
+    <string name="sintomas_autodiagnostico">Autodiagnóstico</string>
+    <string name="sintomas_derivado_al_sistema_de_salud">Derivado al sistema de \nSalud</string>
+    <string name="sintomas_resultado_covid_positivo">COVID-19 Positivo</string>
+    <string name="sintomas_resultado_sin_sintomas">Sin síntomas</string>
+    <string name="sintomas_resultado_en_observacion">En observación</string>
+    <string name="sintomas_vencimiento">Vence %1$s</string>
+    <string name="sintomas_token_seguridad">Token de seguridad</string>
+    <string name="sintomas_otro_autodiagnostico">Hacer otro autodiagnóstico</string>
+
+    <!--  Pantalla Principal   -->
+    <string name="h_fake_nombre">Santiago Rodriguez Bartel</string>
+    <string name="h_fake_dni">DNI: 43.984.562</string>
+    <string name="h_dni_usuario">DNI: %s</string>
+
+    <string name="h_description_circular">Podés salir \na trabajar</string>
+    <string name="h_description_quedate_en_casa">Quedate \nen casa</string>
+    <string name="h_recommendation_circular">Recordá siempre las medidas sanitarias.</string>
+    <string name="auto_diagnostico_desc_circular">Sin síntomas</string>
+
+    <string name="h_description_no_contagioso">Quedate en casa</string>
+    <string name="h_recommendation_no_contagioso">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía.</string>
+    <string name="auto_diagnostico_desc_no_contagioso">No disponible</string>
+    <string name="agregar_label">Agregar</string>
+
+    <!--  covid positivo   -->
+    <string name="h_description_infectado_2">No podés estar en \ncontacto con otras \npersonas</string>
+    <string name="h_recomendacion_infectado_2">Contactate con el sistema de Salud. \n%1$s : %2$s\nMientras tanto, mantené el aislamiento y\nminimizá
+        el
+        contacto con otras personas.</string>
+    <string name="derivado_de_salud_covid_positivo">COVID-19 Positivo</string>
+
+    <!--  en observacion  -->
+    <string name="header_description_infectado_3">No podés estar en \ncontacto con otras \npersonas</string>
+    <string name="derivado_de_salud_observacion">En observación</string>
+
+    <string name="nombre_completo">%1$s %2$s</string>
+    <string name="header_credencial">credencial</string>
+    <string name="derivado_al_sistema_de_salud">Derivado al sistema de Salud</string>
+    <string name="auto_diagnostico">Autodiagnóstico</string>
+    <string name="vence">Vence %s</string>
+    <string name="hacer_otro_diagnostico">Hacer otro diagnóstico</string>
+    <string name="habilitado">Habilitado</string>
+    <string name="esencial">Permiso especial por 48h</string>
+    <string name="no_disponible">No disponible</string>
+    <string name="agregar">Agregar</string>
+    <string name="informacion_footer_telefonos">Ante cualquier duda podés comunicarte al +54 911 2256 0566 o a los números que figuran en el
+        siguiente &lt;font color="#0091EA">&lt;u>link&lt;/u>&lt;/font></string>
+    <string name="no_permitido">No permitido</string>
+    <string name="certificado_unico_circulacion">Certificado único de circulación</string>
+    <string name="certificado_unico_circulacion_qr">Certificado único \nde circulación</string>
+    <string name="default_notification_channel_id">Generales</string>
+    <string name="volver_a_empezar"><u>Volver a empezar</u></string>
+    <string name="diagnostic_caba_message">Por favor comunicate con tu obra social o acercate a una Unidad Febril de Urgencia (UFU): https://bamapas.usig.buenosaires.gob.ar\n\nSi por alguna razón no podés ir, llamá al 📞107.\n</string>
+    <string name="error_diagnostic_message">Si considerás que hubo un error en la carga de tus síntomas entrá a https://www.buenosaires.gob.ar/coronavirus\n</string>
+    <string name="phone_confirmation_explanation">Es importante que esta información sea correcta para poder contactarte y acercarte la asistencia que requieras.</string>
+    <string name="phone_confirmation_current">Tenemos registrado %1$s como tu número de contacto.</string>
+    <string name="phone_confirmation_correct_phone">Por favor corregí tu número de teléfono si es necesario:</string>
+    <string name="loss_of_smell">Pérdida del olfato</string>
+    <string name="breathing_dificulty">Dificultad respiratoria</string>
+    <string name="loss_of_taste">Pérdida de gusto</string>
+    <string name="cough">Tos</string>
+    <string name="sore_throat">Dolor de garganta</string>
+
+    <string name="should_install_default_browser_warning">Para poder realizar esta acción, necesitás un navegador de internet válido en tu dispositivo.</string>
+    <string name="procedure_number">Nro de trámite</string>
+    <string name="dni">DNI</string>
+    <string name="user_dni">DNI: %1$d</string>
+    <string name="sube">SUBE: %1$s</string>
+    <string name="plate">Patente: %1$s</string>
+
+    <string name="check_data_msg_warning">Verifique los datos ingresados</string>
+    <string name="invalid_province_msg_error">Provincia inválida</string>
+    <string name="invalid_locality_msg_error">Localidad inválida</string>
+    <string name="invalid_street_msg_error">Calle inválida</string>
+    <string name="invalid_street_number_msg_error">Número inválido</string>
+    <string name="invalid_zip_code_msg_error">Código postal inválido</string>
+
+
+    <string name="texto_terminos">Los presentes términos y condiciones (en adelante, los “<b>Términos y Condiciones</b>”) rigen la relación entre la Secretaría de Innovación Pública de la Jefatura de Gabinete de Ministros de la Nación (en adelante, la “<b>Secretaría</b>”) y los usuarios de la <b>aplicación denominada indistintamente Cuidar</b> y/o Covid-19 Ministerio de Salud (en adelante, los “<b>Usuarios</b>”), tanto en su versión web –accesible a través de argentina.gob.ar/coronavirus– como en su versión para dispositivos móviles que podrá descargarse de las tiendas de aplicaciones oficiales de Android e iOS (en adelante, la “<b>Aplicación</b>”).\n  \n
+
+El ingreso del Usuario en la Aplicación implica la aceptación inmediata y sin reserva de los presentes Términos y Condiciones. En consecuencia, el Usuario manifiesta haber leído y aceptado en su totalidad los Términos y Condiciones; dicha aceptación es indispensable para la utilización de la Aplicación.  Si no está de acuerdo con los presentes Términos y Condiciones rogamos no utilizar la Aplicación. \n  \n
+
+<b>1.	Descripción de la Aplicación</b>\n  \n
+
+1.1. \t 	La Aplicación es una herramienta tecnológica que brinda información sobre  diversos temas referentes a los síntomas y/o prevención del virus COVID- 19 con la finalidad de ayudar a prevenir la propagación del virus, como así también erigirse en una fuente de información fidedigna para los Usuarios.  \n  \n
+
+1.2. \t 	La Aplicación ofrecerá el correo electrónico covid19app@jefatura.gob.ar como vía de contacto para el/la Usuario/a; \n  \n
+
+1.3. \t 	El Usuario podrá responder algunas preguntas relacionadas con su estado de salud y sintomatología compatible con el virus COVID-19 a través de la Aplicación  y recibir orientación y/o instrucciones para ser atendido en la unidad de salud más cercana;\n  \n
+
+1.4. \t 	La Aplicación utilizará las funciones de geolocalización de los dispositivos móviles con las siguientes finalidades específicas: i) recomendar medidas preventivas o de evaluación sanitaria; ii) activar los sistemas de emergencia para la prestación de asistencia sanitaria; iii) conectar al usuario o usuaria con un sistema de atención sanitario cercano; iv) realizar comparaciones y predicciones, basadas en recomendaciones sanitarias que determine el Ministerio de Salud de la Nación, como por ejemplo, mapeos de zonas de riesgo. Todo ello, con el objetivo específico de dar intervención a las autoridades sanitarias o bien llevar adelante políticas públicas de prevención y mitigación relacionadas con el COVID-19 y con la emergencia declarada; contribuir a investigaciones científicas que permitan desarrollar y/o mejorar técnicas sanitarias y preventivas relacionadas con la pandemia y la salud de la población. \n  \n
+
+1.5. \t 	Adicionalmente, la Secretaría podrá incluir funcionalidades en la Aplicación que permitan entre otras cosas, recibir asistencia online o asistencia audiovisual sobre los cuidados, etc.	\n  \n
+
+<b>2. 	Requisitos de uso de la Aplicación</b>\n  \n
+
+2.1. \t 	Podrán utilizar la Aplicación todas las personas humanas con capacidad legal para contratar y que residan en la República Argentina.\n  \n
+
+2.2. \t 	Para utilizar la Aplicación los Usuarios deberán ingresar con número de DNI y trámite, siguiendo el procedimiento que se detalla en la Aplicación y aceptar los Términos y Condiciones.\n  \n
+
+2.3.  \t 	El Usuario declara y garantiza que todos los datos personales suministrados en el proceso de registro son verdaderos, completos y se encuentran actualizados. \n  \n
+
+2.4.	Al ingresar, el Usuario deberá acreditar su identidad del modo que indique la Secretaría. La Secretaría podrá en un futuro requerir al Usuario que defina un nombre de usuario y contraseña para acceder a la Aplicación, en cuyo caso el Usuario deberá evitar que terceras personas puedan acceder a ellas, quedando entendido que cualquier acción realizada en la Aplicación mediante el nombre de usuario y contraseña elegidos por el Usuario será imputada a dicho Usuario. \n  \n
+
+2.5.  \t 	Será responsabilidad del Usuario mantener actualizada su información personal.\n  \n
+
+2.6.  \t 	La Secretaría utilizará la información suministrada por el Usuario exclusivamente con la finalidad prevista en estos Términos y Condiciones.\n  \n
+
+2.7. \t 	El registro del Usuario y la posterior utilización de la Aplicación es gratuita, lo que implica que no deberá pagar por ello ningún arancel o retribución.\n  \n
+
+2.8. \t 	Para poder utilizar la Aplicación se requiere conexión a Internet. La libre descarga y la gratuidad del acceso no comprenden las facilidades de conexión a Internet. En ningún caso la Secretaría proveerá a los Usuarios la conectividad necesaria para que puedan utilizar la Aplicación. \n  \n
+
+2.9. \t 	La Aplicación solicitará al usuario/a únicamente los siguientes permisos, a saber (i) la cámara de fotos, con el objetivo de permitir el escaneo del DNI; (ii) la ubicación, con las finalidades especificadas en el punto 1.4. Específicamente, la aplicación accede a la geolocalización: en cada autodiagnóstico compatible con covid-19, de manera optativa, para registrar la ubicación del usuario en caso de requerir asistencia sanitaria; cuando se registran los datos iniciales, para poder brindar asistencia sanitaria en caso de que el usuario no brinde su geolocalización en el autodiagnóstico; y (iii) a la conexión de red para poder enviar y recibir datos. La denominación de los permisos podría variar, como así también la forma de concederlos, en función de la versión del sistema operativo que el Usuario utilice. La negativa a brindarlos no impedirá la utilización la Aplicación, pero algunas de sus funcionalidades podrían verse afectadas si el Usuario no brinda los permisos necesarios para su correcto funcionamiento.\n  \n
+
+2.10.  \t 	La Secretaría podrá rechazar cualquier solicitud de registro o impedir, en cualquier momento, que un Usuario ingrese a la Aplicación siempre que tal ingreso pueda poner en riesgo la seguridad de la Aplicación y/o que el Usuario haya violado los Términos y Condiciones. \n  \n
+
+<b>3.	Información contenida en la Aplicación</b>\n  \n
+
+3.1. \t 	El contenido y/o el uso de la Aplicación está orientada exclusivamente a informar a todas las personas sobre el virus COVID-19, quedando aclarado que en ningún caso podrá interpretarse como que agota la información disponible. \n  \n
+
+3.2. \t 	Las recomendaciones, lineamientos, sugerencias o guías que puedan encontrarse en la Aplicación no constituyen opinión médica ni deben utilizarse para realizar un diagnóstico ni iniciar un tratamiento médico sin la consulta de un profesional de la salud. LA APLICACIÓN NO SUSTITUYE LA OPINIÓN MÉDICA.\n  \n
+
+<b>4.	Utilización de la Aplicación</b>\n  \n
+
+4.1. \t 	Los Usuarios deberán utilizar la Aplicación de conformidad con las disposiciones establecidas en estos Términos y Condiciones, con el ordenamiento jurídico vigente en la República Argentina, y según las pautas de conducta impuestas por la moral, las buenas costumbres y el debido respeto a los derechos de terceros.\n  \n
+
+4.2. \t 	 La Aplicación podrá ser utilizada y auditada con el objeto de promover la transparencia de su contenido y funcionamiento, exclusivamente con fines investigativos, científicos y/o educativos.\n  \n
+
+
+4.3. \t 	Queda terminantemente prohibida la realización de las siguientes acciones, con fines distintos a los señalados en el punto 4.2 precedente: (i) copiar, modificar, adaptar, traducir, realizar ingeniería inversa, descompilar o desensamblar cualquier parte del contenido y/o de la Aplicación; (ii) hacer uso del contenido en otro sitio web o entorno informático sin la autorización previa y por escrito de la Secretaría; (iii) reproducir y/o comunicar por cualquier medio el contenido con fines prohibidos; (iv) interferir o interrumpir el funcionamiento de la Aplicación; (v) vender, licenciar o explotar el contenido y/o cualquier tipo de acceso y/o uso de  la Aplicación; (vi) utilizar la Aplicación con fines ilícitos o inmorales; e (vii) infringir de cualquier modo los presentes Términos y Condiciones. \n  \n
+
+<b>5.	Protección de Datos Personales. Política de privacidad</b>\n  \n
+
+5.1. \t 	La Secretaría cumple con lo establecido en la Ley 25.326 y normativa complementaria (en adelante, la “<b>Normativa de Datos Personales</b>”). A los fines de la política de privacidad prevista en esta cláusula (en adelante, la “<b>Política de Privacidad</b>”) los términos “datos personales”, “datos sensibles”, “base de datos”, “tratamiento de datos”, “responsable de la base de datos”, “datos informatizados”, titular de los datos”, “usuario de datos” y “disociación de datos” tendrán el significado asignado por el artículo 2 de la Ley de Protección de Datos Personales y Habeas Data Nº 25.326 (en adelante, la “<b>LPDP</b>”)\n  \n
+5.2.  \t 	En particular, la Secretaría cumple con todos los principios que surgen de la Normativa de Protección de Datos Personales, que incluyen pero no se limitan a: (i) el principio de legalidad, dado que la base de datos en la que se almacenarán los datos recolectados a través de la Aplicación se encuentra debidamente registrada; (ii) el principio de calidad, dado que la Secretaría únicamente recolecta aquellos datos personales que resultan necesarios y adecuados para la prestación de sus servicios y el uso de la Aplicación, y lo hace por medios legales y respetando la intimidad de los titulares de dichos datos personales; (iii) el principio de finalidad, dado que la Secretaría utiliza los datos personales recabados únicamente para el fin para el que fueron recolectados; (iv) el principio del consentimiento informado, dado que la Secretaría recaba el consentimiento de los titulares de los datos personales en la forma prescripta por la LPDP siempre que ello resulta necesario por no encontrarse en alguna de las excepciones de dicha norma; y (v) los principios de seguridad y confidencialidad de la información, mediante la utilización de tecnología que permite resguardar adecuadamente –según el estado de la técnica- la confidencialidad y seguridad de la información. Asimismo, para garantizar la seguridad de los datos, la Secretaría aplicará los mismos criterios y el mismo grado de diligencia que aplica para resguardar su propia información.\n  \n
+5.3. \t 	El usuario presta su consentimiento expreso para que la Secretaría trate los datos personales que el usuario declare (incluyendo pero sin limitarse al nombre, DNI, CUIT/CUIL, edad, domicilio,  e información referida a su salud tal como síntomas, antecedentes médicos y diagnóstico), como así también información de geolocalización que la Aplicación recolecte en forma automatizada con el fin de (i) recomendarle pasos a seguir según su situación e instrucciones para ser atendido en la unidad de salud más cercana; (ii) activar los sistemas de emergencia para la prestación de asistencia sanitaria; (iii) conectar al usuario o usuaria con un sistema de atención sanitario cercano; (iv) realizar comparaciones y predicciones, basadas en recomendaciones sanitarias que determine el Ministerio de Salud de la Nación, como por ejemplo, mapeos de zonas de riesgo. Todo ello, con el objetivo específico de dar intervención a las autoridades sanitarias o bien llevar adelante políticas públicas de prevención y mitigación relacionadas con el COVID-19 y con la emergencia declarada. En el punto (iv), los datos serán disociados para su tratamiento epidemiológico y utilizados exclusivamente para las finalidades señaladas.\n  \n
+
+5.4. \t 	Los datos personales que el Usuario suministre a través de la Aplicación, como así también los que la Aplicación recolecte en forma automatizada serán almacenados en una base de datos cuyo responsable es la Subsecretaría de Gobierno Abierto y País Digital de la Secretaría de Innovación Pública de la Jefatura de Gabinete de Ministros de la Nación (en adelante, la “<b>Subsecretaría de Gobierno Abierto</b>”), con domicilio en Av. Pte. Roque Sáenz Peña 511, primer piso de la Ciudad de Buenos Aires. \n  \n
+5.5. \t 	El Usuario presta su consentimiento expreso para que la Subsecretaría de Gobierno Abierto ceda la información personal del Usuario recolectada por la Aplicación únicamente a otras entidades estatales y/o establecimientos sanitarios nacionales, provinciales o municipales, para que estos puedan contener y/o mitigar la propagación del virus COVID-19, ayudar a prevenir la sobreocupación del sistema sanitario argentino. El Usuario podrá requerir a la Subsecretaría de Gobierno Abierto y País Digital que informe las cesiones que se hubieran realizado en forma no disociada sobre los datos recabados por la Aplicación.\n  \n
+5.6. \t 	El Usuario podrá ejercer sus derechos de acceso, rectificación y supresión de sus datos personales, como así también revocar en cualquier momento su consentimiento para el tratamiento de sus datos personales ante la Subsecretaría de Gobierno Abierto (covid19app@jefatura.gob.ar).\n  \n
+5.7. \t 	El Usuario podrá efectuar una denuncia ante la Agencia de Acceso a la Información Pública, autoridad de control de la LPDP, si entendiera que algún principio y/o derecho establecido por la LPDP ha sido vulnerado. \n  \n
+5.8. \t 	La Secretaría se compromete a adoptar todos los recaudos que sean necesarios para garantizar la seguridad de los datos personales del Usuario, inclusive la prevención de procesamientos no autorizados o ilegítimos, pérdida accidental, destrucción o daños a dichos datos personales. Asimismo, la Secretaría se compromete a adoptar todas las medidas que sean necesarias para garantizar que toda persona que tenga acceso a los datos personales del Usuario les dé el tratamiento detallado en esta cláusula. \n  \n
+5.9. \t 	Los datos sensibles y los relacionados a geolocalización se preservarán únicamente mientras sean necesarios y dure la emergencia sanitaria. Una vez finalizada esta, podrán preservarse versiones anonimizadas de los mismos con fines científicos y epidemiológicos.\n  \n
+
+<b>6.	Responsabilidad</b>\n  \n
+
+6.1.  \t 	La Aplicación se licencia en forma gratuita a los Usuarios en el marco de las políticas excepcionales derivadas de la emergencia sanitaria declarada por el DNU 260/2020 y su utilización tiene como única finalidad coadyuvar a evitar la propagación del virus y mantener informada a la población. En consecuencia, la Secretaría en ningún caso será responsable por lucro cesante ni por cualquier consecuencia mediata y/o causal, pérdida de datos o información, pérdida de chance, daños punitivos ni de cualquier otra naturaleza derivadas del uso de la Aplicación. \n  \n
+
+6.2.  \t 	La Secretaría tampoco asume responsabilidad por ningún mal funcionamiento, imposibilidad de acceso o malas condiciones de uso de la Aplicación debido al uso de equipos inadecuados, interrupciones relacionadas con proveedores de servicio de internet, la saturación de la red de internet y/o por cualquier otra razón.\n  \n
+
+<b>7. 	Enlaces a otros sitios</b>\n  \n
+
+En la Aplicación podrían encontrarse enlaces a sitios web de terceros. En tal caso, la Secretaría no es responsable del contenido de dichos sitios web. Además, la existencia de un vínculo entre la Aplicación y cualquier sitio de terceros de ninguna manera implica que la Secretaría apruebe el contenido de dicho sitio, o, asimismo, cualquier uso que dicho contenido pueda tener.\n  \n
+
+<b>8.	Modificaciones de la Aplicación</b>\n  \n
+
+La Secretaría podrá introducir todos los cambios y modificaciones que estime convenientes en la Aplicación, lo que incluye pero no se limita a agregar, alterar, sustituir o suprimir cualquier contenido de la Aplicación en todo momento.\n  \n
+
+<b>9.	Propiedad Intelectual</b>\n  \n
+
+9.1. \t 	La Aplicación y el contenido de la Aplicación son de titularidad exclusiva de la Secretaría y/o la Secretaría tiene la autorización correspondiente para su utilización y licenciamiento. A título meramente enunciativo, se entenderán incluidos las imágenes, fotografías, diseños, gráficos, sonidos, compilaciones de datos, marcas, nombres, títulos, designaciones, signos distintivos, y  todo otro material accesible a través de la Aplicación.\n  \n
+
+9.2. \t 	La Secretaría se reserva todos los derechos sobre la Aplicación y el contenido de la Aplicación, no cede ni transfiere a favor del Usuario ningún derecho sobre su propiedad intelectual. \n  \n
+
+9.3. \t 	Los derechos de propiedad intelectual respecto de los criterios de selección y/o disposición del contenido en la Aplicación corresponden exclusivamente a la Secretaría, quedando estrictamente prohibido al Usuario utilizar los contenidos, las categorías y/o cualquier información de  la Aplicación con otra finalidad distinta a la indicada en los presentes Términos y Condiciones.  \n  \n
+
+9.4. \t 	En el caso de que la Aplicación permita descargar contenido para su posterior lectura por el Usuario, la Secretaría otorga al Usuario una licencia de uso gratuita, no transferible, no exclusiva y para uso estrictamente personal. \n  \n
+
+<b>10. 	Operatividad de la Aplicación</b>\n  \n
+
+10.1. \t 	La Secretaría no garantiza el pleno acceso y operatividad de la Aplicación en forma ininterrumpida. \n  \n
+
+10.2. \t 	La Secretaría podrá suspender el acceso a la Aplicación y/o a determinado contenido por motivos de mantenimiento o de seguridad en cualquier momento.\n  \n
+
+<b>11.	Notificaciones y comunicaciones</b>\n  \n
+
+11.1 \t 	Se considerarán eficaces las comunicaciones que consistan en avisos y mensajes insertos en la Aplicación que tengan por finalidad informar al Usuario sobre determinada circunstancia, como por ejemplo, un cambio en estos términos y condiciones o en la política de privacidad.\n  \n
+
+
+<b>12.	Legislación aplicable y jurisdicción</b>\n  \n
+
+12.1. \t 	A todos los efectos legales en relación a la Aplicación, será aplicable la legislación vigente en la República Argentina.\n  \n
+
+12.2. \t 	Cualquier controversia que se suscite entre las partes con relación a estos Términos y Condiciones, su existencia, validez, calificación, interpretación, alcance, cumplimiento o resolución, se resolverá definitiva y exclusivamente por los Tribunales Nacionales en lo Contencioso Administrativo Federal.\n  \n
+</string>
+    <string name="pba">Provincia de Buenos Aires</string>
+    <string name="coronavirus_portal">PORTAL CORONAVIRUS</string>
+    <string name="mental_health_assistant">Asistente de salud mental</string>
+    <string name="sip">Sistema interactivo de la provincia (SIP)</string>
+    <string name="covid_assitant">asistencia remota covid</string>
+    <string name="pba_header_text">Desde la <b>Provincia de Buenos Aires</b> ponemos a disposicion información y aplicaciones interactivas relacionadas con el coronavirus.</string>
+    <string name="pba_assistance">Asistencia Provincia de Buenos Aires</string>
+</resources>
