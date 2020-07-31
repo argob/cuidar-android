@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/screen_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_colored_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/gradiente_azul"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/header_credencial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="36dp"
+                android:fontFamily="@font/encode_regular"
+                android:text="@string/header_credencial"
+                android:textColor="@color/blanco"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/header_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_no_contagioso_azul"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/header_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/header_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/h_description_quedate_en_casa"
+                android:textColor="@color/blanco"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header_credencial" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/nombre_de_usuario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/gris_oscuro"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_colored_container"
+            tools:text="@string/h_fake_nombre" />
+
+        <TextView
+            android:id="@+id/dni_de_usuario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/gris_oscuro"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/nombre_de_usuario"
+            app:layout_constraintTop_toBottomOf="@id/nombre_de_usuario"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="@string/h_fake_dni" />
+
+        <TextView
+            android:id="@+id/sube"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/gris_oscuro"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/plate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dni_de_usuario"
+            app:layout_goneMarginEnd="24dp"
+            tools:text="SUBE: ...00000000" />
+
+        <TextView
+            android:id="@+id/plate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/gris_oscuro"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sube"
+            app:layout_constraintTop_toBottomOf="@id/dni_de_usuario"
+            app:layout_goneMarginStart="24dp"
+            tools:text="Patente: AD944AB" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/sube_plate_barrier"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="plate,sube,dni_de_usuario"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="241dp" />
+
+        <TextView
+            android:id="@+id/header_recomendation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/h_recommendation_no_contagioso"
+            android:textColor="@color/gris_2"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/dni_de_usuario"
+            app:layout_constraintTop_toBottomOf="@+id/sube_plate_barrier" />
+
+        <TextView
+            android:id="@+id/pba_button"
+            style="@style/pbaButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="10dp"
+            android:text="@string/pba_assistance"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/header_recomendation" />
+
+        <View
+            android:id="@+id/divisor"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/divisor2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pba_button" />
+
+        <FrameLayout
+            android:id="@+id/fragment_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/divisor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

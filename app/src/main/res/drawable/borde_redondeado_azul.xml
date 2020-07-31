@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:padding="10dp" android:shape="rectangle">
+            <!-- you can use any color you want I used here gray color-->
+            <solid android:color="@color/azul_claro" />
+            <corners android:radius="50dp" />
+            <stroke android:width="1dp" android:color="@color/azulBoton" />
+        </shape>
+
+    </item>
+    <item android:state_enabled="false">
+        <shape android:padding="10dp" android:shape="rectangle">
+            <!-- you can use any color you want I used here gray color-->
+            <solid android:color="@color/boton_deshabilitado" />
+            <corners android:radius="50dp" />
+            <stroke android:width="1dp" android:color="@color/azulBoton" />
+        </shape>
+    </item>
+    <item>
+        <shape android:padding="10dp" android:shape="rectangle">
+            <!-- you can use any color you want I used here gray color-->
+            <solid android:color="@color/blanco" />
+            <corners android:radius="50dp" />
+            <stroke android:width="1dp" android:color="@color/azulBoton" />
+        </shape>
+    </item>
+</selector>

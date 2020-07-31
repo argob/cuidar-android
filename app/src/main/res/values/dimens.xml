@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="normal_size">18sp</dimen>
+    <dimen name="texto_medio">16sp</dimen>
+    <dimen name="texto_extra_grande">40sp</dimen>
+    <dimen name="texto_grande">30sp</dimen>
+    <dimen name="drawer_icon_size">40dp</dimen>
+    <dimen name="drawer_icon_mini_size">20dp</dimen>
+</resources>

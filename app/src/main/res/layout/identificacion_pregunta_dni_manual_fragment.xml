@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contenedor_barra_de_progreso"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/icono_informacion_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/icon_informacion_usuario_activo" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/rosaPrincipal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintStart_toEndOf="@+id/icono_informacion_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/divisor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_telefono_image_view"
+            app:layout_constraintStart_toStartOf="@+id/divider"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icono_telefono_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_ubicacion_image_view"
+            app:layout_constraintStart_toEndOf="@+id/icono_informacion_image_view"
+            app:srcCompat="@drawable/icon_telefono_inactivo" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_telefono_image_view"
+            app:layout_constraintStart_toEndOf="@+id/icono_informacion_image_view"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/divisor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icono_ubicacion_image_view"
+            app:layout_constraintStart_toEndOf="@+id/icono_telefono_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icono_ubicacion_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/icon_ubicacion" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contenedor_barra_de_progreso"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_numero_dni_identificacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="32dp"
+                android:theme="@style/DefaultInputTextLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_informacion_protegida">
+
+                <EditText
+                    android:id="@+id/et_numero_dni_identificacion_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:ems="10"
+                    android:hint="@string/dni"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:nextFocusDown="@id/et_numero_tramite_identificacion_fragment"
+                    android:textColor="@color/negro_claro" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_numero_tramite_identificacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:theme="@style/DefaultInputTextLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ti_numero_dni_identificacion">
+
+                <EditText
+                    android:id="@+id/et_numero_tramite_identificacion_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:lines="1"
+                    android:maxLength="12"
+                    android:hint="@string/procedure_number"
+                    android:inputType="number"
+                    android:textColor="@color/negro_claro" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_como_obtengo_numero_tramite_identificacion_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                style="@style/texto_regular_roboto"
+                android:text="@string/obetener_numero_tramite"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/ti_numero_tramite_identificacion"
+                app:layout_constraintTop_toBottomOf="@id/ti_numero_tramite_identificacion" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupSexo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_como_obtengo_numero_tramite_identificacion_fragment">
+
+                <RadioButton
+                    android:id="@+id/rb_femenino_identificacion_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/femenino"
+                    android:theme="@style/RadioButton.allCapsFalse" />
+
+                <RadioButton
+                    android:id="@+id/rb_masculino_identificacion_fragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/masculio"
+                    android:theme="@style/RadioButton.allCapsFalse" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/ln_mensaje_error_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroupSexo"
+                tools:visibility="visible" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    app:srcCompat="@drawable/ic_iconmonstr_error_2" />
+
+                <TextView
+                    android:id="@+id/tv_error_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/verificar_datos"
+                    android:textColor="@color/rojoError"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_escanear_dni_identificacion_fragment"
+                style="@style/BotonAzulRedondeado"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:enabled="false"
+                android:text="@string/escanear_dni"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtTerminosYCondiciones" />
+
+            <TextView
+                android:id="@+id/btn_siguiente_dni_manual_identificacion_fragment"
+                style="@style/BotonAzulRedondeado"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                android:enabled="false"
+                android:focusable="true"
+                android:text="@string/siguiente"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_escanear_dni_identificacion_fragment"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/tv_detalle_dni_manual_identificacion_fragment"
+                style="@style/texto_medium_roboto_bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="@string/login_pregunta_datos_personales"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".61" />
+
+            <TextView
+                android:id="@+id/tv_informacion_protegida"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="32dp"
+                android:textColor="#50525C"
+                style="@style/Roboto.Regular"
+                android:textSize="14sp"
+                android:text="Tu información está protegida por la ley y es para uso exclusivo de las autoridades sanitarias."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detalle_dni_manual_identificacion_fragment" />
+
+            <TextView
+                android:id="@+id/error_sexo_radio_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="32dp"
+                android:paddingStart="16dp"
+                android:text="Este dato es necesario."
+                android:textColor="@color/rojoErrorMaterial"
+                android:textSize="12dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroupSexo" />
+
+            <FrameLayout
+                android:id="@+id/checkBoxAceptarCondicionesContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_borde_punteado"
+                app:layout_constraintBottom_toBottomOf="@+id/txtTerminosYCondiciones"
+                app:layout_constraintStart_toStartOf="@+id/btn_escanear_dni_identificacion_fragment"
+                app:layout_constraintTop_toTopOf="@+id/txtTerminosYCondiciones"
+                app:layout_constraintVertical_bias="0.0">
+
+                <CheckBox
+                    android:id="@+id/checkBoxAceptarCondiciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="14dp"
+                    android:theme="@style/CheckBox.AceptarTyC"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txtTerminosYCondiciones"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/shape_borde_punteado"
+                android:padding="8dp"
+                android:text="@string/acepto_terminos"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/checkBoxAceptarCondicionesContainer"
+                app:layout_constraintTop_toBottomOf="@+id/ln_mensaje_error_container" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

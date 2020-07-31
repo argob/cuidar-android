@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="16dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        tools:context="ar.gob.coronavirus.flujos.autodiagnostico.resultado.CirculacionFragment">
+
+        <include
+            android:id="@+id/puede_circular"
+            layout="@layout/puede_circular_layout"/>
+
+        <include
+            android:id="@+id/no_puede_circular"
+            layout="@layout/no_puede_circular_layout"/>
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
