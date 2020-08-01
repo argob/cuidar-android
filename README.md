@@ -1,6 +1,6 @@
 # Cuidar Android
 
-Se publica aquí el código fuente de la aplicación Cuidar para sistemas operativos Android. Este código fuente es el *trabajo en curso* hacia la versión 3.5.2. En el `Changelog.txt` se puede ver el historial de cambios y las novedades que contendrá esta versión.
+Se publica aquí el código fuente de la aplicación Cuidar para sistemas operativos Android. Este código fuente es el *trabajo en curso* hacia la versión 3.5.2. En el archivo [CHANGELOG.md](https://github.com/argob/cuidar-android/blob/master/CHANGELOG.md) se puede ver el historial de cambios y las novedades de cada versión.
 
 Esta aplicación es el método elegido por millones de ciudadanos y ciudadanas de Argentina para mostrar sus certificados de circulación en el contexto de la pandemia de COVID-19, así como también para hacerse autodiagnósticos que les permitan saber si deben consultar al sistema de salud y ser derivados al Comité Operativo de Emergencia Provincial de su jurisdicción.
 
