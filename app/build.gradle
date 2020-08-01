@@ -115,7 +115,7 @@ dependencies {
 
     //ZXING
     implementation "com.google.zxing:core:$zxingVersion"
-    implementation("com.journeyapps:zxing-android-embedded:") { transitive = false }
+    implementation("com.journeyapps:zxing-android-embedded:$zxingEmbeddedVersion") { transitive = false }
 
     //LOCATION
     implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"
