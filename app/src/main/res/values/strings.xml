@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Covid19-AR</string>
     <string name="patalla_de_inicio">Patalla de Inicio</string>
-    <string name="terminos">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,</string>
     <string name="landing_subtitulo">Te vamos a ayudar a realizar una autoevaluación de tus síntomas, con lo que vas a poder postularte para sacar un Pasaporte Sanitario.</string>
     <string name="landing_titulo">Intro sobre el propósito de la aplicación</string>
     <string name="landing_pie_subtitulo">Este pasaporte sanitario, junto con el correspondiente permiso de circulación y tu DNI, te permitirán circular en espacios públicos.</string>
     <string name="siguiente">Siguiente</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_contacto">NO PODÉS ESTAR EN CONTACTO CON OTRAS PERSONAS</string>
     <string name="dias_restantes">Días\nrestantes</string>
     <string name="derivado">DERIVADO A SALUD LOCAL</string>
@@ -25,8 +23,8 @@
     <string name="sexo">Sexo:</string>
     <string name="gracias_por_tu_ayuda">¡MUCHAS GRACIAS POR TU AYUDA!</string>
     <string name="ahora_podemos_continuar">Ahora podremos continuar con el diagnóstico.</string>
-    <string name="hubo_error">HUBO UN ERROR</string>
-    <string name="hubo_error_desc">Por favor vuelve a intentarlo.</string>
+    <string name="hubo_error">¡Ocurrió un error!</string>
+    <string name="hubo_error_desc">Por favor volvé a intentarlo.</string>
     <string name="continuar">CONTINUAR</string>
     <string name="escanear_dni">ESCANEAR DNI</string>
     <string name="permiso_cicular">Recordá las medidas sanitarias al volver a tu casa</string>
@@ -64,7 +62,7 @@
     <string name="msg_no_tiene_sintomas">%1$s, no tenés síntomas compatibles con COVID-19.</string>
     <string name="numero_de_horas_cada_autodiagnostico">48</string>
     <string name="txt_rocomedar_tiempo_autodiagnostico">Es recomendable que hagas el autodiagnóstico cada:</string>
-    <string name="txt_sin_sintomas_title">sin síntomas covid 19</string>
+    <string name="txt_sin_sintomas_title">sin síntomas COVID-19</string>
     <string name="msg_evitar_salir">Seguí las medidas de prevención y evitá salir de tu casa, para cuidarte vos y no exponer a otras personas.</string>
     <string name="msg_recordatorio_resultado_puede_circular_fragment">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía. Para otros movimientos necesitás el Certificado Único Habilitante para Circulación.</string>
     <string name="msg_instrucciones_llamar">Si presentás síntomas o necesitás asistencia médica o psicológica llamá a:</string>
@@ -73,13 +71,13 @@
     <string name="titulo_en_evaluacion">en evaluación</string>
     <string name="msg_sintomas_compatibles_y_reportados">%1$s, tu autodiagnóstico tiene síntomas compatibles con COVID-19 y fueron reportados.</string>
     <string name="msg_peticion_no_salir">Te pedimos que no salgas de tu domicilio hasta que no tengas un diagnóstico definitivo.</string>
-    <string name="msg_mirar_recomendaciones">Mira nuestras recomendaciones</string>
+    <string name="msg_mirar_recomendaciones">Mirá nuestras recomendaciones</string>
     <string name="ver_resultado">Ver resultado</string>
     <string name="cual_es_temperatura">¿Cuál es tu temperatura corporal actual?</string>
     <string name="consejos_medir_temperatura">Consejos para medir la temperatura</string>
-    <string name="consejo_uno_temperatura">Medir la temperatura siempre en el mismo lugar (oído y axila), ya que de otro modo pueden variar los valores.</string>
-    <string name="consejo_dos_temperatura">No se debe tomar la temperatura después del baño o de haber realizado una actividad física. Se debe esperar por lo menos 20 minutos.</string>
-    <string name="consejo_tres_temperatura">La fiebre hay que medirla, no hay que fiarse de la percepción que se tenga al tocar la frente.</string>
+    <string name="consejo_uno_temperatura">Medí la temperatura siempre en el mismo lugar (oído y axila), ya que de otro modo pueden variar los valores.</string>
+    <string name="consejo_dos_temperatura">No se debe tomar la temperatura después del baño o de haber realizado una actividad física. Esperá por lo menos 20 minutos para hacerlo.</string>
+    <string name="consejo_tres_temperatura">La fiebre debe ser medida. No hay que fiarse de la percepción que se tenga al tocar la frente.</string>
     <string name="consejo_cuatro_temperatura">Los termómetros deben ser seguros, que no se rompan.</string>
     <string name="cerrar">Cerrar</string>
     <string name="sintoma_tos">¿Tenés tos?</string>
@@ -156,7 +154,7 @@
     <string name="finalizar">Finalizar</string>
     <string name="tu_direccion">Tu dirección</string>
     <string name="localidad_departamento_partido">Localidad – Departamento/Partido</string>
-    <string name="notificacion_rastreo_titulo">App is running background</string>
+    <string name="notificacion_rastreo_titulo">App is running in background</string>
     <string name="notificacion_rastreo_contenido">Estamos rastreando tu ubicacion</string>
     <string name="autodiagnostico_banner">Por favor realiza el\nautodiagnóstico</string>
     <string name="provinvia_y_telefono">%1$s : %2$s</string>
@@ -363,6 +361,6 @@ La Secretaría podrá introducir todos los cambios y modificaciones que estime c
     <string name="mental_health_assistant">Asistente de salud mental</string>
     <string name="sip">Sistema interactivo de la provincia (SIP)</string>
     <string name="covid_assitant">asistencia remota covid</string>
-    <string name="pba_header_text">Desde la <b>Provincia de Buenos Aires</b> ponemos a disposicion información y aplicaciones interactivas relacionadas con el coronavirus.</string>
+    <string name="pba_header_text">Desde la <b>Provincia de Buenos Aires</b> ponemos a disposición información y aplicaciones interactivas relacionadas con el coronavirus.</string>
     <string name="pba_assistance">Asistencia Provincia de Buenos Aires</string>
 </resources>
