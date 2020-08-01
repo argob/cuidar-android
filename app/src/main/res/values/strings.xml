@@ -26,7 +26,7 @@
     <string name="gracias_por_tu_ayuda">¡MUCHAS GRACIAS POR TU AYUDA!</string>
     <string name="ahora_podemos_continuar">Ahora podremos continuar con el diagnóstico.</string>
     <string name="hubo_error">HUBO UN ERROR</string>
-    <string name="hubo_error_desc">Por favor vuelve a intentarlo.</string>
+    <string name="hubo_error_desc">Por favor volvé a intentarlo.</string>
     <string name="continuar">CONTINUAR</string>
     <string name="escanear_dni">ESCANEAR DNI</string>
     <string name="permiso_cicular">Recordá las medidas sanitarias al volver a tu casa</string>
@@ -46,16 +46,16 @@
     <string name="quedate_en_casa">Quedate en casa</string>
     <string name="estas_en_cuarentena">Estás en cuarentena, salí solo para hacer las compras.</string>
     <string name="habilitar_circulacion">Agregar certificado</string>
-    <string name="ampliar_movilidad">Para ampliar tu movilidad, deberás complementar a este diagnóstico, la habilitación por circulación por transporte.</string>
+    <string name="ampliar_movilidad">Para ampliar tu movilidad deberás complementar a este diagnóstico con la habilitación de circulación por transporte.</string>
     <string name="fecha_resultado">Fecha resultado:</string>
-    <string name="texto_resultado_positivo_uno">%1$s, %2$s de acuerdo a los análisis de laboratorio. \n\nDebés seguir estrictamente las recomendaciones médicas y permanecer en aislamiento.\n\nSi tus síntomas empeoran o necesitás asistencia médica o psicológica, ponete en contacto otra vez con el teléfono de asistencia:</string>
+    <string name="texto_resultado_positivo_uno">%1$s, %2$s de acuerdo a los análisis de laboratorio. \n\nDebés seguir estrictamente las recomendaciones médicas y permanecer en aislamiento.\n\nSi tus síntomas empeoran o necesitás asistencia médica o psicológica ponete en contacto otra vez con el teléfono de asistencia:</string>
     <string name="texto_resultado_positivo_dos">el sistema de salud de tu jurisdicción confirmó tu diagnóstico positivo de coronavirus (COVID-19)</string>
     <string name="ministerio_de_salud">Ministerio de Salud en CABA 148</string>
-    <string name="mira_recomendaciones_de_salud">Mira las recomendaciones de salud</string>
+    <string name="mira_recomendaciones_de_salud">Mirá las recomendaciones de salud</string>
     <string name="no_automediques">Es fundamental que conozcas cómo cuidarte a vos y a tus conocidos. No te automediques y consulta siempre al sistema de salud.</string>
     <string name="aceptar">aceptar</string>
     <string name="covid_negativo">Covid-19 negativo</string>
-    <string name="texto_resultado_negativo">, El sistema de Salud confirmó tu resultado negativo en el test por coronavirus (COVID-19) de acuerdo a los análisis de laboratorio. \n\n Sigue las medidas de prevención y evitar salir de tu casa, para cuidarte vos y no exponer a otras personas. \n\n Si tenés que salir de casa, te recomendamos que lleves tu DNI y solicite el Certificado único habilitante para circulación.</string>
+    <string name="texto_resultado_negativo">, El sistema de Salud confirmó tu resultado negativo en el test por coronavirus (COVID-19) de acuerdo a los análisis de laboratorio. \n\n Sigue las medidas de prevención y evitar salir de tu casa, para cuidarte vos y no exponer a otras personas. \n\n Si tenés que salir de casa, te recomendamos que lleves tu DNI y solicites el Certificado único habilitante para circulación.</string>
     <string name="autodiagnostico_titulo">Autoevaluación</string>
     <string name="realiza_autodiagnostico">Por favor realiza el autodiagnóstico</string>
     <string name="sintomas_titulo">Síntomas</string>
@@ -84,13 +84,13 @@
     <string name="cerrar">Cerrar</string>
     <string name="sintoma_tos">¿Tenés tos?</string>
     <string name="sintoma_dolor_de_garganta">¿Tenés dolor de garganta?</string>
-    <string name="si">Si</string>
+    <string name="si">Sí</string>
     <string name="no">No</string>
     <string name="sintoma_dificultad_respiratoria">¿Tenés dificultad respiratoria o falta de aire?</string>
 
-    <string name="antecedentes_titulo">Si tu situación de salud contempla alguna de las siguientes opciones, seleccioná las que correspondan</string>
+    <string name="antecedentes_titulo">Si tu situación de salud contempla alguna de las siguientes opciones seleccioná las que correspondan</string>
     <string name="antecedentes_embarazo">Estoy embarazada</string>
-    <string name="antecedentes_cancer">Tengo/tuve cancer</string>
+    <string name="antecedentes_cancer">Tengo/tuve cáncer</string>
     <string name="antecedentes_diabetes">Tengo diabetes</string>
     <string name="antecedentes_enfermedad_hepatica">Tengo alguna enfermedad hepática</string>
     <string name="antecedentes_enfermedad_renal">Tengo enfermedad renal crónica</string>
@@ -108,7 +108,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="enviar">Enviar</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
-    <string name="tu_informacion_esta_protegida">Tu información está protegida por la ley  y es para uso exclusivo de las autoridades sanitarias.</string>
+    <string name="tu_informacion_esta_protegida">Tu información está protegida por la ley y es para uso exclusivo de las autoridades sanitarias.</string>
     <string name="dni_usuario">DNI: %s</string>
     <string name="opcional">Opcional</string>
     <string name="seleccionar_sintoma">Debé seleccionar las opciones que correspondan</string>
@@ -118,7 +118,7 @@
     <string name="login_pregunta_datos_personales">Para empezar necesitamos tus datos personales</string>
 
     <string name="entendido">Entendido</string>
-    <string name="acepto_terminos">Acepto los &lt;u>&lt;b>Términos y Condiciones&lt;/b>&lt;/u> de la Aplicación Cuidar así como a la Política de Privacidad establecida en el punto 5 de los Términos y Condiciones. </string>
+    <string name="acepto_terminos">Acepto los &lt;u>&lt;b>Términos y Condiciones&lt;/b>&lt;/u> de la Aplicación Cuidar así como la Política de Privacidad establecida en el punto 5 de los Términos y Condiciones. </string>
     <string name="erro_numero_tramite">El número de trámite es necesario</string>
     <string name="erro_numero_tramite_invalido">El número de trámite es inválido</string>
     <string name="calle">Calle</string>
@@ -236,14 +236,14 @@
     <string name="cough">Tos</string>
     <string name="sore_throat">Dolor de garganta</string>
 
-    <string name="should_install_default_browser_warning">Para poder realizar esta acción, necesitás un navegador de internet válido en tu dispositivo.</string>
+    <string name="should_install_default_browser_warning">Para poder realizar esta acción necesitás un navegador de internet válido en tu dispositivo.</string>
     <string name="procedure_number">Nro de trámite</string>
     <string name="dni">DNI</string>
     <string name="user_dni">DNI: %1$d</string>
     <string name="sube">SUBE: %1$s</string>
     <string name="plate">Patente: %1$s</string>
 
-    <string name="check_data_msg_warning">Verifique los datos ingresados</string>
+    <string name="check_data_msg_warning">Verificá los datos ingresados</string>
     <string name="invalid_province_msg_error">Provincia inválida</string>
     <string name="invalid_locality_msg_error">Localidad inválida</string>
     <string name="invalid_street_msg_error">Calle inválida</string>
