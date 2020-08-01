@@ -187,38 +187,26 @@
                     android:theme="@style/RadioButton.allCapsFalse" />
             </RadioGroup>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/ln_mensaje_error_container"
+            <TextView
+                android:id="@+id/tv_error_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/verificar_datos"
+                android:textColor="@color/rojoError"
+                android:textSize="16sp"
+                android:drawableStart="@drawable/ic_iconmonstr_error_2"
+                android:drawablePadding="16dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroupSexo"
-                tools:visibility="visible" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    app:srcCompat="@drawable/ic_iconmonstr_error_2" />
-
-                <TextView
-                    android:id="@+id/tv_error_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="@string/verificar_datos"
-                    android:textColor="@color/rojoError"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                tools:visibility="visible"
+                />
 
             <TextView
                 android:id="@+id/btn_escanear_dni_identificacion_fragment"
@@ -329,7 +317,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/checkBoxAceptarCondicionesContainer"
-                app:layout_constraintTop_toBottomOf="@+id/ln_mensaje_error_container" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_error_message" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
