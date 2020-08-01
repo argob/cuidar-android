@@ -52,3 +52,14 @@ Más allá de las mejoras funcionales que se incorporen por requerimiento de las
 # Contribución
 
 ¿Querés contribuir con el proyecto? Dejanos tu PR en github. Por favor documentá claramente el objetivo del cambio y ayudanos a mantener la homogeneidad del código (estamos trabajando en hacerlo más homogéneo).
+
+# Compilar la app
+
+Para poder compilar la app es necesario que crees un proyecto de prueba en Firebase ya que se utilizan servicios de mensajeria para su funcionamiento
+
+## Pasos a seguir
+
+- Ingresar en https://console.firebase.google.com/ con una cuenta de google
+- Crea un proyecto de prueba y enlaza `google-services.json` a la app
+
+Guía: https://firebase.google.com/docs/android/setup?hl=es
