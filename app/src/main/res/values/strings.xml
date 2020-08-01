@@ -77,7 +77,7 @@
     <string name="consejos_medir_temperatura">Consejos para medir la temperatura</string>
     <string name="consejo_uno_temperatura">Medí la temperatura siempre en el mismo lugar (oído y axila), ya que de otro modo pueden variar los valores.</string>
     <string name="consejo_dos_temperatura">No se debe tomar la temperatura después del baño o de haber realizado una actividad física. Esperá por lo menos 20 minutos para hacerlo.</string>
-    <string name="consejo_tres_temperatura">La fiebre debe ser medida. No hay que fiarse de la percepción que se tenga al tocar la frente.</string>
+    <string name="consejo_tres_temperatura">La fiebre hay que medirla, no hay que fiarse de la percepción que se tenga al tocar la frente.</string>
     <string name="consejo_cuatro_temperatura">Los termómetros deben ser seguros, que no se rompan.</string>
     <string name="cerrar">Cerrar</string>
     <string name="sintoma_tos">¿Tenés tos?</string>
@@ -149,13 +149,11 @@
     <string name="obligatorio">*Obligatorio</string>
     <string name="credencial">Credencial</string>
     <string name="dialog_version_message">Por favor descarga la nueva versión desde la tienda</string>
-    <string name="dialog_version_title">Tu aplicación está desactualizada!</string>
+    <string name="dialog_version_title">¡Tu aplicación está desactualizada!</string>
     <string name="actualizar">Actualizar</string>
     <string name="finalizar">Finalizar</string>
     <string name="tu_direccion">Tu dirección</string>
     <string name="localidad_departamento_partido">Localidad – Departamento/Partido</string>
-    <string name="notificacion_rastreo_titulo">App is running in background</string>
-    <string name="notificacion_rastreo_contenido">Estamos rastreando tu ubicacion</string>
     <string name="autodiagnostico_banner">Por favor realiza el\nautodiagnóstico</string>
     <string name="provinvia_y_telefono">%1$s : %2$s</string>
     <string name="conexion_a_internet">Conexión a internet</string>
