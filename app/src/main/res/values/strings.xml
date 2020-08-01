@@ -26,7 +26,7 @@
     <string name="gracias_por_tu_ayuda">¡MUCHAS GRACIAS POR TU AYUDA!</string>
     <string name="ahora_podemos_continuar">Ahora podremos continuar con el diagnóstico.</string>
     <string name="hubo_error">HUBO UN ERROR</string>
-    <string name="hubo_error_desc">Por favor volvé a intentarlo.</string>
+    <string name="hubo_error_desc">Por favor, volvé a intentarlo.</string>
     <string name="continuar">CONTINUAR</string>
     <string name="escanear_dni">ESCANEAR DNI</string>
     <string name="permiso_cicular">Recordá las medidas sanitarias al volver a tu casa</string>
