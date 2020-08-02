@@ -17,7 +17,7 @@ import ar.gob.coronavirus.flujos.autodiagnostico.resultado.ResultadoActivity
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalActivity
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalViewModel
 import ar.gob.coronavirus.utils.date.DateUtils
-import ar.gob.coronavirus.utils.many.TextUtils
+import ar.gob.coronavirus.utils.many.ApiConstants
 import kotlinx.android.synthetic.main.base_main_fragment.*
 import kotlinx.android.synthetic.main.base_main_fragment.view.*
 import kotlinx.android.synthetic.main.current_state_view.*
@@ -80,7 +80,7 @@ abstract class BaseMainFragment(private val contentLayout: Int) : Fragment(R.lay
     }
 
     private fun setUpEmojis() {
-        val semaforoInfo = TextUtils.getInfo()
+        val semaforoInfo = ApiConstants.getInfo()
 
         emoji_uno?.text = semaforoInfo.emoji1
         emoji_dos?.text = semaforoInfo.emoji2

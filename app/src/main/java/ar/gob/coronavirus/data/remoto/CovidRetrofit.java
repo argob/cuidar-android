@@ -2,7 +2,7 @@ package ar.gob.coronavirus.data.remoto;
 
 import ar.gob.coronavirus.BuildConfig;
 import ar.gob.coronavirus.data.remoto.interceptores.HeadersInterceptor;
-import ar.gob.coronavirus.utils.many.TextUtils;
+import ar.gob.coronavirus.utils.many.ApiConstants;
 import okhttp3.CertificatePinner;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -24,7 +24,7 @@ public class CovidRetrofit {
     private Retrofit obtenerInstanciaRetrofit() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(TextUtils.BASE_URL)
+                    .baseUrl(ApiConstants.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(obtenerClienteHttp())
@@ -39,7 +39,7 @@ public class CovidRetrofit {
             OkHttpClient.Builder constructorClienteHttp = new OkHttpClient.Builder();
             constructorClienteHttp.addInterceptor(headersInterceptor);
 
-            String hostname = TextUtils.CERTIFICATE_MATCHER;
+            String hostname = ApiConstants.CERTIFICATE_MATCHER;
             CertificatePinner certificatePinner = new CertificatePinner.Builder()
                     .add(hostname, BuildConfig.CERTIFICADO_SHA1)
                     .add(hostname, BuildConfig.CERTIFICADO_SHA2)

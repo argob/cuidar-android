@@ -1,7 +1,7 @@
 package ar.gob.coronavirus.data.remoto
 
 import ar.gob.coronavirus.data.remoto.modelo.AdviceCount
-import ar.gob.coronavirus.utils.many.TextUtils
+import ar.gob.coronavirus.utils.many.ApiConstants
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,7 +19,7 @@ interface AdviceService {
         @JvmStatic
         fun create(): AdviceService {
             return Retrofit.Builder().run {
-                baseUrl(TextUtils.ADVICE_URL)
+                baseUrl(ApiConstants.ADVICE_URL)
                 addConverterFactory(GsonConverterFactory.create())
                 addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 build()

@@ -6,7 +6,7 @@ import androidx.fragment.app.commit
 import ar.gob.coronavirus.R
 import ar.gob.coronavirus.flujos.BaseActivity
 import ar.gob.coronavirus.flujos.identificacion.IdentificacionActivity
-import ar.gob.coronavirus.utils.many.TextUtils
+import ar.gob.coronavirus.utils.many.ApiConstants
 import com.newrelic.agent.android.NewRelic
 import kotlinx.android.synthetic.main.activity_inicio.*
 
@@ -15,8 +15,9 @@ class InicioActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inicio)
 
-        if (TextUtils.APPLICATION_TOKEN.isNotEmpty()) {
-            NewRelic.withApplicationToken(TextUtils.APPLICATION_TOKEN).start(this.application)
+        if (ApiConstants.APPLICATION_TOKEN.isNotEmpty()) {
+            NewRelic.withApplicationToken(
+              ApiConstants.APPLICATION_TOKEN).start(this.application)
         }
 
         if (savedInstanceState == null) {
