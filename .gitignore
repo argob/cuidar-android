@@ -82,3 +82,7 @@ ehthumbs.db
 Thumbs.db
 
 app/.cxx/*app/google-services.json
+
+app/google-services.json
+gradlew
+gradlew.bat
