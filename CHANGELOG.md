@@ -5,6 +5,7 @@ Versión 3.5.2 -- en desarrollo
 * Se utiliza Timber para mejorar el logging.
 * Se termina de separar las claves con vistas a la publicación.
 * Se mejora el aviso al usuario en caso de doble sesión.
+* Agregada licencia GPLv3. ([#26](https://github.com/argob/cuidar-android/pull/26) by [@RodolfoGS](https://github.com/RodolfoGS))
 
 Versión 3.5.0 -- 17/07/2020
 Más importantes:
