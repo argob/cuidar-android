@@ -39,9 +39,9 @@ android {
         buildConfigField("String", "APP_NAME", "\"CuidAR\"")
 
         // Pin certificates
-        buildConfigField("String", "CERTIFICADO_SHA1", "\"sha256/UXt/pC5LL5LT5C2ajleIfKh8FUrseWflM+tcO+284+o=\"")
-        buildConfigField("String", "CERTIFICADO_SHA2", "\"sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=\"")
-        buildConfigField("String", "CERTIFICADO_SHA3", "\"sha256/++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=\"")
+        buildConfigField("String", "CERTIFICADO_SHA1", "\"\"")
+        buildConfigField("String", "CERTIFICADO_SHA2", "\"\"")
+        buildConfigField("String", "CERTIFICADO_SHA3", "\"\"")
     }
 
     buildTypes {

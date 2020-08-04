@@ -3,10 +3,10 @@
     <domain-config>
         <domain includeSubdomains="true">url.ar</domain>
         <pin-set>
-            <pin digest="SHA-256">UXt/pC5LL5LT5C2ajleIfKh8FUrseWflM+tcO+284+o=</pin>
+            <pin digest="SHA-256"></pin>
             <!-- backup pin -->
-            <pin digest="SHA-256">JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=</pin>
-            <pin digest="SHA-256">++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</pin>
+            <pin digest="SHA-256"></pin>
+            <pin digest="SHA-256"></pin>
         </pin-set>
     </domain-config>
     <domain-config cleartextTrafficPermitted="true">
