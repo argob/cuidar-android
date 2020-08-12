@@ -7,19 +7,23 @@ import android.view.View;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.AppBarLayout;
+
+import org.koin.androidx.viewmodel.compat.ViewModelCompat;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.flujos.BaseActivity;
 import ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoActivity;
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalActivity;
+import ar.gob.coronavirus.utils.dialogs.ConfirmacionDialog;
 import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
 
-public class IdentificacionActivity extends BaseActivity implements IdentificacionNavegador {
-    private static final String LLAVE_ESTA_EDITANDO = "LLAVE_ESTA_EDITANDO";
+public class IdentificacionActivity extends BaseActivity {
+    private static final String LLAVE_ESTA_EDITANDO = "LLAVE_ESTA_EDITANDO" ;
+    private static final String MOSTRAR_DIALOG_OTRO_DISPOSITIVO = "mostrarDialogoOtroDispositivo" ;
+    private static final String MOSTRAR_DIALOG_NO_INTERNET = "mostrarDialogoNoInternet" ;
 
     private Boolean isEditing;
     public LocalUser localUser = null;
@@ -36,6 +40,13 @@ public class IdentificacionActivity extends BaseActivity implements Identificaci
         context.startActivity(intent);
     }
 
+    public static void startAndPrintDialogOtroDispositivo(Context context) {
+        Intent intent = new Intent(context, IdentificacionActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(MOSTRAR_DIALOG_OTRO_DISPOSITIVO, true);
+        context.startActivity(intent);
+    }
+
     private IdentificacionViewModel identificacionViewModel;
 
     @Override
@@ -43,8 +54,7 @@ public class IdentificacionActivity extends BaseActivity implements Identificaci
         super.onCreate(savedInstanceState);
         setContentView(R.layout.identificacion_activity);
 
-        IdentificacionViewModelFactory factory = new IdentificacionViewModelFactory(this, this);
-        identificacionViewModel = new ViewModelProvider(this, factory).get(IdentificacionViewModel.class);
+        identificacionViewModel = ViewModelCompat.getViewModel(this, IdentificacionViewModel.class);
         setBaseViewModel(identificacionViewModel);
 
         isEditing = getIntent().getBooleanExtra(LLAVE_ESTA_EDITANDO, false);
@@ -67,6 +77,23 @@ public class IdentificacionActivity extends BaseActivity implements Identificaci
 
             }
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean mostrarDialogOtroDispositivo = getIntent().getBooleanExtra(MOSTRAR_DIALOG_OTRO_DISPOSITIVO, false);
+        boolean mostrarDialogNoInternet = getIntent().getBooleanExtra(MOSTRAR_DIALOG_NO_INTERNET, false);
+
+        if(mostrarDialogOtroDispositivo){
+            ConfirmacionDialog.showDialog(this, R.string.error_logged_other_device, R.string.aceptar, (dialog, which) -> dialog.dismiss());
+        }
+
+        if(mostrarDialogNoInternet){
+            ConfirmacionDialog.showDialog(this, R.string.error_no_internet, R.string.aceptar, (dialog, which) -> dialog.dismiss());
+        }
+
     }
 
     private void iniciarObservers() {
@@ -97,6 +124,21 @@ public class IdentificacionActivity extends BaseActivity implements Identificaci
                 }
             }
         });
+        identificacionViewModel.getRegistrarUsuarioLiveData().observe(this, event -> {
+            NavegacionFragments navigation = event.obtenerConenido();
+            switch (navigation) {
+                case AUTODIAGNOSTICO:
+                    AutodiagnosticoActivity.iniciar(this, false);
+                    finish();
+                    break;
+                case PRINCIPAL:
+                    if (!isEditing) {
+                        PantallaPrincipalActivity.iniciar(this, false);
+                    }
+                    finish();
+                    break;
+            }
+        });
     }
 
     @Override
@@ -111,10 +153,8 @@ public class IdentificacionActivity extends BaseActivity implements Identificaci
         } else {
             if (currentFragment instanceof IdentificacionDniConfirmacionDatosFragment) {
                 identificacionViewModel.logout();
-                super.onBackPressed();
-            } else {
-                super.onBackPressed();
             }
+            super.onBackPressed();
         }
     }
 
@@ -149,19 +189,4 @@ public class IdentificacionActivity extends BaseActivity implements Identificaci
         transaction.commit();
     }
 
-    @Override
-    public void navegarAAutoDiagnosticoActivity() {
-        AutodiagnosticoActivity.iniciar(this, false);
-        finish();
-    }
-
-    @Override
-    public void navegarAPantallaPrincipal(boolean mostrarResultado) {
-        if (!isEditing) {
-            PantallaPrincipalActivity.iniciar(this, mostrarResultado);
-            finish();
-        } else {
-            finish();
-        }
-    }
 }

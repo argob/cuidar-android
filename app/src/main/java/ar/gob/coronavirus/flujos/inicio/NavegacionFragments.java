@@ -4,5 +4,6 @@ public enum NavegacionFragments {
     SPLASH,
     LOGIN,
     DIAGNOSTICO,
-    PRINCIPAL
+    PRINCIPAL,
+    LOGIN_INVALID;
 }

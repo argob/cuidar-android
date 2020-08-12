@@ -11,17 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.utils.PhoneUtils;
 
 public class IdentificacionTelefonoFragment extends Fragment {
-    private static final String PREFIJO_TELEFONO = "+54";
+    public static final String PREFIJO_TELEFONO = "+54";
     private IdentificacionViewModel identificacionViewModel;
     private TextInputLayout telefonoTil;
     private TextInputEditText telefonoTie;
@@ -39,7 +40,7 @@ public class IdentificacionTelefonoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         iniciarViews();
-        identificacionViewModel = new ViewModelProvider(getActivity()).get(IdentificacionViewModel.class);
+        identificacionViewModel = SharedViewModelCompat.getSharedViewModel(this, IdentificacionViewModel.class);
         iniciarListeners();
         prepopularCampos();
 
@@ -49,7 +50,7 @@ public class IdentificacionTelefonoFragment extends Fragment {
         LocalUser localUser = ((IdentificacionActivity) getActivity()).localUser;
         if (localUser != null && localUser.getPhone() != null) {
             telefonoTie = getView().findViewById(R.id.tie_telefono_identificacion_fragment);
-            telefonoTie.setText(localUser.getPhone().replace("+54", ""));
+            telefonoTie.setText(localUser.getPhone().replace(PREFIJO_TELEFONO, ""));
         }
     }
 

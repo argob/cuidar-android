@@ -9,17 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+
+import org.koin.androidx.viewmodel.compat.ViewModelCompat;
 
 import ar.gob.coronavirus.BuildConfig;
 import ar.gob.coronavirus.databinding.InicioSplashFragmentBinding;
 import ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoActivity;
+import ar.gob.coronavirus.flujos.identificacion.IdentificacionActivity;
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalActivity;
 import ar.gob.coronavirus.utils.observables.EventoUnico;
+import kotlin.Lazy;
 
-public class InicioSplashFragment extends Fragment {
-	private InicioViewModel inicioViewModel;
+public class SplashFragment extends Fragment {
 	private InicioSplashFragmentBinding binding;
+
+	private Lazy<SplashViewModel> viewModel = ViewModelCompat.viewModel(this, SplashViewModel.class);
 
 	@Nullable
 	@Override
@@ -31,10 +35,8 @@ public class InicioSplashFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		InicioViewModelFactory factory = new InicioViewModelFactory();
-		inicioViewModel = new ViewModelProvider(requireActivity(), factory).get(InicioViewModel.class);
 
-		inicioViewModel.getNavigationLiveData().observe(getViewLifecycleOwner(), new Observer<EventoUnico<NavegacionFragments>>() {
+		viewModel.getValue().getNavigationLiveData().observe(getViewLifecycleOwner(), new Observer<EventoUnico<NavegacionFragments>>() {
 			@Override
 			public void onChanged(EventoUnico<NavegacionFragments> stringEventoUnico) {
 				if (stringEventoUnico.obtenerContenidoSiNoFueLanzado() != null) {
@@ -50,7 +52,10 @@ public class InicioSplashFragment extends Fragment {
 							AutodiagnosticoActivity.iniciar(getContext(), false);
 							getActivity().finish();
 							break;
-
+						case LOGIN_INVALID:
+							IdentificacionActivity.startAndPrintDialogOtroDispositivo(requireContext());
+							getActivity().finish();
+							break;
 					}
 				}
 			}

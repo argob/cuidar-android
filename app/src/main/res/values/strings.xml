@@ -23,7 +23,7 @@
     <string name="sexo">Sexo:</string>
     <string name="gracias_por_tu_ayuda">¡MUCHAS GRACIAS POR TU AYUDA!</string>
     <string name="ahora_podemos_continuar">Ahora podremos continuar con el diagnóstico.</string>
-    <string name="hubo_error">¡Ocurrió un error!</string>
+    <string name="hubo_error">Ocurrió un error</string>
     <string name="hubo_error_desc">Por favor volvé a intentarlo.</string>
     <string name="continuar">CONTINUAR</string>
     <string name="escanear_dni">ESCANEAR DNI</string>
@@ -62,7 +62,7 @@
     <string name="msg_no_tiene_sintomas">%1$s, no tenés síntomas compatibles con COVID-19.</string>
     <string name="numero_de_horas_cada_autodiagnostico">48</string>
     <string name="txt_rocomedar_tiempo_autodiagnostico">Es recomendable que hagas el autodiagnóstico cada:</string>
-    <string name="txt_sin_sintomas_title">sin síntomas COVID-19</string>
+    <string name="txt_sin_sintomas_title">sin síntomas COIVD-19</string>
     <string name="msg_evitar_salir">Seguí las medidas de prevención y evitá salir de tu casa, para cuidarte vos y no exponer a otras personas.</string>
     <string name="msg_recordatorio_resultado_puede_circular_fragment">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía. Para otros movimientos necesitás el Certificado Único Habilitante para Circulación.</string>
     <string name="msg_instrucciones_llamar">Si presentás síntomas o necesitás asistencia médica o psicológica llamá a:</string>
@@ -145,20 +145,22 @@
     <string name="no_sos_contagioso">-</string>
     <string name="pregunta_desvincular_dni">¿Estás seguro que deseás desvincular el DNI?</string>
     <string name="mensaje_error_escanear_dni">Hubo un error en la identificación del DNI escaneado. Por favor, ingresá los datos manualmente</string>
+    <string name="error_logged_other_device">Para continuar es necesario que vuelvas a ingresar tu DNI. Puede deberse a que hayas ingresado a Cuidar desde otro dispositivo o un control de seguridad periódico.</string>
+    <string name="error_no_internet">Por favor, revisá tu conexión a Internet</string>
     <string name="derivado_a_salud_local_banner">DERIVADO A SALUD: EN OBSERVACIÓN</string>
     <string name="obligatorio">*Obligatorio</string>
     <string name="credencial">Credencial</string>
-    <string name="dialog_version_message">Por favor descarga la nueva versión desde la tienda</string>
-    <string name="dialog_version_title">¡Tu aplicación está desactualizada!</string>
+    <string name="dialog_version_message">Por favor descargá la nueva versión desde la tienda</string>
+    <string name="dialog_version_title">Tu aplicación está desactualizada</string>
     <string name="actualizar">Actualizar</string>
     <string name="finalizar">Finalizar</string>
     <string name="tu_direccion">Tu dirección</string>
     <string name="localidad_departamento_partido">Localidad – Departamento/Partido</string>
-    <string name="autodiagnostico_banner">Por favor realiza el\nautodiagnóstico</string>
+    <string name="autodiagnostico_banner">Por favor realizá el\nautodiagnóstico</string>
     <string name="provinvia_y_telefono">%1$s : %2$s</string>
     <string name="conexion_a_internet">Conexión a internet</string>
-    <string name="sin_conexion_intenet">No hay conexión a internet. Intente más tarde.</string>
-    <string name="no_hay_internet">No hay conexión a internet.</string>
+    <string name="sin_conexion_intenet">No hay conexión a Internet. Intentá más tarde.</string>
+    <string name="no_hay_internet">No hay conexión a Internet.</string>
     <string name="telefono">Teléfono</string>
     <string name="direccion_actual">Dirección actual</string>
     <string name="cerrar_cesion">Cerrar sesión</string>
@@ -167,7 +169,7 @@
     <string name="informacion_importante">Información sobre coronavirus</string>
     <string name="abrir">abrir</string>
     <string name="autodiagnostico_desc">Realizá el autodiagnóstico para ayudarte a determinar los pasos a seguir según tus síntomas y factores de riesgo. Recordá que un autodiagnóstico sin síntomas asociados al COVID-19 dura 48hs, y que podés volver a realizarlo cuando lo consideres necesario.</string>
-    <string name="editar_informacion">Editar Información</string>
+    <string name="editar_informacion">Editar información</string>
 
     <string name="sintomas_autodiagnostico">Autodiagnóstico</string>
     <string name="sintomas_derivado_al_sistema_de_salud">Derivado al sistema de \nSalud</string>
@@ -179,8 +181,8 @@
     <string name="sintomas_otro_autodiagnostico">Hacer otro autodiagnóstico</string>
 
     <!--  Pantalla Principal   -->
-    <string name="h_fake_nombre">Santiago Rodriguez Bartel</string>
-    <string name="h_fake_dni">DNI: 43.984.562</string>
+    <string name="h_fake_nombre">Juan Rodriguez Perez</string>
+    <string name="h_fake_dni">DNI: 11.222.333</string>
     <string name="h_dni_usuario">DNI: %s</string>
 
     <string name="h_description_circular">Podés salir \na trabajar</string>
@@ -225,7 +227,7 @@
     <string name="error_diagnostic_message">Si considerás que hubo un error en la carga de tus síntomas entrá a https://www.buenosaires.gob.ar/coronavirus\n</string>
     <string name="phone_confirmation_explanation">Es importante que esta información sea correcta para poder contactarte y acercarte la asistencia que requieras.</string>
     <string name="phone_confirmation_current">Tenemos registrado %1$s como tu número de contacto.</string>
-    <string name="phone_confirmation_correct_phone">Por favor corregí tu número de teléfono si es necesario:</string>
+    <string name="phone_confirmation_correct_phone">Por favor corregí tu número de teléfono si es necesario (sin codigo de pais):</string>
     <string name="loss_of_smell">Pérdida del olfato</string>
     <string name="breathing_dificulty">Dificultad respiratoria</string>
     <string name="loss_of_taste">Pérdida de gusto</string>

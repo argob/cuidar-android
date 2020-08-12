@@ -9,7 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.utils.Constantes;
@@ -37,7 +38,7 @@ public class IdentificacionDniConfirmacionDatosFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         iniciarViews();
-        identificacionViewModel = new ViewModelProvider(getActivity()).get(IdentificacionViewModel.class);
+        identificacionViewModel = SharedViewModelCompat.getSharedViewModel(this, IdentificacionViewModel.class);
         identificacionViewModel.obtenerUsuario();
         identificacionViewModel.getUsuarioLiveData().observe(getViewLifecycleOwner(), usuario -> {
             String fechaNacimientoPresentacion = DateUtils.obtenerFechaParaPresentacion(usuario.getBirthDate());

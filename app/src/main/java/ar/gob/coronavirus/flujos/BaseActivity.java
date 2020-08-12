@@ -1,7 +1,6 @@
 package ar.gob.coronavirus.flujos;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -9,18 +8,22 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 
 import ar.gob.coronavirus.CovidApplication;
+import ar.gob.coronavirus.GlobalAction;
+import ar.gob.coronavirus.GlobalActionsManager;
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.utils.Constantes;
 import ar.gob.coronavirus.utils.PermisoDeUbicacion;
 import ar.gob.coronavirus.utils.TipoDePermisoDeUbicacion;
 import ar.gob.coronavirus.utils.permisos.PermisosUtileria;
+import kotlin.Unit;
+import timber.log.Timber;
 
 public class BaseActivity extends AppCompatActivity {
     private BaseViewModel viewModel;
     private AlertDialog dialogoDePermisoDeUbicacion;
+    private AlertDialog dialogoSinInternet;
 
     // Se solicita la ubicación en caso de tener sintomas compatibles para poder derivar al ciudadano al Centro de Salud más cercano.
     // Este es el único lugar y momento donde se le requiere la ubicación al usuario.
@@ -35,6 +38,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
     private void capturarUbicacionDeUsuario(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             PermisoDeUbicacion permisoDeUbicacion = PermisosUtileria.validarResultadoDePermisoDeUbicacionApi29(this, permissions, grantResults, requestCode);
@@ -45,29 +49,55 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        GlobalActionsManager.INSTANCE.subscribe(action -> {
+            if (action == GlobalAction.NO_INTERNET_CONNECTION) {
+                runOnUiThread(() -> {
+                    try {
+                        if (!BaseActivity.this.isFinishing()) {
+                            mostrarDialogoSinInternet();
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                });
+            }
+            return Unit.INSTANCE;
+        });
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (dialogoDePermisoDeUbicacion != null && dialogoDePermisoDeUbicacion.isShowing()) {
             dialogoDePermisoDeUbicacion.dismiss();
         }
+
+        if (dialogoSinInternet != null && dialogoSinInternet.isShowing()) {
+            dialogoSinInternet.dismiss();
+        }
     }
 
-    public boolean mostrarDialogoDeUbicacion(final Integer tipoDePermisoDeUbicacion) {
+    public void mostrarDialogoDeUbicacion(final Integer tipoDePermisoDeUbicacion) {
         PermisoDeUbicacion permisoDeUbicacion = PermisosUtileria.validarPermisoDeUbicacionGeneral(this, tipoDePermisoDeUbicacion);
-        boolean tienePermisoDeUbicacion = false;
-        switch (permisoDeUbicacion) {
-            case SIN_PERMISO:
-                if (dialogoDePermisoDeUbicacion == null || !dialogoDePermisoDeUbicacion.isShowing()) {
-                    crearDialogoParaSolicitarPermisosDeUbicacion(tipoDePermisoDeUbicacion);
-                }
-                break;
-            case SOLO_CON_LA_APLICACION_VISIBLE:
-                tienePermisoDeUbicacion = true;
-                break;
-            case NUNCA:
-                break;
+        if (permisoDeUbicacion == PermisoDeUbicacion.SIN_PERMISO) {
+            if (dialogoDePermisoDeUbicacion == null || !dialogoDePermisoDeUbicacion.isShowing()) {
+                crearDialogoParaSolicitarPermisosDeUbicacion(tipoDePermisoDeUbicacion);
+            }
         }
-        return tienePermisoDeUbicacion;
+    }
+
+
+    protected void mostrarDialogoSinInternet() {
+        if (dialogoSinInternet == null || !dialogoSinInternet.isShowing()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
+            builder.setMessage(R.string.error_no_internet);
+            builder.setPositiveButton(R.string.aceptar, (dialog, which) -> dialog.dismiss());
+            builder.setCancelable(false);
+            dialogoSinInternet = builder.show();
+        }
     }
 
     private void crearDialogoParaSolicitarPermisosDeUbicacion(final Integer tipoDePermisoDeUbicacion) {
@@ -75,19 +105,13 @@ public class BaseActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialogo_pedir_ubicacion, null);
         builder.setView(view);
-        builder.setPositiveButton(getString(R.string.permitir), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                validarPermisoDeUbicacionActual(tipoDePermisoDeUbicacion);
-            }
+        builder.setPositiveButton(getString(R.string.permitir), (dialog, which) -> {
+            dialog.dismiss();
+            validarPermisoDeUbicacionActual(tipoDePermisoDeUbicacion);
         });
-        builder.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                viewModel.setResultadoDialogoCustomPermisoDeUbicacion(false);
-                dialog.dismiss();
-            }
+        builder.setNegativeButton(getString(R.string.cancelar), (dialog, which) -> {
+            viewModel.setResultadoDialogoCustomPermisoDeUbicacion(false);
+            dialog.dismiss();
         });
         dialogoDePermisoDeUbicacion = builder.show();
     }
@@ -113,15 +137,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void observarPermisosDeUbicacionParaLanzarServicioDeRastreo() {
-        viewModel.obtenerLanzarDialogoPermisosLocalizacionLiveData().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer tipoDePermisoDeUbicacion) {
-                switch (tipoDePermisoDeUbicacion) {
-                    case TipoDePermisoDeUbicacion.SOLO_UBICACION:
-                        boolean tienePermisoDeSoloUbicacion = mostrarDialogoDeUbicacion(tipoDePermisoDeUbicacion);
-                        //viewModel.setResultadoDialogoCustomPermisoDeUbicacion(tienePermisoDeSoloUbicacion);
-                        break;
-                }
+        viewModel.obtenerLanzarDialogoPermisosLocalizacionLiveData().observe(this, tipoDePermisoDeUbicacion -> {
+            if (tipoDePermisoDeUbicacion == TipoDePermisoDeUbicacion.SOLO_UBICACION) {
+                mostrarDialogoDeUbicacion(tipoDePermisoDeUbicacion);
             }
         });
     }

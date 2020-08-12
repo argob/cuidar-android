@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import org.jetbrains.annotations.NotNull;
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.AntecedentesRemoto;
+import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteAntecedents;
 import ar.gob.coronavirus.databinding.FragmentAutodiagnosticoAntecedentesBinding;
 import kotlin.Unit;
 
@@ -29,8 +29,7 @@ public class AutodiagnosticoAntecedentesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAutodiagnosticoAntecedentesBinding.inflate(inflater, container, false);
 
-        AutoevaluacionViewModelFactory factory = new AutoevaluacionViewModelFactory();
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(AutodiagnosticoViewModel.class);
+        viewModel = SharedViewModelCompat.getSharedViewModel(this, AutodiagnosticoViewModel.class);
 
         binding.setLifecycleOwner(getViewLifecycleOwner());
         iniciarInterfaz();
@@ -70,8 +69,8 @@ public class AutodiagnosticoAntecedentesFragment extends Fragment {
     }
 
     private boolean obtainPreviousValue(Antecedents antecedent) {
-        AntecedentesRemoto previousValue = viewModel.obtenerAntecedente(antecedent.getId());
-        return previousValue != null && previousValue.isValor();
+        RemoteAntecedents previousValue = viewModel.obtenerAntecedente(antecedent.getId());
+        return previousValue != null && previousValue.getValue();
     }
 
     private void iniciarInterfaz() {
@@ -87,8 +86,8 @@ public class AutodiagnosticoAntecedentesFragment extends Fragment {
     }
 
     @NotNull
-    private AntecedentesRemoto createAntecedent(Antecedents antecedent) {
-        return new AntecedentesRemoto(
+    private RemoteAntecedents createAntecedent(Antecedents antecedent) {
+        return new RemoteAntecedents(
                 antecedent.getId(),
                 getString(antecedent.getShortText()),
                 false

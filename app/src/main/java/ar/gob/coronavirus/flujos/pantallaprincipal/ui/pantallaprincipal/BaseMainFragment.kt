@@ -8,7 +8,6 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import ar.gob.coronavirus.R
 import ar.gob.coronavirus.data.local.modelo.LocalUser
 import ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoActivity
@@ -17,14 +16,15 @@ import ar.gob.coronavirus.flujos.autodiagnostico.resultado.ResultadoActivity
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalActivity
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalViewModel
 import ar.gob.coronavirus.utils.date.DateUtils
-import ar.gob.coronavirus.utils.many.TextUtils
+import ar.gob.coronavirus.utils.many.APIConstants
 import kotlinx.android.synthetic.main.base_main_fragment.*
 import kotlinx.android.synthetic.main.base_main_fragment.view.*
 import kotlinx.android.synthetic.main.current_state_view.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 abstract class BaseMainFragment(private val contentLayout: Int) : Fragment(R.layout.base_main_fragment) {
 
-    protected val viewModel by activityViewModels<PantallaPrincipalViewModel>()
+    protected val viewModel by sharedViewModel<PantallaPrincipalViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,7 +80,7 @@ abstract class BaseMainFragment(private val contentLayout: Int) : Fragment(R.lay
     }
 
     private fun setUpEmojis() {
-        val semaforoInfo = TextUtils.getInfo()
+        val semaforoInfo = APIConstants.getInfo()
 
         emoji_uno?.text = semaforoInfo.emoji1
         emoji_dos?.text = semaforoInfo.emoji2

@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ar.gob.coronavirus.BuildConfig;
-import ar.gob.coronavirus.data.DniEntidad;
+import ar.gob.coronavirus.data.DniEntity;
 import ar.gob.coronavirus.data.Localidad;
 import ar.gob.coronavirus.data.Localidades;
 import ar.gob.coronavirus.data.Provincia;
@@ -30,7 +30,6 @@ import ar.gob.coronavirus.utils.observables.EventoUnico;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -38,22 +37,18 @@ public class IdentificacionViewModel extends BaseViewModel {
 
     private static final String CADENA_VACIA_PRESENTACION = " ";
 
-    private CompositeDisposable compositeDisposable;
-
     private MutableLiveData<LocalUser> usuarioliveData = new MutableLiveData<>();
     private MutableLiveData<EventoUnico<NavegacionFragments>> registrarUsuarioRespuesta = new MutableLiveData<>();
     private MutableLiveData<EventoUnico<Boolean>> actualizarUsuarioRespuesta = new MutableLiveData<>();
-    private MutableLiveData<DniEntidad> dniEntidadMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<DniEntity> dniEntidadMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Provincias> provinciasMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Localidad>> localidadesSpinnerLiveData = new MutableLiveData<>();
     private MutableLiveData<EventoUnico<Boolean>> limpiarPantallaLogin = new MutableLiveData<>();
 
-    private IdentificacionRepository identificacionRepository;
-    private IdentificacionNavegador navegador;
+    private IdentificationRepository identificationRepository;
 
     private Localidades localidades;
     private LocalAddress localAddress;
-    private Resources resources;
     private RepositorioLogout repositorioLogout;
 
     Provincia provinciaSeleccionado = null;
@@ -61,18 +56,15 @@ public class IdentificacionViewModel extends BaseViewModel {
     String nroTelefono = "";
 
     public IdentificacionViewModel(
-            IdentificacionRepository identificacionRepository,
+            IdentificationRepository identificationRepository,
             Resources resources,
-            RepositorioLogout repositorioLogout,
-            IdentificacionNavegador navegador
+            RepositorioLogout repositorioLogout
     ) {
         super();
-        this.identificacionRepository = identificacionRepository;
-        this.resources = resources;
+        this.identificationRepository = identificationRepository;
         this.repositorioLogout = repositorioLogout;
-        this.navegador = navegador;
-        this.localidades = crearObjetoLocalidadesDesdeString();
-        this.compositeDisposable = new CompositeDisposable();
+        this.localidades = crearObjetoLocalidadesDesdeString(resources);
+        crearObjetoProvinciaDesdeString(resources);
     }
 
     public LiveData<LocalUser> getUsuarioLiveData() {
@@ -87,7 +79,7 @@ public class IdentificacionViewModel extends BaseViewModel {
         return actualizarUsuarioRespuesta;
     }
 
-    public LiveData<DniEntidad> getDniEntidadLiveData() {
+    public LiveData<DniEntity> getDniEntidadLiveData() {
         return dniEntidadMutableLiveData;
     }
 
@@ -105,16 +97,16 @@ public class IdentificacionViewModel extends BaseViewModel {
 
     @SuppressLint("CheckResult")
     public void obtenerUsuario() {
-        compositeDisposable.add(identificacionRepository.obtenerUsuario()
+        addDisposable(identificationRepository.getUser()
                 .subscribe(localUser -> usuarioliveData.setValue(localUser), throwable -> Timber.e(throwable, "Error logging in")));
     }
 
     @SuppressLint("CheckResult")
     public void registrarUsuario(final String dniNro, final String dniTramite, final String sexo) {
-        compositeDisposable.add(Single.fromCallable(() -> identificacionRepository.autorizarUsuario(dniNro, sexo, dniTramite.replaceFirst("^0+(?!$)", "")))
+        addDisposable(Single.fromCallable(() -> identificationRepository.authorizeUser(dniNro, sexo, dniTramite.replaceFirst("^0+(?!$)", "")))
                 .flatMap(success -> {
                     if (success) {
-                        return identificacionRepository.registrarUsuario(dniNro, sexo);
+                        return identificationRepository.registerUser(dniNro, sexo);
                     } else {
                         throw new Exception("Error registering");
                     }
@@ -137,7 +129,7 @@ public class IdentificacionViewModel extends BaseViewModel {
 
     @SuppressLint("CheckResult")
     public void actualizarUsuario() {
-        compositeDisposable.add(identificacionRepository.actualizarUsuario(
+        addDisposable(identificationRepository.updateUser(
                 String.valueOf(usuarioliveData.getValue().getDni()),
                 usuarioliveData.getValue().getGender(),
                 nroTelefono,
@@ -150,32 +142,31 @@ public class IdentificacionViewModel extends BaseViewModel {
     }
 
     public void procesarCodigoQr(String cadenaQr) {
-        dniEntidadMutableLiveData.setValue(new DniEntidad().construirDni(cadenaQr));
+        dniEntidadMutableLiveData.setValue(DniEntity.build(cadenaQr));
     }
 
-    public String obtenerLocalidadesDeAssets() {
+    public String obtenerLocalidadesDeAssets(Resources resources) {
         return JsonUtileria.obtenerJsonDeAsset(resources, "localidades.json");
     }
 
-    public String obtenerProvinciasDeAssets() {
+    public String obtenerProvinciasDeAssets(Resources resources) {
         return JsonUtileria.obtenerJsonDeAsset(resources, "provincias.json");
     }
 
-    public Localidades crearObjetoLocalidadesDesdeString() {
+    public Localidades crearObjetoLocalidadesDesdeString(Resources resources) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
-        Localidades localidades = gson.fromJson(obtenerLocalidadesDeAssets(), Localidades.class);
+        Localidades localidades = gson.fromJson(obtenerLocalidadesDeAssets(resources), Localidades.class);
         return localidades;
     }
 
-    public void crearObjetoProvinciaDesdeString() {
+    public void crearObjetoProvinciaDesdeString(Resources resources) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
-        Provincias provincias = gson.fromJson(obtenerProvinciasDeAssets(), Provincias.class);
-        List<Provincia> provinciasOrdenadas = new ArrayList<>();
-        provinciasOrdenadas.addAll(provincias.getProvincias());
-        Collections.sort(provinciasOrdenadas, (locality1, locality2) -> locality1.getNombre().compareToIgnoreCase(locality2.getNombre()));
-        provincias.setProvincias(provinciasOrdenadas);
+        Provincias provincias = gson.fromJson(obtenerProvinciasDeAssets(resources), Provincias.class);
+        List<Provincia> sortedProvinces = new ArrayList<>(provincias.getProvincias());
+        Collections.sort(sortedProvinces, (locality1, locality2) -> locality1.getNombre().compareToIgnoreCase(locality2.getNombre()));
+        provincias.setProvincias(sortedProvinces);
         provinciasMutableLiveData.setValue(provincias);
     }
 
@@ -228,12 +219,12 @@ public class IdentificacionViewModel extends BaseViewModel {
     }
 
     void logout() {
-        compositeDisposable.add(Completable.fromAction(() ->
+        addDisposable((Completable.fromAction(() ->
                 repositorioLogout.logout()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> limpiarPantallaLogin.setValue(new EventoUnico(true)), throwable -> {
                     if (BuildConfig.DEBUG)
                         Timber.d("Error al desloguear");
-                }));
+                })));
     }
 
     public void localidadSeleccionada(Localidad localidadSeleccionada) {
@@ -243,13 +234,9 @@ public class IdentificacionViewModel extends BaseViewModel {
     public void navegarSiguientePantallaDependiendoDelEstado() {
         boolean debeAutodiagnosticarse = usuarioliveData.getValue().getCurrentState().getUserStatus() == UserStatus.MUST_SELF_DIAGNOSE;
         if (debeAutodiagnosticarse) {
-            navegador.navegarAAutoDiagnosticoActivity();
+            registrarUsuarioRespuesta.setValue(new EventoUnico<>(NavegacionFragments.AUTODIAGNOSTICO));
         } else {
-            navegador.navegarAPantallaPrincipal(false);
+            registrarUsuarioRespuesta.setValue(new EventoUnico<>(NavegacionFragments.PRINCIPAL));
         }
-    }
-
-    public void onDestroy() {
-        compositeDisposable.clear();
     }
 }

@@ -45,7 +45,7 @@ object PreferencesManager {
 
     fun getPassword(): String? = encryptedSharedPreferences.getString(Constantes.PASSWORD, null)
 
-    fun savePassword(password: String) = encryptedSharedPreferences.edit { putString(Constantes.PASSWORD, password) }
+    fun savePassword(password: String?) = encryptedSharedPreferences.edit { putString(Constantes.PASSWORD, password) }
 
     fun saveWasLastShownAdviceNation(was: Boolean) = sharedPreferences.edit { putBoolean(Constantes.LAST_SHOWN_ADVICE, was) }
 

@@ -1,6 +1,6 @@
 # Cuidar Android
 
-Se publica aquí el código fuente de la aplicación Cuidar para sistemas operativos Android. Este código fuente es el *trabajo en curso* hacia la versión 3.5.2. En el `Changelog.txt` se puede ver el historial de cambios y las novedades que contendrá esta versión.
+Se publica aquí el código fuente de la aplicación Cuidar para sistemas operativos Android. Este código fuente es el *trabajo en curso* hacia la versión 3.5.4. En el archivo [CHANGELOG.md](CHANGELOG.md) se puede ver el historial de cambios y las novedades que contendrá esta versión.
 
 Esta aplicación es el método elegido por millones de ciudadanos y ciudadanas de Argentina para mostrar sus certificados de circulación en el contexto de la pandemia de COVID-19, así como también para hacerse autodiagnósticos que les permitan saber si deben consultar al sistema de salud y ser derivados al Comité Operativo de Emergencia Provincial de su jurisdicción.
 
@@ -36,6 +36,15 @@ Para proteger a la ciudadanía de versiones que imposten a la aplicación oficia
 # Compilación
 
 Se puede compilar con Gradle o con Android Studio. Para usar Gradle es necesario tener 6.5.1 o superior. En ese caso se debe correr `gradle build`. El apk queda en `app/build/outputs/apk/opensource`.
+
+## Firebase
+
+Para poder compilar la app es necesario que crees un proyecto de prueba en Firebase ya que se utilizan servicios de mensajería para su funcionamiento. Los pasos a seguir son:
+
+- Ingresar en https://console.firebase.google.com/ con una cuenta de Google.
+- Creá un proyecto de prueba, bajá `google-services.json` y colocalo en `app/`.
+
+Guía: https://firebase.google.com/docs/android/setup?hl=es
 
 # Arquitectura
 

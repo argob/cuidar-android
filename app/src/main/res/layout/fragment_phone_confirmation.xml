@@ -48,14 +48,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            app:helperText="@string/telefono">
+            app:boxBackgroundColor="@color/color_fondo_edittext"
+            app:helperText="@string/codigo_area_mas_numeor"
+            app:helperTextEnabled="true"
+            app:prefixText="@string/prefijo_telefono">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/new_phone_input"
                 style="@style/text_input_edittext_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone" />
+                android:digits="0123456789"
+                android:inputType="phone"
+                android:maxLength="13" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -15,17 +15,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import ar.gob.coronavirus.R;
-import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.AntecedentesRemoto;
-import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.AutoevaluacionRemoto;
-import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.SintomasRemoto;
-
-import ar.gob.coronavirus.databinding.FragmentAutodiagnosticoConfirmacionBinding;
-
-import ar.gob.coronavirus.utils.InternetUtileria;
-import ar.gob.coronavirus.utils.TipoDePermisoDeUbicacion;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
-import ar.gob.coronavirus.utils.permisos.PermisosUtileria;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +22,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import ar.gob.coronavirus.R;
+import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteAntecedents;
+import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSelfEvaluation;
+import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSymptom;
+import ar.gob.coronavirus.databinding.FragmentAutodiagnosticoConfirmacionBinding;
+import ar.gob.coronavirus.utils.InternetUtileria;
+import ar.gob.coronavirus.utils.TipoDePermisoDeUbicacion;
+import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
+import ar.gob.coronavirus.utils.permisos.PermisosUtileria;
 
 public class AutodiagnosticoConfirmacionFragment extends Fragment {
     private FragmentAutodiagnosticoConfirmacionBinding binding = null;
@@ -82,15 +81,15 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
             }
         });
 
-        AutoevaluacionRemoto autoevaluacion = viewModel.obtenerAutoevaluacion();
-        String stringTemperatura = String.format("Mi temperatura es: %s", autoevaluacion.getTemperatura());
+        RemoteSelfEvaluation autoevaluacion = viewModel.obtenerAutoevaluacion();
+        String stringTemperatura = String.format("Mi temperatura es: %s", autoevaluacion.getTemperature());
         binding.tvTemperatura.setText(stringTemperatura);
 
-        List<SintomasRemoto> sintomas = autoevaluacion.getSintomas();
+        List<RemoteSymptom> sintomas = autoevaluacion.getSymptoms();
         ordenarSintomas(sintomas);
         StringBuilder stringBuilderSintomas = new StringBuilder();
-        for (SintomasRemoto sintoma: sintomas) {
-            if (sintoma.isValor()) {
+        for (RemoteSymptom sintoma : sintomas) {
+            if (sintoma.getValue()) {
                 if (stringBuilderSintomas.length() == 0) {
                     stringBuilderSintomas.append("Mis síntomas son:");
                 }
@@ -106,17 +105,17 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
 
         binding.tvSintomas.setText(stringBuilderSintomas);
 
-        List<AntecedentesRemoto> antecedentes = autoevaluacion.getAntecedentes();
+        List<RemoteAntecedents> antecedentes = autoevaluacion.getAntecedents();
         ordenarAntecedentes(antecedentes);
         StringBuilder stringBuilderAntecedentes = new StringBuilder();
-        for (AntecedentesRemoto antecedente: antecedentes) {
-            if (antecedente.isValor()) {
+        for (RemoteAntecedents antecedente : antecedentes) {
+            if (antecedente.getValue()) {
                 if (stringBuilderAntecedentes.length() == 0) {
                     stringBuilderAntecedentes.append("Mis antecedentes son:");
                 }
                 stringBuilderAntecedentes.append("\n");
                 stringBuilderAntecedentes.append(" • ");
-                stringBuilderAntecedentes.append(antecedente.getDescripcion());
+                stringBuilderAntecedentes.append(antecedente.getDescription());
             }
         }
 
@@ -127,35 +126,35 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
         binding.tvAntecedentes.setText(stringBuilderAntecedentes);
     }
 
-    private void ordenarSintomas(List<SintomasRemoto> sintomas) {
-        Collections.sort(sintomas, new Comparator<SintomasRemoto>() {
+    private void ordenarSintomas(List<RemoteSymptom> sintomas) {
+        Collections.sort(sintomas, new Comparator<RemoteSymptom>() {
             @Override
-            public int compare(SintomasRemoto sr1, SintomasRemoto sr2) {
+            public int compare(RemoteSymptom sr1, RemoteSymptom sr2) {
                 return obtenerPosicionSintoma(sr1).compareTo(obtenerPosicionSintoma(sr2));
             }
         });
     }
 
-    private Integer obtenerPosicionSintoma(SintomasRemoto sintoma) {
+    private Integer obtenerPosicionSintoma(RemoteSymptom sintoma) {
         Symptoms tipo = Symptoms.valueOf(sintoma.getId());
         return tipo.ordinal();
     }
 
-    private void ordenarAntecedentes(List<AntecedentesRemoto> antecedentes) {
-        Collections.sort(antecedentes, new Comparator<AntecedentesRemoto>() {
+    private void ordenarAntecedentes(List<RemoteAntecedents> antecedentes) {
+        Collections.sort(antecedentes, new Comparator<RemoteAntecedents>() {
             @Override
-            public int compare(AntecedentesRemoto ar1, AntecedentesRemoto ar2) {
+            public int compare(RemoteAntecedents ar1, RemoteAntecedents ar2) {
                 return obtenerPosicionAntecedente(ar1).compareTo(obtenerPosicionAntecedente(ar2));
             }
         });
     }
 
-    private Integer obtenerPosicionAntecedente(AntecedentesRemoto antecedente) {
+    private Integer obtenerPosicionAntecedente(RemoteAntecedents antecedente) {
         Antecedents tipo = Antecedents.valueOf(antecedente.getId());
         return tipo.ordinal();
     }
 
-    private String obtenerResumenSintoma(SintomasRemoto sintoma) {
+    private String obtenerResumenSintoma(RemoteSymptom sintoma) {
         Symptoms tipo = Symptoms.valueOf(sintoma.getId());
         return getString(tipo.getShortDescription());
     }

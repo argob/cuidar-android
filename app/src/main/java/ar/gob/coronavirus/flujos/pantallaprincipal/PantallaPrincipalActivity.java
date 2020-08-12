@@ -19,10 +19,11 @@ import androidx.constraintlayout.widget.Group;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
+import org.koin.androidx.viewmodel.compat.ViewModelCompat;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.UserStatus;
@@ -80,7 +81,7 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
                     ResultadoActivity.iniciar(PantallaPrincipalActivity.this, ResultadoActivity.OpcionesNavegacion.RESULTADO_ROSA);
                 }
             } else {
-                if (adviceIv != null && adviceIv.getVisibility() == View.VISIBLE) {
+                if (adviceIv != null) {
                     adviceIv.loadUrl(null);
                     adviceIv.setVisibility(View.GONE);
                 }
@@ -109,8 +110,7 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
         getSupportActionBar().setTitle("");
 
 
-        PantallaPrincipalViewModelFactory factory = new PantallaPrincipalViewModelFactory();
-        mViewModel = new ViewModelProvider(this, factory).get(PantallaPrincipalViewModel.class);
+        mViewModel = ViewModelCompat.getViewModel(this, PantallaPrincipalViewModel.class);
         setBaseViewModel(mViewModel);
         mViewModel.permitirNavegar = false;
 
@@ -194,7 +194,9 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
         });
 
         mViewModel.getAdviceLiveData().observe(this, adviceUrl -> {
-            adviceIv.loadUrl(adviceUrl);
+            if (!mostrarResultado) {
+                adviceIv.loadUrl(adviceUrl);
+            }
         });
     }
 

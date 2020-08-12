@@ -9,11 +9,12 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import org.koin.androidx.viewmodel.compat.ViewModelCompat;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.databinding.ActivityAutodiagnosticoBinding;
@@ -53,8 +54,7 @@ public class AutodiagnosticoActivity extends BaseActivity {
 
         vieneDesdePrincipal = getIntent().getBooleanExtra(LLAVE_ORIGEN_PRINCIPAL, false);
 
-        AutoevaluacionViewModelFactory factory = new AutoevaluacionViewModelFactory();
-        viewModel = new ViewModelProvider(this, factory).get(AutodiagnosticoViewModel.class);
+        viewModel = ViewModelCompat.getViewModel(this, AutodiagnosticoViewModel.class);
         setBaseViewModel(viewModel);
 
         binding.setViewModel(viewModel);

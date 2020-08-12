@@ -21,14 +21,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
+
 import ar.gob.coronavirus.R;
-import ar.gob.coronavirus.data.DniEntidad;
+import ar.gob.coronavirus.data.DniEntity;
 import ar.gob.coronavirus.fcm.FcmIntentService;
 import ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoActivity;
 import ar.gob.coronavirus.flujos.inicio.InicioTerminosFragment;
@@ -54,7 +55,7 @@ public class IdentificacionDniManualFragment extends Fragment {
     private RadioButton masculinoRb;
     private RadioButton femeninoRb;
     private RadioGroup radioGroupSexo;
-    private LinearLayout mensajeErrorContainer;
+    private View mensajeError;
     private TextInputLayout dniIL;
     private TextInputLayout noTramiteIL;
     private Dialog loaderDialog;
@@ -75,7 +76,7 @@ public class IdentificacionDniManualFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         iniciarViews();
-        identificacionViewModel = new ViewModelProvider(getActivity()).get(IdentificacionViewModel.class);
+        identificacionViewModel = SharedViewModelCompat.getSharedViewModel(this, IdentificacionViewModel.class);
         iniciarObservers();
         iniciarEventos();
     }
@@ -96,7 +97,7 @@ public class IdentificacionDniManualFragment extends Fragment {
         femeninoRb = getView().findViewById(R.id.rb_femenino_identificacion_fragment);
         textViewErrorSexo = getView().findViewById(R.id.error_sexo_radio_group);
         radioGroupSexo = getView().findViewById(R.id.radioGroupSexo);
-        mensajeErrorContainer = getView().findViewById(R.id.ln_mensaje_error_container);
+        mensajeError = getView().findViewById(R.id.tv_error_message);
         comoObtenerNoTramite = getView().findViewById(R.id.tv_como_obtengo_numero_tramite_identificacion_fragment);
         checkBox = getView().findViewById(R.id.checkBoxAceptarCondiciones);
         txtTyC = getView().findViewById(R.id.txtTerminosYCondiciones);
@@ -160,7 +161,7 @@ public class IdentificacionDniManualFragment extends Fragment {
     private void iniciarEventos() {
         botonSiguiente.setOnClickListener(v -> {
             if (InternetUtileria.hayConexionDeInternet(getContext())) {
-                mensajeErrorContainer.setVisibility(View.GONE);
+                mensajeError.setVisibility(View.GONE);
                 String dni = dniEt.getText().toString();
                 String noTramite = numeroTramiteEt.getText().toString();
                 if (validarDatosEntrada(dni, noTramite)) {
@@ -180,7 +181,7 @@ public class IdentificacionDniManualFragment extends Fragment {
         });
 
         botonEscanear.setOnClickListener(v -> {
-            mensajeErrorContainer.setVisibility(View.GONE);
+            mensajeError.setVisibility(View.GONE);
             if (revisarPermisoCamara()) {
                 IntentIntegrator intentEscaner = IntentIntegrator.forSupportFragment(IdentificacionDniManualFragment.this);
                 intentEscaner.initiateScan();
@@ -212,9 +213,9 @@ public class IdentificacionDniManualFragment extends Fragment {
     }
 
     private void iniciarObservers() {
-        identificacionViewModel.getDniEntidadLiveData().observe(getViewLifecycleOwner(), dniEntidad -> {
-            if (dniEntidad.tieneDatosBasicosCompletos()) {
-                insertarDatosEnLaVista(dniEntidad);
+        identificacionViewModel.getDniEntidadLiveData().observe(getViewLifecycleOwner(), dniEntity -> {
+            if (dniEntity.hasBasicData()) {
+                insertarDatosEnLaVista(dniEntity);
             } else {
                 ConfirmacionDialog.showDialog(IdentificacionDniManualFragment.this.getContext(), R.string.mensaje_error_escanear_dni, R.string.aceptar, (dialog, which) -> dialog.dismiss());
             }
@@ -237,7 +238,7 @@ public class IdentificacionDniManualFragment extends Fragment {
                         getActivity().finish();
                         break;
                     case ERROR:
-                        mensajeErrorContainer.setVisibility(View.VISIBLE);
+                        mensajeError.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -259,10 +260,10 @@ public class IdentificacionDniManualFragment extends Fragment {
         radioGroupSexo.clearCheck();
     }
 
-    private void insertarDatosEnLaVista(DniEntidad dniEntidad) {
-        dniEt.setText(dniEntidad.getId());
-        numeroTramiteEt.setText(dniEntidad.getTramite());
-        if (dniEntidad.getSexo().equals(Constantes.MASCULINO)) {
+    private void insertarDatosEnLaVista(DniEntity dniEntity) {
+        dniEt.setText(dniEntity.getId());
+        numeroTramiteEt.setText(dniEntity.getProcedure());
+        if (Constantes.MASCULINO.equals(dniEntity.getGender())) {
             masculinoRb.setChecked(true);
         } else {
             femeninoRb.setChecked(true);

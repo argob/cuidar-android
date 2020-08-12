@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import org.jetbrains.annotations.NotNull;
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.SintomasRemoto;
+import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSymptom;
 import ar.gob.coronavirus.databinding.FragmentAutodiagnosticoSintomasBinding;
 import kotlin.Unit;
 
@@ -29,8 +29,7 @@ public class AutodiagnosticoSintomasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAutodiagnosticoSintomasBinding.inflate(inflater, container, false);
 
-        AutoevaluacionViewModelFactory factory = new AutoevaluacionViewModelFactory();
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(AutodiagnosticoViewModel.class);
+        viewModel = SharedViewModelCompat.getSharedViewModel(this, AutodiagnosticoViewModel.class);
 
         binding.setLifecycleOwner(getViewLifecycleOwner());
         iniciarValoresDeVistas();
@@ -48,8 +47,8 @@ public class AutodiagnosticoSintomasFragment extends Fragment {
     private void iniciarValoresDeVistas() {
         List<SymptomElement> elements = new ArrayList<>();
         for (Symptoms value : Symptoms.values()) {
-            SintomasRemoto currentValue = viewModel.obtenerSintoma(value);
-            elements.add(new SymptomElement(value, currentValue != null && currentValue.isValor()));
+            RemoteSymptom currentValue = viewModel.obtenerSintoma(value);
+            elements.add(new SymptomElement(value, currentValue != null && currentValue.getValue()));
         }
         SymptomsAdapter adapter = new SymptomsAdapter(elements, (symptoms, value) -> {
             viewModel.agregarSintoma(createSymptom(symptoms, value));
@@ -64,8 +63,8 @@ public class AutodiagnosticoSintomasFragment extends Fragment {
     }
 
     @NotNull
-    private SintomasRemoto createSymptom(Symptoms symptom, boolean value) {
-        return new SintomasRemoto(
+    private RemoteSymptom createSymptom(Symptoms symptom, boolean value) {
+        return new RemoteSymptom(
                 symptom.getValue(),
                 getString(symptom.getTitle()),
                 value

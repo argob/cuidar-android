@@ -1,7 +1,7 @@
 package ar.gob.coronavirus.data.remoto.modelo
 
 import ar.gob.coronavirus.utils.PreferencesManager
-import ar.gob.coronavirus.utils.many.TextUtils
+import ar.gob.coronavirus.utils.many.APIConstants
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.codec.digest.DigestUtils
 
@@ -13,7 +13,7 @@ class AutorizacionUsuario(private val dni: String, private val sexo: String, pri
     }
 
     private fun computeHash(): String = buildString {
-        append(TextUtils.getSecretAutorizacionv2())
+        append(APIConstants.getSecretAutorizacionv2())
         append('-')
         append(dni)
         append('-')

@@ -13,23 +13,24 @@ import ar.gob.coronavirus.data.remoto.modelo.SelfEvaluationResponse;
 import ar.gob.coronavirus.data.remoto.modelo.Token;
 import ar.gob.coronavirus.data.remoto.modelo.TokenRefreshBody;
 import ar.gob.coronavirus.data.remoto.modelo.UserInformationUpdate;
-import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.AutoevaluacionRemoto;
+import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSelfEvaluation;
 import ar.gob.coronavirus.utils.PreferencesManager;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class Api {
 
-    private CovidRetrofit covidRetrofit;
+    private CovidApiService apiService;
 
-    public Api(CovidRetrofit covidRetrofit) {
-        this.covidRetrofit = covidRetrofit;
+    public Api(CovidApiService apiService) {
+        this.apiService = apiService;
     }
 
-    public RemoteUser obtenerUsuario(String dni, String sexo) {
+    public RemoteUser getUserInformation(String dni, String sexo) {
         try {
-            Response<RemoteUser> usuarioRemoto = covidRetrofit.obtenerCovidApiService()
+            Response<RemoteUser> usuarioRemoto = apiService
                     .obtenerUsuario(dni, sexo).execute();
             return usuarioRemoto.body();
         } catch (IOException e) {
@@ -37,9 +38,9 @@ public class Api {
         }
     }
 
-    public RemoteUser actualizarUsuario(String dni, String sexo, String telefono, RemoteAddress remoteAddress, RemoteLocation remoteLocation) {
+    public RemoteUser updateUser(String dni, String sexo, String telefono, RemoteAddress remoteAddress, RemoteLocation remoteLocation) {
         try {
-            Response<RemoteUser> usuarioRemoto = covidRetrofit.obtenerCovidApiService()
+            Response<RemoteUser> usuarioRemoto = apiService
                     .actualizarUsuario(dni, sexo, new UserInformationUpdate(telefono, remoteAddress, remoteLocation)).execute();
             return usuarioRemoto.body();
         } catch (IOException e) {
@@ -47,10 +48,10 @@ public class Api {
         }
     }
 
-    public SelfEvaluationResponse confirmarAutodiagnostico(String dni, String sexo, AutoevaluacionRemoto autoevaluacionRemoto) {
+    public SelfEvaluationResponse confirmarAutodiagnostico(String dni, String sexo, RemoteSelfEvaluation remoteSelfEvaluation) {
         try {
-            Response<SelfEvaluationResponse> usuarioRemoto = covidRetrofit.obtenerCovidApiService()
-                    .confirmarAutoevaluacion(dni, sexo, autoevaluacionRemoto).execute();
+            Response<SelfEvaluationResponse> usuarioRemoto = apiService
+                    .confirmarAutoevaluacion(dni, sexo, remoteSelfEvaluation).execute();
             return usuarioRemoto.body();
         } catch (IOException e) {
             return null;
@@ -60,7 +61,7 @@ public class Api {
     public Token autorizarUsuario(String dni, String sexo, String nroTramite) {
         try {
             AutorizacionUsuario autorizacionUsuario = new AutorizacionUsuario(dni, sexo, nroTramite);
-            Response<Token> usuarioRemoto = covidRetrofit.obtenerCovidApiService()
+            Response<Token> usuarioRemoto = apiService
                     .autorizacion(autorizacionUsuario).execute();
             Token body = usuarioRemoto.body();
             if (body == null) {
@@ -71,18 +72,19 @@ public class Api {
                 return body;
             }
         } catch (IOException e) {
+            Timber.e(e, "Exception authorizing");
             return null;
         }
     }
 
     public Completable registrarPush(long dni, String sexo, String pushId) {
-        return covidRetrofit.obtenerCovidApiService()
+        return apiService
                 .registrarToken(dni, sexo, new PushBody(pushId));
     }
 
     public boolean desregistrarPush(String dni, String sexo, String pushId) {
         try {
-            covidRetrofit.obtenerCovidApiService()
+            apiService
                     .desregistrarToken(dni, sexo, new PushBody(pushId)).execute();
             return true;
         } catch (IOException e) {
@@ -92,7 +94,7 @@ public class Api {
 
     @NonNull
     public Single<Token> refresh(String token, String something) {
-        return covidRetrofit.obtenerCovidApiService()
+        return apiService
                 .refresh(new TokenRefreshBody(token, something));
     }
 }

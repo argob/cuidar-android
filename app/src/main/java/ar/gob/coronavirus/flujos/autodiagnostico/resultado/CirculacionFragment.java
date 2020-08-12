@@ -15,12 +15,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+
+import org.koin.androidx.viewmodel.compat.ViewModelCompat;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.UserStatus;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
-import ar.gob.coronavirus.flujos.autodiagnostico.AutoevaluacionViewModelFactory;
 import ar.gob.coronavirus.flujos.autodiagnostico.ProvincesEnum;
 import ar.gob.coronavirus.utils.strings.PintarSeccionBold;
 import ar.gob.coronavirus.utils.strings.SpanFormatter;
@@ -78,8 +78,7 @@ public class CirculacionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ViewModelProvider.Factory factory = new AutoevaluacionViewModelFactory();
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(AutodiagnosticoResultadoViewModel.class);
+        viewModel = ViewModelCompat.getViewModel(this, AutodiagnosticoResultadoViewModel.class);
         observarUsuario();
         viewModel.cargarUsuario();
     }

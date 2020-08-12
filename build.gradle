@@ -1,8 +1,4 @@
-
 buildscript {
-    def nav_version = "2.3.0-alpha04"
-    ext.kotlin_version = '1.3.72'
-
     repositories {
         google()
         jcenter()
@@ -10,11 +6,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-        classpath "com.newrelic.agent.android:agent-gradle-plugin:5.+"
-        classpath 'com.google.gms:google-services:4.2.0'  // Google Services plugin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:$buildGradleVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
+        classpath "com.newrelic.agent.android:agent-gradle-plugin:$newRelicVersion"
+        classpath "com.google.gms:google-services:$googleServicesVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 

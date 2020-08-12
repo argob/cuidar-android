@@ -12,10 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
 
 import java.util.Locale;
 
@@ -35,8 +36,7 @@ public class AutodiagnosticoTemperaturaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAutodiagnosticoTemperaturaBinding.inflate(inflater, container, false);
-        AutoevaluacionViewModelFactory factory = new AutoevaluacionViewModelFactory();
-        viewModel = new ViewModelProvider(requireActivity(), factory).get(AutodiagnosticoViewModel.class);
+        viewModel = SharedViewModelCompat.getSharedViewModel(this, AutodiagnosticoViewModel.class);
         binding.setViewModel(viewModel);
         crearDialogo();
         binding.setLifecycleOwner(getViewLifecycleOwner());

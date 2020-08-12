@@ -15,10 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.Localidad;
@@ -79,7 +80,7 @@ public class IdentificacionDireccionCompletaFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (getActivity() != null) {
-            identificacionViewModel = new ViewModelProvider(getActivity()).get(IdentificacionViewModel.class);
+            identificacionViewModel = SharedViewModelCompat.getSharedViewModel(this, IdentificacionViewModel.class);
             localUser = ((IdentificacionActivity) getActivity()).localUser;
 
             setupViews();
@@ -110,8 +111,6 @@ public class IdentificacionDireccionCompletaFragment extends Fragment {
     }
 
     private void setupObservers() {
-        identificacionViewModel.crearObjetoProvinciaDesdeString();
-
         identificacionViewModel.getProvinciasLiveData().observe(getViewLifecycleOwner(), provincias -> {
             provinciaAdapter = new AutocompleteAdapter<>(
                     getContext(),
@@ -380,11 +379,5 @@ public class IdentificacionDireccionCompletaFragment extends Fragment {
 
         dialog.setAccionBoton(v -> dialog.dismiss());
         dialog.show(getParentFragmentManager(), "TAG");
-    }
-
-    @Override
-    public void onDestroy() {
-        identificacionViewModel.onDestroy();
-        super.onDestroy();
     }
 }

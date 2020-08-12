@@ -8,6 +8,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import ar.gob.coronavirus.di.KoinComponentKt;
 import ar.gob.coronavirus.fcm.FcmIntentService;
 import ar.gob.coronavirus.flujos.ActualizarForzadoActivity;
 import ar.gob.coronavirus.flujos.ErrorGenericoActivity;
@@ -53,11 +54,13 @@ public class CovidApplication extends Application {
                 case LOGOUT:
                     IdentificacionActivity.startRemovingStack(this);
                     break;
+                case INVALID_REFRESH_TOKEN:
+                    IdentificacionActivity.startAndPrintDialogOtroDispositivo(this);
+                    break;
             }
             return Unit.INSTANCE;
         });
-
-        CleanUp.INSTANCE.launch(getApplicationInfo().dataDir);
+        KoinComponentKt.startKoin(this);
     }
 
     public void manejadorDeExcepciones(Throwable e) {

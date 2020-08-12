@@ -39,4 +39,5 @@ public class Constantes {
     public static final String SOMETHING = "something";
     @NotNull
     public static final String LAST_SHOWN_ADVICE = "last_shown_advice";
+    public static final String NOTIFICATIONS = "notificaciones";
 }

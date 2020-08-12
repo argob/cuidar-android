@@ -8,13 +8,12 @@ import android.text.TextUtils;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.concurrent.TimeUnit;
-
 import ar.gob.coronavirus.data.UserStatus;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.data.repositorios.RepositorioLogout;
 import ar.gob.coronavirus.flujos.BaseViewModel;
 import ar.gob.coronavirus.utils.Constantes;
+import ar.gob.coronavirus.utils.extensions.RxExtensionsKt;
 import ar.gob.coronavirus.utils.observables.EventoUnico;
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -95,10 +94,12 @@ public class PantallaPrincipalViewModel extends BaseViewModel {
         eventoLoadingDialog.setValue(new EventoUnico<>(true));
 
         Disposable disposable = pantallaPrincipalRepository.getAdviceUrl()
+                .onErrorReturnItem("")
                 .flatMap(url -> {
-                    adviceLiveData.setValue(url);
+                    if (!url.isEmpty())
+                        adviceLiveData.setValue(url);
                     return Single.zip(pantallaPrincipalRepository.updateUser(),
-                            Single.just(true).delay(3, TimeUnit.SECONDS), // Ensure request takes at least 3 seconds
+                            RxExtensionsKt.delayedSingle(true, 3), // Ensure request takes at least 3 seconds
                             (localUser, aBoolean) -> localUser);
                 })
                 .subscribeOn(Schedulers.io())

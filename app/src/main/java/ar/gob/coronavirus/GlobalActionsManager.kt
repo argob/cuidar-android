@@ -18,5 +18,5 @@ object GlobalActionsManager {
 }
 
 enum class GlobalAction {
-    FORCE_UPDATE, LOGOUT;
+    FORCE_UPDATE, LOGOUT, INVALID_REFRESH_TOKEN, NO_INTERNET_CONNECTION;
 }

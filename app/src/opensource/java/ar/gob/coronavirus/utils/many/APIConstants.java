@@ -2,7 +2,7 @@ package ar.gob.coronavirus.utils.many;
 
 import java.util.Random;
 
-public class TextUtils {
+public class APIConstants {
 
     public static final String APPLICATION_TOKEN = "new_relic_token";
     public static final String BASE_URL = "http://base.url";

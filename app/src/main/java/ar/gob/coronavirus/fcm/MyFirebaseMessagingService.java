@@ -12,6 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import org.jetbrains.annotations.NotNull;
+import org.koin.java.KoinJavaComponent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,8 +20,6 @@ import ar.gob.coronavirus.CovidApplication;
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.local.EncryptedDataBase;
 import ar.gob.coronavirus.data.remoto.Api;
-import ar.gob.coronavirus.data.remoto.CovidRetrofit;
-import ar.gob.coronavirus.data.remoto.interceptores.HeadersInterceptor;
 import ar.gob.coronavirus.flujos.inicio.InicioActivity;
 import ar.gob.coronavirus.utils.Constantes;
 import ar.gob.coronavirus.utils.PreferencesManager;
@@ -43,9 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .select()
                     .delaySubscription(15, TimeUnit.SECONDS)
                     .flatMapCompletable(user -> {
-                        HeadersInterceptor headersInterceptor = new HeadersInterceptor();
-                        CovidRetrofit covidRetrofit = new CovidRetrofit(headersInterceptor);
-                        final Api api = new Api(covidRetrofit);
+                        Api api = KoinJavaComponent.get(Api.class);
                         return api.registrarPush(user.getDni(), user.getGender(), token);
                     })
                     .subscribeOn(Schedulers.io())

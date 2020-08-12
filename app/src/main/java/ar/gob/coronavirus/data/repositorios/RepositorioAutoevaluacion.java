@@ -6,7 +6,7 @@ import ar.gob.coronavirus.data.local.UserDAO;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.data.remoto.Api;
 import ar.gob.coronavirus.data.remoto.modelo.SelfEvaluationResponse;
-import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.AutoevaluacionRemoto;
+import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSelfEvaluation;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -21,13 +21,13 @@ public class RepositorioAutoevaluacion implements IRepositorioAutoevaluacion {
         this.userDao = userDao;
     }
 
-    public Single<LocalUser> confirmarAutoevaluacion(AutoevaluacionRemoto autoevaluacionRemoto) {
+    public Single<LocalUser> confirmarAutoevaluacion(RemoteSelfEvaluation remoteSelfEvaluation) {
         return userDao.select()
                 .flatMap(localUser -> Single.fromCallable(() -> {
                     String dni = String.valueOf(localUser.getDni());
                     String sexo = localUser.getGender();
 
-                    SelfEvaluationResponse remoteUser = api.confirmarAutodiagnostico(dni, sexo, autoevaluacionRemoto);
+                    SelfEvaluationResponse remoteUser = api.confirmarAutodiagnostico(dni, sexo, remoteSelfEvaluation);
                     if (remoteUser != null) {
                         return ConvertirClasesRemotasEnLocales.updateUser(localUser, remoteUser);
                     }
