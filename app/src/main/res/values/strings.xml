@@ -55,7 +55,7 @@
     <string name="covid_negativo">Covid-19 negativo</string>
     <string name="texto_resultado_negativo">, El sistema de Salud confirmó tu resultado negativo en el test por coronavirus (COVID-19) de acuerdo a los análisis de laboratorio. \n\n Seguí las medidas de prevención y evitá salir de tu casa, para cuidarte vos y no exponer a otras personas. \n\n Si tenés que salir de casa, te recomendamos que lleves tu DNI y solicites el Certificado único habilitante para circulación.</string>
     <string name="autodiagnostico_titulo">Autoevaluación</string>
-    <string name="realiza_autodiagnostico">Por favor realizá el autodiagnóstico</string>
+    <string name="realiza_autodiagnostico">Por favor, realizá el autodiagnóstico</string>
     <string name="sintomas_titulo">Síntomas</string>
     <string name="caba_telefonos">CABA: 107 + Whatsapp: 11-5050-0147</string>
     <string name="desvincular_dni"><u>Desvincular DNI \n (cerrará la sesión actual)</u></string>
