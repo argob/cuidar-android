@@ -1,25 +1,14 @@
 <resources>
     <string name="app_name">Covid19-AR</string>
-    <string name="patalla_de_inicio">Patalla de Inicio</string>
-    <string name="landing_subtitulo">Te vamos a ayudar a realizar una autoevaluación de tus síntomas, con lo que vas a poder postularte para sacar un Pasaporte Sanitario.</string>
-    <string name="landing_titulo">Intro sobre el propósito de la aplicación</string>
-    <string name="landing_pie_subtitulo">Este pasaporte sanitario, junto con el correspondiente permiso de circulación y tu DNI, te permitirán circular en espacios públicos.</string>
     <string name="siguiente">Siguiente</string>
-    <string name="no_contacto">NO PODÉS ESTAR EN CONTACTO CON OTRAS PERSONAS</string>
-    <string name="dias_restantes">Días\nrestantes</string>
-    <string name="derivado">DERIVADO A SALUD LOCAL</string>
-    <string name="estado_aislado">Contactate con el sistema de Salud. Mientras tanto, mantené el aislamiento y minimizá el contacto con otras personas.</string>
-    <string name="_dias_ejemplo">10</string>
     <string name="covid_positivo">DERIVADO A SALUD: COVID-19 POSITIVO</string>
     <string name="obetener_numero_tramite"><u>¿Cómo obtengo mi número de trámite?</u></string>
     <string name="femenino">Femenino</string>
     <string name="masculio">Masculino</string>
     <string name="confirmar_tus_datos">Para continuar necesitamos que confirmes tus datos</string>
     <string name="dni_colon">DNI:</string>
-    <string name="numero_de_tramite">Número de trámite:</string>
     <string name="numero_de_tramite_sin_puntos">Número de trámite</string>
     <string name="fecha_nacimiento">Fecha de nacimiento:</string>
-    <string name="fecha_nac">Fecha de nac:</string>
     <string name="sexo">Sexo:</string>
     <string name="gracias_por_tu_ayuda">¡MUCHAS GRACIAS POR TU AYUDA!</string>
     <string name="ahora_podemos_continuar">Ahora podremos continuar con el diagnóstico.</string>
@@ -27,52 +16,24 @@
     <string name="hubo_error_desc">Por favor volvé a intentarlo.</string>
     <string name="continuar">CONTINUAR</string>
     <string name="escanear_dni">ESCANEAR DNI</string>
-    <string name="permiso_cicular">Recordá las medidas sanitarias al volver a tu casa</string>
-    <string name="horas_restantes">Horas\nrestantes</string>
-    <string name="horas_48">48</string>
-    <string name="podes_circular">Podés ir a trabajar</string>
-    <string name="nuevo_autodiagnostico">Nuevo autodiagnóstico</string>
-    <string name="actualizar_certificado">Refrescar información</string>
     <string name="mas_informacion">Más información</string>
     <string name="mas_informacion_subrayado"><u>Más información</u></string>
     <string name="horas">horas</string>
-    <string name="recomendacion_test_cada_x_horas">Es recomendable que\nhagas el test cada</string>
-    <string name="token_de_seguridad">Token de Seguridad</string>
-    <string name="token_de_seguridad_usuario_con_qr">Certificado único de circulación</string>
-    <string name="cert_valido_con_token">Esta credencial es válida sólo si coincide el token de seguridad entre teléfonos</string>
-    <string name="horas_10">10</string>
-    <string name="quedate_en_casa">Quedate en casa</string>
-    <string name="estas_en_cuarentena">Estás en cuarentena, salí solo para hacer las compras.</string>
-    <string name="habilitar_circulacion">Agregar certificado</string>
-    <string name="ampliar_movilidad">Para ampliar tu movilidad, deberás complementar a este diagnóstico, la habilitación por circulación por transporte.</string>
-    <string name="fecha_resultado">Fecha resultado:</string>
     <string name="texto_resultado_positivo_uno">%1$s, %2$s de acuerdo a los análisis de laboratorio. \n\nDebés seguir estrictamente las recomendaciones médicas y permanecer en aislamiento.\n\nSi tus síntomas empeoran o necesitás asistencia médica o psicológica, ponete en contacto otra vez con el teléfono de asistencia:</string>
     <string name="texto_resultado_positivo_dos">el sistema de salud de tu jurisdicción confirmó tu diagnóstico positivo de coronavirus (COVID-19)</string>
-    <string name="ministerio_de_salud">Ministerio de Salud en CABA 148</string>
-    <string name="mira_recomendaciones_de_salud">Mira las recomendaciones de salud</string>
-    <string name="no_automediques">Es fundamental que conozcas cómo cuidarte a vos y a tus conocidos. No te automediques y consulta siempre al sistema de salud.</string>
     <string name="aceptar">aceptar</string>
-    <string name="covid_negativo">Covid-19 negativo</string>
-    <string name="texto_resultado_negativo">, El sistema de Salud confirmó tu resultado negativo en el test por coronavirus (COVID-19) de acuerdo a los análisis de laboratorio. \n\n Sigue las medidas de prevención y evitar salir de tu casa, para cuidarte vos y no exponer a otras personas. \n\n Si tenés que salir de casa, te recomendamos que lleves tu DNI y solicite el Certificado único habilitante para circulación.</string>
     <string name="autodiagnostico_titulo">Autoevaluación</string>
-    <string name="realiza_autodiagnostico">Por favor realiza el autodiagnóstico</string>
-    <string name="sintomas_titulo">Síntomas</string>
-    <string name="caba_telefonos">CABA: 107 + Whatsapp: 11-5050-0147</string>
-    <string name="desvincular_dni"><u>Desvincular DNI \n (cerrará la sesión actual)</u></string>
     <string name="msg_no_tiene_sintomas">%1$s, no tenés síntomas compatibles con COVID-19.</string>
     <string name="numero_de_horas_cada_autodiagnostico">48</string>
     <string name="txt_rocomedar_tiempo_autodiagnostico">Es recomendable que hagas el autodiagnóstico cada:</string>
     <string name="txt_sin_sintomas_title">sin síntomas COIVD-19</string>
     <string name="msg_evitar_salir">Seguí las medidas de prevención y evitá salir de tu casa, para cuidarte vos y no exponer a otras personas.</string>
     <string name="msg_recordatorio_resultado_puede_circular_fragment">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía. Para otros movimientos necesitás el Certificado Único Habilitante para Circulación.</string>
-    <string name="msg_instrucciones_llamar">Si presentás síntomas o necesitás asistencia médica o psicológica llamá a:</string>
     <string name="msg_instrucciones_llamar_resultado_negativo">Si tenés síntomas o necesitás recibir asistencia médica o psicológica podés llamar al:</string>
     <string name="msg_numero_llamar">CABA: 107 + Whatsapp: 11–5050–0147</string>
     <string name="titulo_en_evaluacion">en evaluación</string>
     <string name="msg_sintomas_compatibles_y_reportados">%1$s, tu autodiagnóstico tiene síntomas compatibles con COVID-19 y fueron reportados.</string>
     <string name="msg_peticion_no_salir">Te pedimos que no salgas de tu domicilio hasta que no tengas un diagnóstico definitivo.</string>
-    <string name="msg_mirar_recomendaciones">Mirá nuestras recomendaciones</string>
-    <string name="ver_resultado">Ver resultado</string>
     <string name="cual_es_temperatura">¿Cuál es tu temperatura corporal actual?</string>
     <string name="consejos_medir_temperatura">Consejos para medir la temperatura</string>
     <string name="consejo_uno_temperatura">Medí la temperatura siempre en el mismo lugar (oído y axila), ya que de otro modo pueden variar los valores.</string>
@@ -106,15 +67,11 @@
     <string name="cancelar">Cancelar</string>
     <string name="enviar">Enviar</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
-    <string name="tu_informacion_esta_protegida">Tu información está protegida por la ley  y es para uso exclusivo de las autoridades sanitarias.</string>
-    <string name="dni_usuario">DNI: %s</string>
     <string name="opcional">Opcional</string>
-    <string name="seleccionar_sintoma">Debé seleccionar las opciones que correspondan</string>
     <string name="codigo_area_mas_numeor">Código de área + Número</string>
     <string name="numero_de_telefono">Número de teléfono</string>
     <string name="tus_datos_de_contacto">Teléfono de contacto</string>
     <string name="login_pregunta_datos_personales">Para empezar necesitamos tus datos personales</string>
-
     <string name="entendido">Entendido</string>
     <string name="acepto_terminos">Acepto los &lt;u>&lt;b>Términos y Condiciones&lt;/b>&lt;/u> de la Aplicación Cuidar así como a la Política de Privacidad establecida en el punto 5 de los Términos y Condiciones. </string>
     <string name="erro_numero_tramite">El número de trámite es necesario</string>
@@ -126,30 +83,22 @@
     <string name="piso">Piso</string>
     <string name="otros">Otros</string>
     <string name="provincia">Provincia</string>
-    <string name="localidades">Localidad</string>
     <string name="erro_dni">Este dato es necesario</string>
     <string name="prefijo_telefono">+54</string>
     <string name="erro_dni_invalido">Este valor es inválido</string>
     <string name="invalid_phone_error">Número inválido</string>
     <string name="conocer_tu_localizacion">Conocer tu localización es necesario para poder asociarte a tu centro de salud más cercano en caso de necesidad.</string>
-    <string name="habilitar_manualmente_ubicacion">Cuidar no tiene acceso a tu ubicación. Para activar el acceso, pulsá Configuración > Permisos > Habilitar Permiso de Ubicación</string>
     <string name="permitir">PERMITIR</string>
     <string name="temperatura_vacia_error">No se puede dejar este campo vacio</string>
     <string name="temperatura_error_limite">Debés ingresar un valor entre %1$.1f y %2$.1f</string>
-    <string name="quedate_en_casa_azul">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía. Para otros movimientos necesitás el Certificado Único Habilitante para Circulación.</string>
-    <string name="pregunta_actualizar_certificado">Consultar actualizaciones en la información de tu certificado</string>
     <string name="confirmacion">Confirmación</string>
     <string name="verificar_datos">Por favor, verificar los datos ingresados</string>
     <string name="sintoma_perdida_olfato">¿Percibiste una marcada pérdida del olfato de manera repentina?</string>
     <string name="sintoma_perdida_gusto">¿Percibiste una marcada pérdida del gusto (sabor de los alimentos) de manera repentina?</string>
-    <string name="no_sos_contagioso">-</string>
-    <string name="pregunta_desvincular_dni">¿Estás seguro que deseás desvincular el DNI?</string>
     <string name="mensaje_error_escanear_dni">Hubo un error en la identificación del DNI escaneado. Por favor, ingresá los datos manualmente</string>
     <string name="error_logged_other_device">Para continuar es necesario que vuelvas a ingresar tu DNI. Puede deberse a que hayas ingresado a Cuidar desde otro dispositivo o un control de seguridad periódico.</string>
     <string name="error_no_internet">Por favor, revisá tu conexión a Internet</string>
-    <string name="derivado_a_salud_local_banner">DERIVADO A SALUD: EN OBSERVACIÓN</string>
     <string name="obligatorio">*Obligatorio</string>
-    <string name="credencial">Credencial</string>
     <string name="dialog_version_message">Por favor descargá la nueva versión desde la tienda</string>
     <string name="dialog_version_title">Tu aplicación está desactualizada</string>
     <string name="actualizar">Actualizar</string>
@@ -158,8 +107,6 @@
     <string name="localidad_departamento_partido">Localidad – Departamento/Partido</string>
     <string name="autodiagnostico_banner">Por favor realizá el\nautodiagnóstico</string>
     <string name="provinvia_y_telefono">%1$s : %2$s</string>
-    <string name="conexion_a_internet">Conexión a internet</string>
-    <string name="sin_conexion_intenet">No hay conexión a Internet. Intentá más tarde.</string>
     <string name="no_hay_internet">No hay conexión a Internet.</string>
     <string name="telefono">Teléfono</string>
     <string name="direccion_actual">Dirección actual</string>
@@ -173,9 +120,7 @@
 
     <string name="sintomas_autodiagnostico">Autodiagnóstico</string>
     <string name="sintomas_derivado_al_sistema_de_salud">Derivado al sistema de \nSalud</string>
-    <string name="sintomas_resultado_covid_positivo">COVID-19 Positivo</string>
     <string name="sintomas_resultado_sin_sintomas">Sin síntomas</string>
-    <string name="sintomas_resultado_en_observacion">En observación</string>
     <string name="sintomas_vencimiento">Vence %1$s</string>
     <string name="sintomas_token_seguridad">Token de seguridad</string>
     <string name="sintomas_otro_autodiagnostico">Hacer otro autodiagnóstico</string>
@@ -183,17 +128,12 @@
     <!--  Pantalla Principal   -->
     <string name="h_fake_nombre">Juan Rodriguez Perez</string>
     <string name="h_fake_dni">DNI: 11.222.333</string>
-    <string name="h_dni_usuario">DNI: %s</string>
 
     <string name="h_description_circular">Podés salir \na trabajar</string>
     <string name="h_description_quedate_en_casa">Quedate \nen casa</string>
     <string name="h_recommendation_circular">Recordá siempre las medidas sanitarias.</string>
-    <string name="auto_diagnostico_desc_circular">Sin síntomas</string>
 
-    <string name="h_description_no_contagioso">Quedate en casa</string>
     <string name="h_recommendation_no_contagioso">Recordá que solo podés salir de tu casa para realizar compras en comercios de cercanía.</string>
-    <string name="auto_diagnostico_desc_no_contagioso">No disponible</string>
-    <string name="agregar_label">Agregar</string>
 
     <!--  covid positivo   -->
     <string name="h_description_infectado_2">No podés estar en \ncontacto con otras \npersonas</string>
@@ -203,22 +143,17 @@
     <string name="derivado_de_salud_covid_positivo">COVID-19 Positivo</string>
 
     <!--  en observacion  -->
-    <string name="header_description_infectado_3">No podés estar en \ncontacto con otras \npersonas</string>
     <string name="derivado_de_salud_observacion">En observación</string>
 
-    <string name="nombre_completo">%1$s %2$s</string>
     <string name="header_credencial">credencial</string>
-    <string name="derivado_al_sistema_de_salud">Derivado al sistema de Salud</string>
     <string name="auto_diagnostico">Autodiagnóstico</string>
     <string name="vence">Vence %s</string>
-    <string name="hacer_otro_diagnostico">Hacer otro diagnóstico</string>
     <string name="habilitado">Habilitado</string>
     <string name="esencial">Permiso especial por 48h</string>
     <string name="no_disponible">No disponible</string>
     <string name="agregar">Agregar</string>
     <string name="informacion_footer_telefonos">Ante cualquier duda podés comunicarte al +54 911 2256 0566 o a los números que figuran en el
         siguiente &lt;font color="#0091EA">&lt;u>link&lt;/u>&lt;/font></string>
-    <string name="no_permitido">No permitido</string>
     <string name="certificado_unico_circulacion">Certificado único de circulación</string>
     <string name="certificado_unico_circulacion_qr">Certificado único \nde circulación</string>
     <string name="default_notification_channel_id">Generales</string>
