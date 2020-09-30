@@ -16,11 +16,14 @@ import org.koin.androidx.viewmodel.compat.SharedViewModelCompat;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteAntecedents;
 import ar.gob.coronavirus.databinding.FragmentAutodiagnosticoAntecedentesBinding;
+import ar.gob.coronavirus.utils.Constantes;
 import kotlin.Unit;
 
 public class AutodiagnosticoAntecedentesFragment extends Fragment {
+
     private FragmentAutodiagnosticoAntecedentesBinding binding = null;
     private AutodiagnosticoViewModel viewModel;
 
@@ -32,7 +35,11 @@ public class AutodiagnosticoAntecedentesFragment extends Fragment {
         viewModel = SharedViewModelCompat.getSharedViewModel(this, AutodiagnosticoViewModel.class);
 
         binding.setLifecycleOwner(getViewLifecycleOwner());
-        iniciarInterfaz();
+
+        binding.btnSiguiente.setOnClickListener(v -> Navigation.findNavController(v).navigate(
+                AutodiagnosticoAntecedentesFragmentDirections.actionAutodiagnosticoAntecedentesFragmentToAutodiagnosticoConfirmacionFragment()
+        ));
+
         return binding.getRoot();
     }
 
@@ -43,46 +50,46 @@ public class AutodiagnosticoAntecedentesFragment extends Fragment {
             viewModel.pasoActual.postValue(AutodiagnosticoAntecedentesFragmentArgs.fromBundle(getArguments()).getPasoActual());
         }
 
-        iniciarAntecedentes();
-        iniciarValoresDeVistas();
         viewModel.obtenerInformacionDeUsuario();
+
+        viewModel.getUserInformation().observe(getViewLifecycleOwner(), user -> {
+            iniciarAntecedentes(user);
+            iniciarValoresDeVistas(user);
+        });
     }
 
-    private void iniciarAntecedentes() {
+    private void iniciarAntecedentes(LocalUser user) {
         if (viewModel.noTieneAntecedentes()) {
             for (Antecedents value : Antecedents.values()) {
-                viewModel.agregarAntecedente(createAntecedent(value));
+                //When the user is male an the antecendent = A_EMB, the antecedent is not added to the list.
+                if (!(value == Antecedents.A_EMB && user.getGender().equals(Constantes.MASCULINO))) {
+                    viewModel.agregarAntecedente(createAntecedent(value));
+                }
             }
         }
     }
 
-    private void iniciarValoresDeVistas() {
-        List<AntecedentElement> elements = new ArrayList<>();
+    private void iniciarValoresDeVistas(LocalUser user) {
+        List<AntecedentElement> antecedents = new ArrayList<>();
+
         for (Antecedents value : Antecedents.values()) {
-            elements.add(new AntecedentElement(value, obtainPreviousValue(value)));
+            //When the user is male an the antecendent = A_EMB, the antecedent is not added to the list.
+            if (!(value == Antecedents.A_EMB && user.getGender().equals(Constantes.MASCULINO))) {
+                antecedents.add(new AntecedentElement(value, obtainPreviousValue(value)));
+            }
         }
-        AntecedentsAdapter adapter = new AntecedentsAdapter(elements, (antecedents, newValue) -> {
-            viewModel.modificarAntecedente(antecedents.getId(), newValue);
+
+        AntecedentsAdapter adapter = new AntecedentsAdapter(antecedents, (antecedent, newValue) -> {
+            viewModel.modificarAntecedente(antecedent.getId(), newValue);
             return Unit.INSTANCE;
         });
+
         binding.antecedentsRecyclerView.setAdapter(adapter);
     }
 
     private boolean obtainPreviousValue(Antecedents antecedent) {
-        RemoteAntecedents previousValue = viewModel.obtenerAntecedente(antecedent.getId());
+        RemoteAntecedents previousValue = viewModel.getAntecedent(antecedent);
         return previousValue != null && previousValue.getValue();
-    }
-
-    private void iniciarInterfaz() {
-        binding.btnSiguiente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(
-                        AutodiagnosticoAntecedentesFragmentDirections.
-                                actionAutodiagnosticoAntecedentesFragmentToAutodiagnosticoConfirmacionFragment()
-                );
-            }
-        });
     }
 
     @NotNull

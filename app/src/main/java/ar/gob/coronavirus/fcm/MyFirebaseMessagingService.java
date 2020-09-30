@@ -20,7 +20,7 @@ import ar.gob.coronavirus.CovidApplication;
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.local.EncryptedDataBase;
 import ar.gob.coronavirus.data.remoto.Api;
-import ar.gob.coronavirus.flujos.inicio.InicioActivity;
+import ar.gob.coronavirus.flujos.inicio.SplashActivity;
 import ar.gob.coronavirus.utils.Constantes;
 import ar.gob.coronavirus.utils.PreferencesManager;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,7 +43,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .delaySubscription(15, TimeUnit.SECONDS)
                     .flatMapCompletable(user -> {
                         Api api = KoinJavaComponent.get(Api.class);
-                        return api.registrarPush(user.getDni(), user.getGender(), token);
+                        return api.registerPush(user.getDni(), user.getGender(), token);
                     })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -88,7 +88,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String title = remoteMessage.getData().get("title");
             String text = remoteMessage.getData().get("body");
 
-            Intent notificationIntent = new Intent(this, InicioActivity.class);
+            Intent notificationIntent = new Intent(this, SplashActivity.class);
             notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);

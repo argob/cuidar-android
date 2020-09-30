@@ -27,10 +27,10 @@ import ar.gob.coronavirus.data.Provincia;
 import ar.gob.coronavirus.data.local.modelo.LocalAddress;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.flujos.identificacion.adapter.AutocompleteAdapter;
-import ar.gob.coronavirus.utils.InternetUtileria;
-import ar.gob.coronavirus.utils.TecladoUtils;
-import ar.gob.coronavirus.utils.dialogs.LoadingDialog;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
+import ar.gob.coronavirus.utils.InternetUtils;
+import ar.gob.coronavirus.utils.KeyboardUtils;
+import ar.gob.coronavirus.utils.dialogs.Dialogs;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
 
 public class IdentificacionDireccionCompletaFragment extends Fragment {
 
@@ -107,7 +107,7 @@ public class IdentificacionDireccionCompletaFragment extends Fragment {
         othersField = getView().findViewById(R.id.tie_otros_identificacion_fragment);
         botonSiguiente = getView().findViewById(R.id.btn_siguiente_direccion_completa_identificacion_fragment);
 
-        loaderDialog = LoadingDialog.createLoadingDialog(getActivity(), getActivity().getLayoutInflater());
+        loaderDialog = Dialogs.createLoadingDialog(getActivity());
     }
 
     private void setupObservers() {
@@ -255,7 +255,7 @@ public class IdentificacionDireccionCompletaFragment extends Fragment {
         botonSiguiente.setOnClickListener(v -> {
 
             if (getActivity() != null) {
-                TecladoUtils.esconderTeclado(getActivity());
+                KeyboardUtils.hideKeyboard(getActivity());
             }
 
             if (validateForm()) {
@@ -269,7 +269,7 @@ public class IdentificacionDireccionCompletaFragment extends Fragment {
                         othersField.getText().toString()
                 );
 
-                if (InternetUtileria.hayConexionDeInternet(getContext())) {
+                if (InternetUtils.isConnected(getContext())) {
                     identificacionViewModel.actualizarUsuario();
                     loaderDialog.show();
                 } else {
@@ -370,14 +370,11 @@ public class IdentificacionDireccionCompletaFragment extends Fragment {
     }
 
     private void crearDialogoInternet() {
-        final PantallaCompletaDialog dialog = PantallaCompletaDialog.newInstance(
+        FullScreenDialog.newInstance(
                 getString(R.string.hubo_error),
                 getString(R.string.no_hay_internet),
                 getString(R.string.cerrar).toUpperCase(),
                 R.drawable.ic_error
-        );
-
-        dialog.setAccionBoton(v -> dialog.dismiss());
-        dialog.show(getParentFragmentManager(), "TAG");
+        ).show(getParentFragmentManager(), "TAG");
     }
 }

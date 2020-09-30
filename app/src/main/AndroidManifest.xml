@@ -21,12 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="ar.gob.coronavirus.flujos.ErrorGenericoActivity"
+            android:name="ar.gob.coronavirus.flujos.GenericErrorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="ar.gob.coronavirus.flujos.ActualizarForzadoActivity"
+            android:name="ar.gob.coronavirus.flujos.ForceUpdateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
@@ -41,7 +41,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="ar.gob.coronavirus.flujos.inicio.InicioActivity"
+            android:name="ar.gob.coronavirus.flujos.inicio.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity">

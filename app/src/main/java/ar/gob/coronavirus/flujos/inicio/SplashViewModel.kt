@@ -4,45 +4,54 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ar.gob.coronavirus.data.UserStatus
 import ar.gob.coronavirus.data.local.modelo.LocalUser
-import ar.gob.coronavirus.data.repositorios.RepositorioLogout
+import ar.gob.coronavirus.data.repositorios.LogoutRepository
 import ar.gob.coronavirus.flujos.BaseViewModel
 import ar.gob.coronavirus.flujos.identificacion.IdentificationRepository
 import ar.gob.coronavirus.utils.PreferencesManager
 import ar.gob.coronavirus.utils.extensions.applySchedulers
 import ar.gob.coronavirus.utils.extensions.delayedSingle
-import ar.gob.coronavirus.utils.observables.EventoUnico
+import ar.gob.coronavirus.utils.observables.Event
 import io.reactivex.Single
 import io.reactivex.functions.Function3
+import java.util.concurrent.TimeUnit
 
-class SplashViewModel(identificationRepository: IdentificationRepository, logoutRepository: RepositorioLogout) : BaseViewModel() {
+class SplashViewModel(identificationRepository: IdentificationRepository, logoutRepositoryRepository: LogoutRepository) : BaseViewModel() {
 
-    private val _navigationLiveData = MutableLiveData<EventoUnico<NavegacionFragments>>()
-    val navigationLiveData: LiveData<EventoUnico<NavegacionFragments>>
+    private val _navigationLiveData = MutableLiveData<Event<SplashDestinations>>()
+    val navigationLiveData: LiveData<Event<SplashDestinations>>
         get() = _navigationLiveData
 
     init {
         if (PreferencesManager.getRefreshToken().isNullOrEmpty() ||
                 PreferencesManager.getHash().isNullOrEmpty() ||
                 PreferencesManager.getPassword().isNullOrEmpty()) {
-            delayedSingle(NavegacionFragments.LOGIN, 2)
+            delayedSingle(SplashDestinations.LOGIN, 2)
         } else {
             Single.zip(identificationRepository.getUser(),
-                    identificationRepository.refreshToken(),
+                    identificationRepository.refreshToken().timeout(5, TimeUnit.SECONDS),
                     delayedSingle(true, 2), // Used to ensure that the single takes at least to seconds
-                    Function3<LocalUser, TokenRefreshStatus, Boolean, NavegacionFragments> { user, tokenStatus, _ ->
+                    Function3<LocalUser, TokenRefreshStatus, Boolean, SplashDestinations> { user, tokenStatus, _ ->
                         when {
-                            tokenStatus == TokenRefreshStatus.INVALID -> NavegacionFragments.LOGIN_INVALID.also { logoutRepository.logout() }
-                            user.address?.province.isNullOrEmpty() || tokenStatus == TokenRefreshStatus.FAILED -> NavegacionFragments.LOGIN
-                            user.currentState.userStatus == UserStatus.MUST_SELF_DIAGNOSE -> NavegacionFragments.DIAGNOSTICO
-                            else -> NavegacionFragments.PRINCIPAL
+                            tokenStatus == TokenRefreshStatus.INVALID -> SplashDestinations.LOGIN_INVALID
+                            user.address?.province.isNullOrEmpty() || tokenStatus == TokenRefreshStatus.FAILED -> SplashDestinations.LOGIN
+                            user.currentState.userStatus == UserStatus.MUST_SELF_DIAGNOSE -> SplashDestinations.DIAGNOSTICO
+                            else -> SplashDestinations.PRINCIPAL
                         }
                     })
         }
+                .flatMap {
+                    // If login is invalid first clear everything, then take them to login
+                    if (it == SplashDestinations.LOGIN_INVALID) {
+                        logoutRepositoryRepository.logout().toSingle { it }
+                    } else {
+                        Single.just(it)
+                    }
+                }
                 .applySchedulers()
                 .subscribe({
-                    _navigationLiveData.value = EventoUnico(it)
+                    _navigationLiveData.value = Event(it)
                 }, {
-                    _navigationLiveData.value = EventoUnico(NavegacionFragments.LOGIN)
+                    _navigationLiveData.value = Event(SplashDestinations.LOGIN)
                 }).also { addDisposable(it) }
     }
 

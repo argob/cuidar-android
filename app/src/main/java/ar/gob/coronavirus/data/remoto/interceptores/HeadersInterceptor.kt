@@ -3,7 +3,6 @@ package ar.gob.coronavirus.data.remoto.interceptores
 import ar.gob.coronavirus.BuildConfig
 import ar.gob.coronavirus.GlobalAction
 import ar.gob.coronavirus.GlobalActionsManager
-import ar.gob.coronavirus.data.remoto.AppAuthenticator
 import ar.gob.coronavirus.utils.Constantes
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -21,6 +20,7 @@ class HeadersInterceptor : Interceptor {
                 .addHeader("X-App-Platform", "android")
                 .addHeader("X-App-Version", "" + BuildConfig.VERSION_CODE)
                 .addHeader("Content-Type", "application/json")
+                .addHeader("CovFF-MultipleCUCHs", "true")
 
         // Don't add authorization header to the authorization request
         val request = requestBuilder.build()

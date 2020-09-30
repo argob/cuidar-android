@@ -34,7 +34,7 @@ public class CirculacionFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private AutodiagnosticoResultadoViewModel viewModel;
+    private SelfEvaluationResultViewModel viewModel;
     private View view;
 
     public static CirculacionFragment newInstance(ResultadoActivity.OpcionesNavegacion opcionNavegacion) {
@@ -78,13 +78,13 @@ public class CirculacionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = ViewModelCompat.getViewModel(this, AutodiagnosticoResultadoViewModel.class);
+        viewModel = ViewModelCompat.getViewModel(this, SelfEvaluationResultViewModel.class);
         observarUsuario();
-        viewModel.cargarUsuario();
+        viewModel.loadUser();
     }
 
     private void observarUsuario() {
-        viewModel.usuarioLiveData.observe(getViewLifecycleOwner(), new Observer<LocalUser>() {
+        viewModel.getUserLiveData().observe(getViewLifecycleOwner(), new Observer<LocalUser>() {
             @Override
             public void onChanged(LocalUser usuario) {
                 if (opcionNavegacion != null) {
@@ -144,7 +144,7 @@ public class CirculacionFragment extends Fragment {
         final TextView title = view.findViewById(R.id.txtNoPuedeCircularTitle);
         title.setText(getString(R.string.covid_positivo));
 
-        Spanned mSpannedBold = StringUtils.applyFont(requireContext(), getString(R.string.texto_resultado_positivo_dos), R.font.roboto_bold);
+        Spanned mSpannedBold = StringUtils.applyFont(getString(R.string.texto_resultado_positivo_dos), requireContext(), R.font.roboto_bold);
         final TextView tvNoPuedeCircular = view.findViewById(R.id.txtNoPuedeCircularDiagnostico);
         SpannedString spannedString = SpanFormatter.format(getResources().getString(R.string.texto_resultado_positivo_uno), usuario.getNames(), mSpannedBold);
         tvNoPuedeCircular.setText(spannedString);

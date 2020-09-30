@@ -41,7 +41,7 @@ public class IdentificacionDniConfirmacionDatosFragment extends Fragment {
         identificacionViewModel = SharedViewModelCompat.getSharedViewModel(this, IdentificacionViewModel.class);
         identificacionViewModel.obtenerUsuario();
         identificacionViewModel.getUsuarioLiveData().observe(getViewLifecycleOwner(), usuario -> {
-            String fechaNacimientoPresentacion = DateUtils.obtenerFechaParaPresentacion(usuario.getBirthDate());
+            String fechaNacimientoPresentacion = DateUtils.formatDate(usuario.getBirthDate());
             tvNombreCompleto.setText(String.format("%s, %s", usuario.getNames(), usuario.getLastNames()));
             tvDni.setText(String.format("%s", usuario.getDni()));
             tvFechaNacimiento.setText(String.format("%s", fechaNacimientoPresentacion));

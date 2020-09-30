@@ -8,19 +8,16 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 
-import androidx.lifecycle.LiveData;
-
 import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.local.modelo.LocalState;
-import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.flujos.autodiagnostico.resultado.ResultadoActivity;
 import ar.gob.coronavirus.utils.Constantes;
-import ar.gob.coronavirus.utils.InternetUtileria;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
+import ar.gob.coronavirus.utils.InternetUtils;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
 
 public class CovidPositivoFragment extends BaseMainFragment {
 
@@ -40,7 +37,7 @@ public class CovidPositivoFragment extends BaseMainFragment {
         pieInfoTelefonos = view.findViewById(R.id.pie_info_telefonos);
         setFormatoTextoInfoTelefonos();
         pieInfoTelefonos.setOnClickListener(v -> {
-            if (InternetUtileria.hayConexionDeInternet(getContext())) {
+            if (InternetUtils.isConnected(getContext())) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.URL_INFO_TELEFONOS)));
             } else {
                 crearDialogo();
@@ -55,12 +52,11 @@ public class CovidPositivoFragment extends BaseMainFragment {
     }
 
     private void escucharCambiosDelUsuario() {
-        LiveData<LocalUser> localUserData = getViewModel().obtenerUltimoEstadoLiveData();
-        localUserData.observe(requireActivity(), localUser -> {
+        getViewModel().obtenerUltimoEstadoLiveData().observe(getViewLifecycleOwner(), userWithPermits -> {
             try {
                 getViewModel().despacharEventoNavegacion();
-                LocalState currentState = localUser.getCurrentState();
-                setUpUserInfo(localUser, getString(R.string.h_recomendacion_infectado_2, currentState.getCoep().getCoep(),
+                LocalState currentState = userWithPermits.getUser().getCurrentState();
+                setUpUserInfo(userWithPermits.getUser(), getString(R.string.h_recomendacion_infectado_2, currentState.getCoep().getCoep(),
                         currentState.getCoep().getContactInformation()));
 
                 String fechaVencimiento = currentState.getExpirationDate();
@@ -70,12 +66,6 @@ public class CovidPositivoFragment extends BaseMainFragment {
         });
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        getViewModel().obtenerUltimoEstadoLiveData().removeObservers(requireActivity());
-    }
-
     private void setFormatoTextoInfoTelefonos() {
         String texto = getString(R.string.informacion_footer_telefonos);
         Spanned textoConFormato = Html.fromHtml(texto);
@@ -83,19 +73,11 @@ public class CovidPositivoFragment extends BaseMainFragment {
     }
 
     private void crearDialogo() {
-        final PantallaCompletaDialog dialog = PantallaCompletaDialog.newInstance(
+        FullScreenDialog.newInstance(
                 getString(R.string.hubo_error),
                 getString(R.string.no_hay_internet),
                 getString(R.string.cerrar).toUpperCase(),
                 R.drawable.ic_error
-        );
-
-        dialog.setAccionBoton(new PantallaCompletaDialog.AccionBotonDialogoPantallaCompleta() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show(getParentFragmentManager(), "TAG");
+        ).show(getParentFragmentManager(), "TAG");
     }
 }

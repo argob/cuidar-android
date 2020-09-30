@@ -1,0 +1,12 @@
+{
+  "dni": 12341234,
+  "sexo": "M",
+  "estado-actual": {
+    "nombre-estado": "NO_INFECTADO",
+    "fecha-hora-vencimiento": "2020-08-16T11:22:11.511-03:00",
+    "datos-coep": {
+      "coep": "La Rioja",
+      "informacionDeContacto": "107 o 911"
+    }
+  }
+}

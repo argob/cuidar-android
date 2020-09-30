@@ -9,8 +9,8 @@ public class APIConstants {
     public static final String ADVICE_URL = "http://static.url";
     public static final String CERTIFICATE_MATCHER = "**.";
 
-    public static SemaforoInfo getInfo() {
-        return new SemaforoInfo(new Random().nextInt(9999));
+    public static TokenInfo getInfo() {
+        return new TokenInfo(new Random().nextInt(9999));
     }
 
     public static String getSecretAutorizacionv2() {

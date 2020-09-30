@@ -15,24 +15,23 @@ object ConvertirClasesRemotasEnLocales {
     }
 
     @JvmStatic
-    fun convertirUsuario(remoteUser: RemoteUser): LocalUser {
+    fun convertirUsuario(remoteUser: RemoteUser): UserWithPermits {
         val geoBD = LocalLocation(
                 remoteUser.location?.latitude ?: "",
                 remoteUser.location?.longitude ?: ""
         )
-        return LocalUser(
+        val localUser = LocalUser(
                 remoteUser.dni,
                 remoteUser.gender,
                 remoteUser.birthDate,
                 remoteUser.names,
                 remoteUser.lastNames,
                 remoteUser.phone,
-                remoteUser.currentState?.circulationPermit?.sube ?: "",
-                remoteUser.currentState?.circulationPermit?.plate ?: "",
                 createLocalAddress(remoteUser.address),
                 geoBD,
                 createLocalState(remoteUser.currentState)
         )
+        return UserWithPermits(localUser, createCirculationPermits(remoteUser.currentState, remoteUser.dni))
     }
 
     private fun createLocalState(remoteStatus: RemoteStatus?): LocalState {
@@ -41,13 +40,21 @@ object ConvertirClasesRemotasEnLocales {
                 expirationDate = remoteStatus?.expirationDate ?: "",
                 coep = LocalCoep(remoteStatus?.coep?.coep
                         ?: "", remoteStatus?.coep?.contactInformation ?: ""),
-                circulationPermit = LocalCirculationPermit(remoteStatus?.circulationPermit?.qr
-                        ?: "",
-                        remoteStatus?.circulationPermit?.permitExpirationDate ?: "",
-                        remoteStatus?.circulationPermit?.serviceStatus ?: 0,
-                        remoteStatus?.circulationPermit?.activityType ?: ""),
                 pims = remoteStatus?.pims?.let { LocalPims(it.tag ?: "", it.reason ?: "") }
         )
+    }
+
+    private fun createCirculationPermits(remoteStatus: RemoteStatus?, userId: Long): List<LocalCirculationPermit> {
+        return remoteStatus?.circulationPermits?.map {
+            LocalCirculationPermit(userId,
+                    it.sube ?: "",
+                    it.plate ?: "",
+                    it.url,
+                    it.permitExpirationDate,
+                    it.activityType,
+                    it.reason,
+                    it.certificateId)
+        } ?: emptyList()
     }
 
     private fun createLocalAddress(remoteAddress: RemoteAddress?): LocalAddress {

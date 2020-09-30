@@ -9,18 +9,16 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import org.jetbrains.annotations.NotNull;
 
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.UserStatus;
-import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.flujos.autodiagnostico.resultado.ResultadoActivity;
-import ar.gob.coronavirus.utils.InternetUtileria;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
-import ar.gob.coronavirus.utils.observables.EventoUnico;
+import ar.gob.coronavirus.utils.InternetUtils;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
+import ar.gob.coronavirus.utils.observables.Event;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +37,7 @@ public class NoInfectadoFragment extends BaseMainFragment {
 
         TextView habilitarCirculacion = view.findViewById(R.id.qr_boton_agregar_certificado);
         habilitarCirculacion.setOnClickListener(v -> {
-            if (InternetUtileria.hayConexionDeInternet(getContext())) {
+            if (InternetUtils.isConnected(getContext())) {
                 getViewModel().habilitarCirculacion();
             } else {
                 crearDialogo();
@@ -48,32 +46,24 @@ public class NoInfectadoFragment extends BaseMainFragment {
     }
 
     private void crearDialogo() {
-        final PantallaCompletaDialog dialog = PantallaCompletaDialog.newInstance(
+        FullScreenDialog.newInstance(
                 getString(R.string.hubo_error),
                 getString(R.string.no_hay_internet),
                 getString(R.string.cerrar).toUpperCase(),
                 R.drawable.ic_error
-        );
-
-        dialog.setAccionBoton(new PantallaCompletaDialog.AccionBotonDialogoPantallaCompleta() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show(getParentFragmentManager(), "TAG");
+        ).show(getParentFragmentManager(), "TAG");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        getViewModel().obtenerLevantarWebLiveData().observe(getViewLifecycleOwner(), new Observer<EventoUnico<Intent>>() {
+        getViewModel().obtenerLevantarWebLiveData().observe(getViewLifecycleOwner(), new Observer<Event<Intent>>() {
             @Override
-            public void onChanged(EventoUnico<Intent> intentEventoUnico) {
-                if (intentEventoUnico.obtenerContenidoSiNoFueLanzado() != null) {
+            public void onChanged(Event<Intent> intentEvent) {
+                if (intentEvent.getOrNull() != null) {
                     try {
-                        startActivity(intentEventoUnico.obtenerConenido());
+                        startActivity(intentEvent.get());
                     } catch (ActivityNotFoundException exception) {
                         Toast.makeText(requireActivity(), getString(R.string.should_install_default_browser_warning), Toast.LENGTH_LONG).show();
                     }
@@ -90,22 +80,15 @@ public class NoInfectadoFragment extends BaseMainFragment {
     }
 
     private void escucharCambiosDelUsuario() {
-        LiveData<LocalUser> localUserData = getViewModel().obtenerUltimoEstadoLiveData();
-        localUserData.observe(requireActivity(), localUser -> {
+        getViewModel().obtenerUltimoEstadoLiveData().observe(getViewLifecycleOwner(), userWithPermits -> {
             try {
                 getViewModel().despacharEventoNavegacion();
-                setUpUserInfo(localUser, getString(R.string.h_recommendation_no_contagioso));
-                String fechaVencimiento = localUser.getCurrentState().getExpirationDate();
-                boolean isNotContagious = localUser.getCurrentState().getUserStatus() == UserStatus.NOT_CONTAGIOUS;
+                setUpUserInfo(userWithPermits.getUser(), getString(R.string.h_recommendation_no_contagioso));
+                String fechaVencimiento = userWithPermits.getUser().getCurrentState().getExpirationDate();
+                boolean isNotContagious = userWithPermits.getUser().getCurrentState().getUserStatus() == UserStatus.NOT_CONTAGIOUS;
                 setUpSymptomsSection(R.string.auto_diagnostico, getString(R.string.sintomas_resultado_sin_sintomas), R.color.covid_azul, fechaVencimiento, !isNotContagious, ResultadoActivity.OpcionesNavegacion.RESULTADO_VERDE);
             } catch (Exception ignored) {
             }
         });
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        getViewModel().obtenerUltimoEstadoLiveData().removeObservers(requireActivity());
     }
 }

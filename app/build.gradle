@@ -29,13 +29,14 @@ android {
         applicationId "ar.gob.coronavirus"
         minSdkVersion minSdkLevel
         targetSdkVersion targetSdkLevel
-        versionCode 140
-        versionName "3.5.4" + (project.hasProperty("VERSION_CLASSIFIER") ? "-" + project.property("VERSION_CLASSIFIER") : "")
+        versionCode 142
+        versionName "3.5.6" + (project.hasProperty("VERSION_CLASSIFIER") ? "-" + project.property("VERSION_CLASSIFIER") : "")
 
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
 
         buildConfigField("String", "APP_NAME", "\"CuidAR\"")
 
@@ -46,19 +47,32 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".qa"
+            versionNameSuffix "-QA"
+            resValue "string", "app_name", "Covid19-AR (QA)"
+        }
+
         opensource {
             debuggable true
             signingConfig signingConfigs.debug
+            applicationIdSuffix ".opensource"
+            versionNameSuffix "-OPENSOURCE"
+            resValue "string", "app_name", "Covid19-AR (Open Source)"
         }
 
         staging {
             debuggable true
             signingConfig signingConfigs.debug
+            applicationIdSuffix ".stg"
+            versionNameSuffix "-STG"
+            resValue "string", "app_name", "Covid19-AR (Staging)"
         }
 
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "Covid19-AR"
         }
     }
 
@@ -76,6 +90,13 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
 }
 
 apply plugin: 'com.google.gms.google-services'
@@ -127,6 +148,16 @@ dependencies {
 
     //TEST
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.koin:koin-test:$koinVersion"
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+
+    androidTestUtil "androidx.test:orchestrator:$testOrchestrator"
     androidTestImplementation "androidx.test.ext:junit:$junitAndroidVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoCoreVersion"
+    androidTestImplementation "androidx.test:runner:$junitRunnerVersion"
+    androidTestImplementation "androidx.test:rules:$junitRulesVersion"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+    androidTestImplementation "org.koin:koin-test:$koinVersion"
 }

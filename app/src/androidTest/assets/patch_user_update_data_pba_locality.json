@@ -1,0 +1,24 @@
+{
+  "dni": 12341234,
+  "sexo": "M",
+  "nombres": "TEST_USER",
+  "apellidos": "CONFIRM_USER_DATA",
+  "telefono": "+5455555555",
+  "fecha-nacimiento": "1905-05-05",
+  "domicilio": {
+    "localidad": "Tres de Febrero",
+    "provincia": "Buenos Aires",
+    "departamento": "Tres de Febrero",
+    "calle": "Colon",
+    "numero": "1234",
+    "codigo-postal": "1111"
+  },
+  "estado-actual": {
+    "nombre-estado": "NO_INFECTADO",
+    "fecha-hora-vencimiento": "2030-08-16T11:22:11.511-03:00",
+    "datos-coep": {
+      "coep": "La Rioja",
+      "informacionDeContacto": "107 o 911"
+    }
+  }
+}

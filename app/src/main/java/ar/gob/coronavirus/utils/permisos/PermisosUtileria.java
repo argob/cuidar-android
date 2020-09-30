@@ -14,8 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import ar.gob.coronavirus.CovidApplication;
-import ar.gob.coronavirus.utils.PermisoDeUbicacion;
 import ar.gob.coronavirus.utils.Constantes;
+import ar.gob.coronavirus.utils.PermisoDeUbicacion;
 
 public class PermisosUtileria {
 
@@ -39,13 +39,10 @@ public class PermisosUtileria {
     // Este es el único lugar y momento donde se le requiere la ubicación al usuario.
 
     public static boolean revisarPermisoSinSolicitar(Context context, String permiso) {
-        if (ContextCompat.checkSelfPermission(context, permiso) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-        return true;
+        return ContextCompat.checkSelfPermission(context, permiso) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static PermisoDeUbicacion validarPermisoDeUbicacionGeneral(final AppCompatActivity activity, int codigoDePermiso) {
+    public static PermisoDeUbicacion validarPermisoDeUbicacionGeneral(final AppCompatActivity activity) {
 
         boolean denegoPermiso = CovidApplication.getInstance().getSharedUtils().getBoolean(Constantes.SHARED_KEY_DENY_SERVICE, false);
         boolean sePuedeVolverAPedirPermiso = ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -65,7 +62,7 @@ public class PermisosUtileria {
             }
             return permisoDeUbicacion;
         } else {
-            PermisoDeUbicacion permisoDeUbicacion = validarPermisoDeUbicacion(activity, codigoDePermiso);
+            PermisoDeUbicacion permisoDeUbicacion = validarPermisoDeUbicacion(activity);
             if (permisoDeUbicacion.equals(PermisoDeUbicacion.SIN_PERMISO)) {
                 if (!denegoPermiso) {
                     return PermisoDeUbicacion.SIN_PERMISO;
@@ -89,22 +86,11 @@ public class PermisosUtileria {
         }, codigoDePeticion);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public static PermisoDeUbicacion validarResultadoDePermisoDeUbicacionApi29(final Activity activity,
-                                                                               final String[] permissions,
-                                                                               final int[] grantResults,
-                                                                               final int codigoDePeticion) {
-        if (tieneAccesoAUbicacion(grantResults)) {
-            return PermisoDeUbicacion.SOLO_CON_LA_APLICACION_VISIBLE;
-        }
-        return PermisoDeUbicacion.NUNCA;
-    }
-
     public static boolean tieneAccesoAUbicacion(@NonNull int[] grantResults) {
         return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 
-    private static PermisoDeUbicacion validarPermisoDeUbicacion(final AppCompatActivity activity, final int codigoDePermiso) {
+    private static PermisoDeUbicacion validarPermisoDeUbicacion(final AppCompatActivity activity) {
         if (revisarPermisoSinSolicitar(activity, Manifest.permission.ACCESS_COARSE_LOCATION)) {
             return PermisoDeUbicacion.SOLO_CON_LA_APLICACION_VISIBLE;
         } else {

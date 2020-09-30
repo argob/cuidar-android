@@ -1,9 +1,15 @@
 # Cuidar Android
 
-# Versión 3.5.4 - WIP
+# Versión 3.5.6 - WIP
+- Se incorporará mecanismo para notificar más claramente cambios en los TyC si los hubiera.
+- Agradecemos al usuario @facundomr por el PR que contribuyó. Más información en `CONTRIBUTORS.md`.
+
+# Versión 3.5.4 - 25/09/2020
+- Permite mostrar múltiples certificados.
+- Incorpora nuevo criterio de caso.
 - Cambio a inyección de dependencias dinámicas para facilitar automatizar los tests.
-- Permitirá mostrar múltiples certificados.
-- Incorporará nuevo criterio de caso.
+- Se agregan tests automatizados.
+- Agradecemos al usuario @gm1980 por el PR que contribuyó. Más información en `CONTRIBUTORS.md`.
 
 # Versión 3.5.2 - 5/08/2020
 - Se agregan "splash screens" con consejos mientras se carga estado del server.

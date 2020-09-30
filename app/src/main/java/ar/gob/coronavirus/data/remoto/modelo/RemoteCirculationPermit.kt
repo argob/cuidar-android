@@ -3,18 +3,20 @@ package ar.gob.coronavirus.data.remoto.modelo
 import com.google.gson.annotations.SerializedName
 
 data class RemoteCirculationPermit(
-        @SerializedName("permiso-qr")
-        val qr: String = "",
+        @SerializedName("url-qr")
+        val url: String,
         @SerializedName("fecha-vencimiento-permiso")
         val permitExpirationDate: String = "",
-        @SerializedName("status-servicio")
-        val serviceStatus: Int = -1,
         @SerializedName("tipo-actividad")
-        val activityType: String? = null,
+        val activityType: String,
         @SerializedName("sube")
         val sube: String?,
         @SerializedName("patente")
-        val plate: String?
+        val plate: String?,
+        @SerializedName("id-certificado")
+        val certificateId: Int,
+        @SerializedName("motivo-circulacion")
+        val reason: String
 )
 
 /*

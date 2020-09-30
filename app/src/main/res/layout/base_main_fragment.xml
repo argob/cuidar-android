@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/screen_container"
@@ -76,7 +76,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_colored_container"
-            tools:text="@string/h_fake_nombre" />
+            tools:text="Juan Rodriguez Perez" />
 
         <TextView
             android:id="@+id/dni_de_usuario"
@@ -90,7 +90,7 @@
             app:layout_constraintStart_toStartOf="@id/nombre_de_usuario"
             app:layout_constraintTop_toBottomOf="@id/nombre_de_usuario"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="@string/h_fake_dni" />
+            tools:text="DNI: 12345678" />
 
         <TextView
             android:id="@+id/sube"
@@ -100,10 +100,12 @@
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/gris_oscuro"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/plate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dni_de_usuario"
             app:layout_goneMarginEnd="24dp"
+            tools:visibility="visible"
             tools:text="SUBE: ...00000000" />
 
         <TextView
@@ -114,11 +116,13 @@
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/gris_oscuro"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/sube"
             app:layout_constraintTop_toBottomOf="@id/dni_de_usuario"
             app:layout_goneMarginStart="24dp"
-            tools:text="Patente: AD944AB" />
+            tools:text="Patente: AD944AB"
+            tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/sube_plate_barrier"
@@ -175,4 +179,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

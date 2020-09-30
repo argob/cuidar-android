@@ -8,7 +8,5 @@ data class LocalState(
         val expirationDate: String,
         @Embedded
         val coep: LocalCoep,
-        @Embedded
-        val circulationPermit: LocalCirculationPermit?,
         @Embedded(prefix = "pims_")
         val pims: LocalPims?)

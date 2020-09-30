@@ -37,22 +37,6 @@
         <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
-    <style name="Roboto.Black" parent="android:TextAppearance">
-        <item name="fontFamily">@font/roboto_black</item>
-    </style>
-
-    <style name="botonFondoObscuro">
-        <item name="android:background">@color/azulBoton</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginLeft">32dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
-        <item name="android:layout_marginRight">32dp</item>
-        <item name="android:layout_marginBottom">32dp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
     <style name="pbaButton">
         <item name="android:background">@color/pba_blue</item>
         <item name="android:layout_width">match_parent</item>
@@ -67,45 +51,6 @@
         <item name="android:padding">20dp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-
-    <style name="botonFondoClaro">
-        <item name="android:background">@android:color/white</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginLeft">32dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
-        <item name="android:layout_marginRight">32dp</item>
-        <item name="android:layout_marginBottom">32dp</item>
-        <item name="android:textColor">@color/darkSkyBlue</item>
-    </style>
-
-    <style name="header_resultado_diagnostico">
-        <item name="android:paddingTop">18dp</item>
-        <item name="android:paddingBottom">18dp</item>
-        <item name="android:paddingStart">24sp</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textAppearance">@style/Roboto.Black</item>
-        <item name="android:gravity">start</item>
-    </style>
-
-    <style name="header_rosa_bordes_redondeados" parent="header_resultado_diagnostico">
-        <item name="android:background">@drawable/top_borde_redondeado_rosa</item>
-    </style>
-
-    <style name="header_verde_bordes_redondeados" parent="header_resultado_diagnostico">
-        <item name="android:background">@drawable/top_borde_redondeado_verde</item>
-    </style>
-
-    <style name="principalRosaClaro">
-        <item name="android:background">@color/rosaClaro</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
 
     <style name="BotonRedondeado">
         <item name="android:textSize">16sp</item>
@@ -131,38 +76,6 @@
     <style name="BotonBlancoRellenoRedondeado" parent="BotonRedondeado">
         <item name="android:background">@drawable/background_ovalado_blanco</item>
         <item name="android:textColor">@drawable/texto_boton_redondeado_blanco</item>
-    </style>
-
-    <style name="BotonAutodiagnostico" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/azulBoton</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="cornerRadius">16dp</item>
-        <item name="android:layout_marginEnd">24dp</item>
-        <item name="android:layout_marginStart">24dp</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
-    </style>
-
-    <style name="BotonAutodiagnosticoClaro" parent="BotonAutodiagnostico">
-        <item name="backgroundTint">@color/blanco</item>
-        <item name="android:textColor">@color/azulBoton</item>
-    </style>
-
-    <style name="BotonRedondo" parent="Widget.MaterialComponents.Button">
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:insetLeft">0dp</item>
-        <item name="android:insetRight">0dp</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
-    </style>
-
-    <style name="BotonRedondo.Forma" parent="Widget.MaterialComponents.Button">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
     </style>
 
     <style name="RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
@@ -225,11 +138,6 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="normal_edittext">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/roboto_regular</item>
-    </style>
-
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="materialAlertDialogTitleTextStyle">@style/Alert.Title.Text</item>
         <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
@@ -254,14 +162,6 @@
     <style name="Alert.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textColor">@color/negro</item>
         <item name="android:textAppearance">@style/Roboto.Bold</item>
-    </style>
-
-    <style name="LogoCuidarFragmentHeader">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">56dp</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:contentDescription">@string/app_name</item>
-        <item name="srcCompat">@drawable/icon_cuidar</item>
     </style>
 
     <style name="CheckBox.AceptarTyC" parent="Widget.MaterialComponents.CompoundButton.CheckBox">

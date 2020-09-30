@@ -20,7 +20,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import ar.gob.coronavirus.R;
@@ -28,9 +27,9 @@ import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteAntecedents;
 import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSelfEvaluation;
 import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSymptom;
 import ar.gob.coronavirus.databinding.FragmentAutodiagnosticoConfirmacionBinding;
-import ar.gob.coronavirus.utils.InternetUtileria;
+import ar.gob.coronavirus.utils.InternetUtils;
 import ar.gob.coronavirus.utils.TipoDePermisoDeUbicacion;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
 import ar.gob.coronavirus.utils.permisos.PermisosUtileria;
 
 public class AutodiagnosticoConfirmacionFragment extends Fragment {
@@ -62,23 +61,17 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
     }
 
     private void iniciarInterfaz() {
-        binding.btnSiguiente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (confirmacionDialogo == null)
-                    crearDialogo();
-                confirmacionDialogo.show();
-            }
+        binding.btnSiguiente.setOnClickListener(v -> {
+            if (confirmacionDialogo == null)
+                crearDialogo();
+            confirmacionDialogo.show();
         });
-        binding.btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Ir a pantalla de temperatura.
-                Navigation.findNavController(v).navigate(
-                        AutodiagnosticoConfirmacionFragmentDirections.
-                                actionAutodiagnosticoConfirmacionFragmentToAutodiagnosticoTemperaturaFragment()
-                );
-            }
+        binding.btnReset.setOnClickListener(v -> {
+            // Ir a pantalla de temperatura.
+            Navigation.findNavController(v).navigate(
+                    AutodiagnosticoConfirmacionFragmentDirections.
+                            actionAutodiagnosticoConfirmacionFragmentToAutodiagnosticoTemperaturaFragment()
+            );
         });
 
         RemoteSelfEvaluation autoevaluacion = viewModel.obtenerAutoevaluacion();
@@ -127,26 +120,16 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
     }
 
     private void ordenarSintomas(List<RemoteSymptom> sintomas) {
-        Collections.sort(sintomas, new Comparator<RemoteSymptom>() {
-            @Override
-            public int compare(RemoteSymptom sr1, RemoteSymptom sr2) {
-                return obtenerPosicionSintoma(sr1).compareTo(obtenerPosicionSintoma(sr2));
-            }
-        });
+        Collections.sort(sintomas, (sr1, sr2) -> obtenerPosicionSintoma(sr1).compareTo(obtenerPosicionSintoma(sr2)));
     }
 
     private Integer obtenerPosicionSintoma(RemoteSymptom sintoma) {
-        Symptoms tipo = Symptoms.valueOf(sintoma.getId());
+        Symptoms tipo = Symptoms.find(sintoma.getId());
         return tipo.ordinal();
     }
 
     private void ordenarAntecedentes(List<RemoteAntecedents> antecedentes) {
-        Collections.sort(antecedentes, new Comparator<RemoteAntecedents>() {
-            @Override
-            public int compare(RemoteAntecedents ar1, RemoteAntecedents ar2) {
-                return obtenerPosicionAntecedente(ar1).compareTo(obtenerPosicionAntecedente(ar2));
-            }
-        });
+        Collections.sort(antecedentes, (ar1, ar2) -> obtenerPosicionAntecedente(ar1).compareTo(obtenerPosicionAntecedente(ar2)));
     }
 
     private Integer obtenerPosicionAntecedente(RemoteAntecedents antecedente) {
@@ -155,7 +138,7 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
     }
 
     private String obtenerResumenSintoma(RemoteSymptom sintoma) {
-        Symptoms tipo = Symptoms.valueOf(sintoma.getId());
+        Symptoms tipo = Symptoms.find(sintoma.getId());
         return getString(tipo.getShortDescription());
     }
 
@@ -176,29 +159,16 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
                         }
                     }
                 })
-                .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).create();
+                .setNegativeButton(R.string.cancelar, (dialog, which) -> dialog.dismiss()).create();
     }
 
     private void crearDialogoInternet() {
-        final PantallaCompletaDialog dialog = PantallaCompletaDialog.newInstance(
+        FullScreenDialog.newInstance(
                 getString(R.string.hubo_error),
                 getString(R.string.no_hay_internet),
                 getString(R.string.cerrar).toUpperCase(),
-                R.drawable.ic_error
-        );
-
-        dialog.setAccionBoton(new PantallaCompletaDialog.AccionBotonDialogoPantallaCompleta() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show(getParentFragmentManager(), "TAG");
+                R.drawable.ic_error)
+                .show(getParentFragmentManager(), "TAG");
     }
 
     @Override
@@ -219,40 +189,32 @@ public class AutodiagnosticoConfirmacionFragment extends Fragment {
     }
 
     private void escucharDialogoDePermisosDeUbicacion() {
-        viewModel.obtenerResultadoDialogoDePermisoDeUbicacionLivaData()
+        viewModel.getLocationPermissionResultLiveData()
                 .observe(getViewLifecycleOwner(), obtenerObservadorDelDialogoCustomDePermisoDeUbicacion());
     }
 
     private void escucharObtieneGeolocalizacion() {
         viewModel.obtenerGeolocalizacionLivaData()
-                .observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(Boolean aBoolean) {
-                        enviarResultadosAutodiagnostico();
-                    }
-                });
+                .observe(getViewLifecycleOwner(), aBoolean -> enviarResultadosAutodiagnostico());
     }
 
     private void lanzarDialogoPermisosLocalizacion() {
-        viewModel.lanzarDialogoPermisosLocalizacion(TipoDePermisoDeUbicacion.SOLO_UBICACION);
+        viewModel.showLocationPermission(TipoDePermisoDeUbicacion.SOLO_UBICACION);
     }
 
     @NotNull
     private Observer<Boolean> obtenerObservadorDelDialogoCustomDePermisoDeUbicacion() {
-        return new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean tienePermisoDeUbicacion) {
-                if (tienePermisoDeUbicacion) {
-                    viewModel.obtenerUbicacionLatLong();
-                } else {
-                    enviarResultadosAutodiagnostico();
-                }
+        return tienePermisoDeUbicacion -> {
+            if (tienePermisoDeUbicacion) {
+                viewModel.obtenerUbicacionLatLong();
+            } else {
+                enviarResultadosAutodiagnostico();
             }
         };
     }
 
     private void enviarResultadosAutodiagnostico() {
-        if (InternetUtileria.hayConexionDeInternet(getContext())) {
+        if (InternetUtils.isConnected(getContext())) {
             viewModel.enviarResultadosAutoevaluacion();
         } else {
             crearDialogoInternet();

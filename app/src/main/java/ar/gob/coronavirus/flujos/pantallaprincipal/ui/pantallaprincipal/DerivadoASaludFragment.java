@@ -5,12 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -19,11 +17,10 @@ import org.jetbrains.annotations.NotNull;
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.local.modelo.LocalCoep;
 import ar.gob.coronavirus.data.local.modelo.LocalState;
-import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.flujos.autodiagnostico.resultado.ResultadoActivity;
 import ar.gob.coronavirus.utils.Constantes;
-import ar.gob.coronavirus.utils.InternetUtileria;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
+import ar.gob.coronavirus.utils.InternetUtils;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
 
 public class DerivadoASaludFragment extends BaseMainFragment {
 
@@ -45,7 +42,7 @@ public class DerivadoASaludFragment extends BaseMainFragment {
         moreInformationTxt = view.findViewById(R.id.sintoma_mas_informacion);
 
         pieInfoTelefonos.setOnClickListener(v -> {
-            if (InternetUtileria.hayConexionDeInternet(getContext())) {
+            if (InternetUtils.isConnected(getContext())) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constantes.URL_INFO_TELEFONOS)));
             } else {
                 crearDialogo();
@@ -61,14 +58,13 @@ public class DerivadoASaludFragment extends BaseMainFragment {
     }
 
     private void escucharCambiosDelUsuario() {
-        LiveData<LocalUser> localUserData = getViewModel().obtenerUltimoEstadoLiveData();
-        localUserData.observe(requireActivity(), localUser -> {
+        getViewModel().obtenerUltimoEstadoLiveData().observe(getViewLifecycleOwner(), userWithPermits -> {
             try {
                 getViewModel().despacharEventoNavegacion();
-                LocalState currentState = localUser.getCurrentState();
+                LocalState currentState = userWithPermits.getUser().getCurrentState();
                 LocalCoep coep = currentState.getCoep();
-                setUpUserInfo(localUser, getString(R.string.h_recomendacion_infectado_2, coep.getCoep(), coep.getContactInformation()));
-                String fechaVencimiento = localUser.getCurrentState().getExpirationDate();
+                setUpUserInfo(userWithPermits.getUser(), getString(R.string.h_recomendacion_infectado_2, coep.getCoep(), coep.getContactInformation()));
+                String fechaVencimiento = userWithPermits.getUser().getCurrentState().getExpirationDate();
 
                 String symptomsTxt = currentState.getPims() != null ? currentState.getPims().getTag() : getString(R.string.derivado_de_salud_observacion);
 
@@ -92,12 +88,6 @@ public class DerivadoASaludFragment extends BaseMainFragment {
         });
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        getViewModel().obtenerUltimoEstadoLiveData().removeObservers(requireActivity());
-    }
-
     private void setFormatoTextoInfoTelefonos() {
         String texto = getString(R.string.informacion_footer_telefonos);
         Spanned textoConFormato = Html.fromHtml(texto);
@@ -105,14 +95,11 @@ public class DerivadoASaludFragment extends BaseMainFragment {
     }
 
     private void crearDialogo() {
-        final PantallaCompletaDialog dialog = PantallaCompletaDialog.newInstance(
+        FullScreenDialog.newInstance(
                 getString(R.string.hubo_error),
                 getString(R.string.no_hay_internet),
                 getString(R.string.cerrar).toUpperCase(),
                 R.drawable.ic_error
-        );
-
-        dialog.setAccionBoton(v -> dialog.dismiss());
-        dialog.show(getParentFragmentManager(), "TAG");
+        ).show(getParentFragmentManager(), "TAG");
     }
 }

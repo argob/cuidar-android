@@ -47,7 +47,7 @@ public class AutodiagnosticoSintomasFragment extends Fragment {
     private void iniciarValoresDeVistas() {
         List<SymptomElement> elements = new ArrayList<>();
         for (Symptoms value : Symptoms.values()) {
-            RemoteSymptom currentValue = viewModel.obtenerSintoma(value);
+            RemoteSymptom currentValue = viewModel.getSymptom(value);
             elements.add(new SymptomElement(value, currentValue != null && currentValue.getValue()));
         }
         SymptomsAdapter adapter = new SymptomsAdapter(elements, (symptoms, value) -> {

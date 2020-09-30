@@ -19,12 +19,11 @@ import org.koin.androidx.viewmodel.compat.ViewModelCompat;
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.databinding.ActivityAutodiagnosticoBinding;
 import ar.gob.coronavirus.flujos.BaseActivity;
-import ar.gob.coronavirus.flujos.identificacion.IdentificacionActivity;
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalActivity;
 import ar.gob.coronavirus.utils.Constantes;
-import ar.gob.coronavirus.utils.dialogs.LoadingDialog;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
-import ar.gob.coronavirus.utils.observables.EventoUnico;
+import ar.gob.coronavirus.utils.dialogs.Dialogs;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
+import ar.gob.coronavirus.utils.observables.Event;
 
 public class AutodiagnosticoActivity extends BaseActivity {
     private static final String LLAVE_ORIGEN_PRINCIPAL = "LLAVE_ORIGEN_PRINCIPAL";
@@ -68,7 +67,7 @@ public class AutodiagnosticoActivity extends BaseActivity {
         escucharCambioDePantalla();
         reaccionarAlBotonBack();
 
-        loaderDialog = LoadingDialog.createLoadingDialog(this, getLayoutInflater());
+        loaderDialog = Dialogs.createLoadingDialog(this);
     }
 
     private void escucharCambioDePantalla() {
@@ -98,7 +97,7 @@ public class AutodiagnosticoActivity extends BaseActivity {
     }
 
     private void showErrorDialog() {
-        PantallaCompletaDialog.newInstance(
+        FullScreenDialog.newInstance(
                 getString(R.string.hubo_error),
                 getString(R.string.hubo_error_desc),
                 getString(R.string.cerrar),
@@ -115,15 +114,14 @@ public class AutodiagnosticoActivity extends BaseActivity {
     }
 
     private void reaccionarAlBotonBack() {
-        viewModel.estadoAlPresionarBack.observe(this, new Observer<EventoUnico<AutodiagnosticoViewModel.EstadoAlPresionarBack>>() {
+        viewModel.estadoAlPresionarBack.observe(this, new Observer<Event<AutodiagnosticoViewModel.EstadoAlPresionarBack>>() {
 
             @Override
-            public void onChanged(EventoUnico<AutodiagnosticoViewModel.EstadoAlPresionarBack> estado) {
-                if (estado.obtenerContenidoSiNoFueLanzado() != null) {
-                    if (estado.obtenerConenido() == AutodiagnosticoViewModel.EstadoAlPresionarBack.DebeDiagnosticarse) {
+            public void onChanged(Event<AutodiagnosticoViewModel.EstadoAlPresionarBack> estado) {
+                if (estado.getOrNull() != null) {
+                    if (estado.get() == AutodiagnosticoViewModel.EstadoAlPresionarBack.DebeDiagnosticarse) {
                         viewModel.logout();
-                        IdentificacionActivity.startRemovingStack(getApplicationContext());
-                    } else if (estado.obtenerConenido() == AutodiagnosticoViewModel.EstadoAlPresionarBack.Diagnosticado) {
+                    } else if (estado.get() == AutodiagnosticoViewModel.EstadoAlPresionarBack.Diagnosticado) {
                         AutodiagnosticoActivity.super.onBackPressed();
                     }
                 }

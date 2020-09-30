@@ -8,9 +8,9 @@ import ar.gob.coronavirus.CovidApplication
 
 object PreferencesManager {
 
-    private val context by lazy { CovidApplication.getInstance() }
+    private val context by lazy { CovidApplication.instance }
     private val masterKey by lazy {
-        MasterKey.Builder(CovidApplication.getInstance())
+        MasterKey.Builder(CovidApplication.instance)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                 .build()
     }

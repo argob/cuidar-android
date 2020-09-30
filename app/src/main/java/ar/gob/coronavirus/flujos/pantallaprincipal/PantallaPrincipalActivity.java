@@ -1,6 +1,5 @@
 package ar.gob.coronavirus.flujos.pantallaprincipal;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ import org.koin.androidx.viewmodel.compat.ViewModelCompat;
 import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.UserStatus;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
+import ar.gob.coronavirus.data.local.modelo.UserWithPermits;
 import ar.gob.coronavirus.flujos.BaseActivity;
 import ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoActivity;
 import ar.gob.coronavirus.flujos.autodiagnostico.ProvincesEnum;
@@ -39,11 +39,9 @@ import ar.gob.coronavirus.flujos.pantallaprincipal.ui.pantallaprincipal.Derivado
 import ar.gob.coronavirus.flujos.pantallaprincipal.ui.pantallaprincipal.NoInfectadoFragment;
 import ar.gob.coronavirus.flujos.pba.PbaActivity;
 import ar.gob.coronavirus.utils.Constantes;
-import ar.gob.coronavirus.utils.InternetUtileria;
-import ar.gob.coronavirus.utils.dialogs.LoadingDialog;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
+import ar.gob.coronavirus.utils.InternetUtils;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
 import ar.gob.coronavirus.utils.extensions.ActivityExtensionsKt;
-import ar.gob.coronavirus.utils.observables.EventoUnico;
 
 public class PantallaPrincipalActivity extends BaseActivity implements View.OnClickListener {
     private static final String LLAVE_MOSTRAR_RESULTADO = "LLAVE_MOSTRAR_RESULTADO";
@@ -54,8 +52,6 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
     private TextView telefono;
     private SwipeRefreshLayout refreshLayout;
     private WebView adviceIv;
-
-    private Dialog loadingDialog;
 
     boolean mostrarResultado;
     private Toolbar toolbar;
@@ -68,14 +64,14 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
         context.startActivity(intent);
     }
 
-    Observer<LocalUser> mostrar_resultado = new Observer<LocalUser>() {
+    Observer<UserWithPermits> mostrar_resultado = new Observer<UserWithPermits>() {
         @Override
-        public void onChanged(LocalUser usuario) {
+        public void onChanged(UserWithPermits userWithPermits) {
             refreshLayout.setRefreshing(false);
-            setHeaderData(usuario);
+            setHeaderData(userWithPermits.getUser());
             if (mostrarResultado) {
                 mostrarResultado = false;
-                if (puedeUsuarioCircular(usuario.getCurrentState().getUserStatus())) {
+                if (puedeUsuarioCircular(userWithPermits.getUser().getCurrentState().getUserStatus())) {
                     ResultadoActivity.iniciar(PantallaPrincipalActivity.this, ResultadoActivity.OpcionesNavegacion.RESULTADO_VERDE);
                 } else {
                     ResultadoActivity.iniciar(PantallaPrincipalActivity.this, ResultadoActivity.OpcionesNavegacion.RESULTADO_ROSA);
@@ -116,7 +112,6 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
 
         setupViews();
 
-        loadingDialog = LoadingDialog.createLoadingDialog(this, getLayoutInflater());
         adviceIv = findViewById(R.id.advice_image);
         adviceIv.getSettings().setAppCacheEnabled(true);
         adviceIv.getSettings().setAppCachePath(getCacheDir().getPath());
@@ -136,7 +131,7 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
         mViewModel.obtenerUltimoEstadoDeBackend();
         mViewModel.obtenerEventosDeNavegacionLiveData()
                 .observe(this, destino -> {
-                    PantallaPrincipalViewModel.NavegacionDestinosPantallaPrincipal destinoDelEvento = destino.obtenerContenidoSiNoFueLanzado();
+                    PantallaPrincipalViewModel.NavegacionDestinosPantallaPrincipal destinoDelEvento = destino.getOrNull();
                     if (destinoDelEvento != null) {
                         switch (destinoDelEvento) {
                             case CIRCULAR:
@@ -156,36 +151,19 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
                                 break;
                             case DESLOGUEAR:
                                 mViewModel.logout();
-                                IdentificacionActivity.startRemovingStack(PantallaPrincipalActivity.this);
                                 break;
                         }
                     }
                 });
 
-        mViewModel.obtenerErrorBackend().observe(this, new Observer<EventoUnico<Integer>>() {
-            @Override
-            public void onChanged(EventoUnico<Integer> booleanEventoUnico) {
-                if (booleanEventoUnico.obtenerContenidoSiNoFueLanzado() != null) {
-                    PantallaCompletaDialog.newInstance(
-                            getString(R.string.hubo_error),
-                            getString(R.string.hubo_error_desc),
-                            "Cerrar",
-                            R.drawable.ic_error
-                    ).show(getSupportFragmentManager(), "ERROR_DIALOG_TAG");
-                }
-            }
-        });
-
-        mViewModel.obtenerEventoDeDialogo().observe(this, new Observer<EventoUnico<Boolean>>() {
-            @Override
-            public void onChanged(EventoUnico<Boolean> booleanEventoUnico) {
-//                if (booleanEventoUnico.obtenerContenidoSiNoFueLanzado() != null) {
-//                    if (booleanEventoUnico.obtenerConenido()) {
-//                        loadingDialog.show();
-//                    } else {
-//                        loadingDialog.dismiss();
-//                    }
-//                }
+        mViewModel.obtenerErrorBackend().observe(this, booleanEvent -> {
+            if (booleanEvent.getOrNull() != null) {
+                FullScreenDialog.newInstance(
+                        getString(R.string.hubo_error),
+                        getString(R.string.hubo_error_desc),
+                        getString(R.string.lbl_close),
+                        R.drawable.ic_error
+                ).show(getSupportFragmentManager(), "ERROR_DIALOG_TAG");
             }
         });
 
@@ -256,12 +234,7 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
         drawerLayout = findViewById(R.id.drawerLayout);
         refreshLayout = findViewById(R.id.swipe_refresh);
         ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.abrir, R.string.cerrar);
-        toogle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
+        toogle.setToolbarNavigationClickListener(v -> drawerLayout.openDrawer(Gravity.LEFT));
         drawerLayout.addDrawerListener(toogle);
         toogle.syncState();
     }
@@ -316,29 +289,28 @@ public class PantallaPrincipalActivity extends BaseActivity implements View.OnCl
             case R.id.h_cerrar_sesion_label:
                 mViewModel.logout();
                 drawerLayout.close();
-                IdentificacionActivity.startRemovingStack(PantallaPrincipalActivity.this);
                 break;
             case R.id.h_editar_info:
-                IdentificacionActivity.iniciar(this, true);
+                IdentificacionActivity.start(this, true);
                 drawerLayout.close();
                 break;
             case R.id.h_video_llamada_label:
             case R.id.h_icon_video_call:
-                if (InternetUtileria.hayConexionDeInternet(this)) {
+                if (InternetUtils.isConnected(this)) {
                     drawerLayout.close();
                     ActivityExtensionsKt.startWebView(this, Constantes.URL_VIDEO_LLAMADA);
                 }
                 break;
             case R.id.h_info_label:
             case R.id.h_icono_informacion:
-                if (InternetUtileria.hayConexionDeInternet(this)) {
+                if (InternetUtils.isConnected(this)) {
                     drawerLayout.close();
                     ActivityExtensionsKt.startWebView(this, Constantes.URL_MAS_INFORMACION);
                 }
                 break;
             case R.id.h_redes_label:
             case R.id.h_icono_redes:
-                if (InternetUtileria.hayConexionDeInternet(this)) {
+                if (InternetUtils.isConnected(this)) {
                     drawerLayout.close();
                     ActivityExtensionsKt.startWebView(this, Constantes.URL_REDES_SOCIALES);
                 }

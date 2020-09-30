@@ -31,7 +31,7 @@ class AppAuthenticator : Authenticator, KoinComponent {
         if (url.contains(Constantes.AUTHORIZATION_ENDPOINT) || url.contains(Constantes.REFRESH_ENDPOINT) || url.contains(Constantes.NOTIFICATIONS)) return null
 
         val newToken = try {
-            api.refresh(PreferencesManager.getRefreshToken(), PreferencesManager.getHash()).blockingGet()
+            api.refresh(PreferencesManager.getRefreshToken()!!, PreferencesManager.getHash()!!).blockingGet()
         } catch (e: Exception) {
             Timber.e(e, "Error while refreshing the token")
             when {

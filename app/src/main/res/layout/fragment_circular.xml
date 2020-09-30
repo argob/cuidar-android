@@ -15,17 +15,27 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintTop_toBottomOf="@id/divisor">
 
+        <Spinner
+            android:id="@+id/certificates_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
         <TextView
             android:id="@+id/qr_titulo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/certificates_spinner"
             android:text="@string/certificado_unico_circulacion_qr"
             android:textColor="@color/gris_2"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_goneMarginTop="0dp" />
 
         <TextView
             android:id="@+id/qr_status"
@@ -92,7 +102,7 @@
             android:src="@drawable/placeholder_qr"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/qr_titulo" />
 
         <View
             android:id="@+id/divisor_qr"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ar.gob.coronavirus.flujos.inicio.InicioActivity">
+    tools:context="ar.gob.coronavirus.flujos.inicio.SplashActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_inicio"

@@ -1,3 +1,8 @@
+# Versión 3.5.6
+- Limpieza de recursos sin usar, @facundomr, https://github.com/argob/cuidar-android/pull/33
+
+# Versión 3.5.4
+- Update strings.xml, @gm1980, https://github.com/argob/cuidar-android/pull/32
 
 # Versión 3.5.2
 - CHANGELOG.md, @joaquini, https://github.com/argob/cuidar-android/pull/15

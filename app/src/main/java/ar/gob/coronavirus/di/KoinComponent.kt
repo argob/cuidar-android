@@ -9,20 +9,22 @@ import ar.gob.coronavirus.data.remoto.AppAuthenticator
 import ar.gob.coronavirus.data.remoto.CovidApiService
 import ar.gob.coronavirus.data.remoto.interceptores.AuthenticationInterceptor
 import ar.gob.coronavirus.data.remoto.interceptores.HeadersInterceptor
-import ar.gob.coronavirus.data.repositorios.RepositorioAutoevaluacion
-import ar.gob.coronavirus.data.repositorios.RepositorioLogout
+import ar.gob.coronavirus.data.repositorios.LogoutRepository
+import ar.gob.coronavirus.data.repositorios.SelfEvaluationRepository
 import ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoViewModel
-import ar.gob.coronavirus.flujos.autodiagnostico.resultado.AutodiagnosticoResultadoViewModel
+import ar.gob.coronavirus.flujos.autodiagnostico.resultado.SelfEvaluationResultViewModel
 import ar.gob.coronavirus.flujos.identificacion.IdentificacionViewModel
 import ar.gob.coronavirus.flujos.identificacion.IdentificationRepository
 import ar.gob.coronavirus.flujos.inicio.SplashViewModel
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalRepository
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalViewModel
+import ar.gob.coronavirus.utils.SharedUtils
 import ar.gob.coronavirus.utils.many.APIConstants
 import com.google.android.gms.location.FusedLocationProviderClient
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -42,28 +44,39 @@ fun startKoin(application: Application) {
 
 private val databaseModule = module {
     single { EncryptedDataBase.instance.userDao }
+    single { EncryptedDataBase.instance.permitsDao }
+    single { SharedUtils(androidApplication()) }
 }
+
+private const val BASE_URL = "base_url"
+private const val STATIC_URL = "static_url"
+private const val STATIC = "static"
 
 private val networkModule = module {
-    single { buildRetrofit(APIConstants.BASE_URL) }
+    single { if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE }
+    single(named(BASE_URL)) { APIConstants.BASE_URL }
+    single { buildOkHttpClient(true, get()) }
+    single { buildRetrofit(get(named(BASE_URL)), get()) }
     single { get<Retrofit>().create<CovidApiService>() }
-    single { Api(get()) }
+    single { Api(apiService = get()) }
 
-    single(named("static")) { buildRetrofit(APIConstants.ADVICE_URL, false) }
-    single { get<Retrofit>(qualifier = named("static")).create<AdviceService>() }
+    single(named(STATIC_URL)) { APIConstants.ADVICE_URL }
+    single(named(STATIC)) { buildOkHttpClient(false, get()) }
+    single(named(STATIC)) { buildRetrofit(get(named(STATIC_URL)), get()) }
+    single { get<Retrofit>(qualifier = named(STATIC)).create<AdviceService>() }
 }
 
-private fun buildRetrofit(baseUrl: String, authenticated: Boolean = true): Retrofit {
+private fun buildRetrofit(baseUrl: String, client: OkHttpClient): Retrofit {
     return Retrofit.Builder().run {
         baseUrl(baseUrl)
-        client(buildOkHttpClient(authenticated))
+        client(client)
         addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         addConverterFactory(GsonConverterFactory.create())
         build()
     }
 }
 
-private fun buildOkHttpClient(authenticated: Boolean): OkHttpClient {
+private fun buildOkHttpClient(authenticated: Boolean, logLevel: HttpLoggingInterceptor.Level): OkHttpClient {
     return OkHttpClient.Builder().run {
         if (authenticated) {
             authenticator(AppAuthenticator())
@@ -71,7 +84,7 @@ private fun buildOkHttpClient(authenticated: Boolean): OkHttpClient {
         }
         addInterceptor(HeadersInterceptor())
         addInterceptor(HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
+            level = logLevel
         })
         certificatePinner(CertificatePinner.Builder().run {
             add(APIConstants.CERTIFICATE_MATCHER, BuildConfig.CERTIFICADO_SHA1)
@@ -84,12 +97,10 @@ private fun buildOkHttpClient(authenticated: Boolean): OkHttpClient {
 }
 
 private val repositoriesModule = module {
-    factory { IdentificationRepository(api = get(), userDao = get()) }
-    factory { PantallaPrincipalRepository(api = get(), userDao = get(), adviceService = get()) }
-    // Doesn't support named parameters cause its in java
-    factory { RepositorioLogout(get(), get()) }
-    // Doesn't support named parameters cause its in java
-    factory { RepositorioAutoevaluacion(get(), get()) }
+    factory { IdentificationRepository(api = get(), userDao = get(), permitsDao = get()) }
+    factory { PantallaPrincipalRepository(api = get(), userDao = get(), adviceService = get(), permitsDao = get()) }
+    factory { LogoutRepository(api = get(), userDao = get(), sharedUtils = get(), permitsDao = get()) }
+    factory { SelfEvaluationRepository(api = get(), userDao = get()) }
 }
 
 private val utilsModule = module {
@@ -97,13 +108,12 @@ private val utilsModule = module {
 }
 
 private val viewModelsModule = module {
-    viewModel { SplashViewModel(identificationRepository = get(), logoutRepository = get()) }
+    viewModel { SplashViewModel(identificationRepository = get(), logoutRepositoryRepository = get()) }
+    viewModel { SelfEvaluationResultViewModel(selfEvaluationRepository = get()) }
     // Doesn't support named parameters cause its in java
-    viewModel { IdentificacionViewModel(get(), androidContext().resources, get()) }
+    viewModel { IdentificacionViewModel(get(), get()) }
     // Doesn't support named parameters cause its in java
     viewModel { AutodiagnosticoViewModel(get(), get(), get(), get()) }
-    // Doesn't support named parameters cause its in java
-    viewModel { AutodiagnosticoResultadoViewModel(get()) }
     // Doesn't support named parameters cause its in java
     viewModel { PantallaPrincipalViewModel(get(), get()) }
 }

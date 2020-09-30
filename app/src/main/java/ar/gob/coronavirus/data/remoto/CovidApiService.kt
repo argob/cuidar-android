@@ -6,8 +6,6 @@ import ar.gob.coronavirus.utils.Constantes
 import ar.gob.coronavirus.utils.Constantes.NOTIFICATIONS
 import io.reactivex.Completable
 import io.reactivex.Single
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.http.*
 
 /**
@@ -27,32 +25,32 @@ import retrofit2.http.*
  * necesario para poder validar DNIs, que se utiliza en parte para mitigar el problema de los números de
  * DNIs repetidos (herencia de la era pre digital en la asignación de número de DNIs).
  */
-internal interface CovidApiService {
+interface CovidApiService {
     @POST(Constantes.AUTHORIZATION_ENDPOINT)
-    fun autorizacion(@Body autorizacionUsuario: AutorizacionUsuario): Call<Token>
+    fun authorize(@Body body: UserAuthorization): Single<Token>
 
     @POST(Constantes.REFRESH_ENDPOINT)
     fun refresh(@Body body: TokenRefreshBody): Single<Token>
 
     @GET("usuarios/{dni}")
-    fun obtenerUsuario(@Path("dni") dni: String, @Query("sexo") sexo: String): Call<RemoteUser>
+    fun getUser(@Path("dni") dni: String, @Query("sexo") gender: String): Single<RemoteUser>
 
     @PATCH("usuarios/{dni}")
-    fun actualizarUsuario(
+    fun updateUser(
             @Path("dni") dni: String,
-            @Query("sexo") sexo: String,
-            @Body userInformationUpdate: UserInformationUpdate): Call<RemoteUser>
+            @Query("sexo") gender: String,
+            @Body userInformationUpdate: UserInformationUpdate): Single<RemoteUser>
 
     @POST("usuarios/{dni}/${NOTIFICATIONS}/registrar")
-    fun registrarToken(@Path("dni") dni: Long, @Query("sexo") sexo: String, @Body pushBody: PushBody): Completable
+    fun registerToken(@Path("dni") dni: Long, @Query("sexo") gender: String, @Body pushBody: PushBody): Completable
 
     @POST("usuarios/{dni}/${NOTIFICATIONS}/desregistrar")
-    fun desregistrarToken(@Path("dni") dni: String?, @Query("sexo") sexo: String, @Body pushBody: PushBody): Call<ResponseBody>
+    fun unregisterToken(@Path("dni") dni: String, @Query("sexo") gender: String, @Body pushBody: PushBody): Completable
 
     @POST("/usuarios/{dni}/autoevaluaciones")
-    fun confirmarAutoevaluacion(
+    fun confirmSelfEvaluation(
             @Path("dni") dni: String,
             @Query("sexo") gender: String,
             @Body remoteSelfEvaluation: RemoteSelfEvaluation
-    ): Call<SelfEvaluationResponse>
+    ): Single<SelfEvaluationResponse>
 }

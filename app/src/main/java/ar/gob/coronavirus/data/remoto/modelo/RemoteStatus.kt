@@ -10,8 +10,8 @@ data class RemoteStatus(
         val expirationDate: String?,
         @SerializedName("datos-coep")
         val coep: RemoteCoep?,
-        @SerializedName("permiso-circulacion")
-        val circulationPermit: RemoteCirculationPermit?,
+        @SerializedName("permisos-circulacion")
+        val circulationPermits: List<RemoteCirculationPermit>?,
         val pims: RemotePims?
 )
 

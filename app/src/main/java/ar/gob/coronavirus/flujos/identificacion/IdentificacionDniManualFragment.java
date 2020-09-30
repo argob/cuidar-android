@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -32,15 +31,14 @@ import ar.gob.coronavirus.R;
 import ar.gob.coronavirus.data.DniEntity;
 import ar.gob.coronavirus.fcm.FcmIntentService;
 import ar.gob.coronavirus.flujos.autodiagnostico.AutodiagnosticoActivity;
-import ar.gob.coronavirus.flujos.inicio.InicioTerminosFragment;
+import ar.gob.coronavirus.flujos.inicio.TermsAndConditionsDialog;
 import ar.gob.coronavirus.flujos.pantallaprincipal.PantallaPrincipalActivity;
 import ar.gob.coronavirus.utils.Constantes;
-import ar.gob.coronavirus.utils.InternetUtileria;
-import ar.gob.coronavirus.utils.TecladoUtils;
-import ar.gob.coronavirus.utils.dialogs.ComoObtenerTramiteDialog;
-import ar.gob.coronavirus.utils.dialogs.ConfirmacionDialog;
-import ar.gob.coronavirus.utils.dialogs.LoadingDialog;
-import ar.gob.coronavirus.utils.dialogs.PantallaCompletaDialog;
+import ar.gob.coronavirus.utils.InternetUtils;
+import ar.gob.coronavirus.utils.KeyboardUtils;
+import ar.gob.coronavirus.utils.dialogs.Dialogs;
+import ar.gob.coronavirus.utils.dialogs.FullScreenDialog;
+import ar.gob.coronavirus.utils.dialogs.IdentificationNumberTutorialDialog;
 import ar.gob.coronavirus.utils.permisos.PermisosUtileria;
 
 public class IdentificacionDniManualFragment extends Fragment {
@@ -120,7 +118,7 @@ public class IdentificacionDniManualFragment extends Fragment {
             if (textViewErrorSexo != null) {
                 textViewErrorSexo.setVisibility(View.INVISIBLE);
             }
-            TecladoUtils.esconderTeclado(requireActivity());
+            KeyboardUtils.hideKeyboard(requireActivity());
         });
 
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -129,16 +127,16 @@ public class IdentificacionDniManualFragment extends Fragment {
             } else {
                 deshabilidatBotones();
             }
-            TecladoUtils.esconderTeclado(requireActivity());
+            KeyboardUtils.hideKeyboard(requireActivity());
         });
         checkBox.setChecked(true);
 
         txtTyC.setOnClickListener(v -> {
-            InicioTerminosFragment dialog = new InicioTerminosFragment();
+            TermsAndConditionsDialog dialog = new TermsAndConditionsDialog();
             dialog.show(getParentFragmentManager(), "TyC");
         });
 
-        loaderDialog = LoadingDialog.createLoadingDialog(getActivity(), getActivity().getLayoutInflater());
+        loaderDialog = Dialogs.createLoadingDialog(getActivity());
     }
 
     private void setTyCTextoFormateado() {
@@ -160,17 +158,20 @@ public class IdentificacionDniManualFragment extends Fragment {
 
     private void iniciarEventos() {
         botonSiguiente.setOnClickListener(v -> {
-            if (InternetUtileria.hayConexionDeInternet(getContext())) {
+            if (InternetUtils.isConnected(getContext())) {
                 mensajeError.setVisibility(View.GONE);
                 String dni = dniEt.getText().toString();
                 String noTramite = numeroTramiteEt.getText().toString();
                 if (validarDatosEntrada(dni, noTramite)) {
-                    identificacionViewModel.registrarUsuario(
+                    identificacionViewModel.registerUser(
                             dni,
                             noTramite,
                             obtenerValorRadioGroupSexo()
                     );
-                    loaderDialog.show();
+
+                    if(loaderDialog != null){
+                        loaderDialog.show();
+                    }
                 }
                 dniIL.clearFocus();
                 noTramiteIL.clearFocus();
@@ -190,8 +191,7 @@ public class IdentificacionDniManualFragment extends Fragment {
 
         comoObtenerNoTramite.setOnClickListener(view -> {
             view.setClickable(false);
-            ComoObtenerTramiteDialog tramiteDialog = new ComoObtenerTramiteDialog(getActivity());
-            tramiteDialog.showDialog();
+            new IdentificationNumberTutorialDialog().show(getChildFragmentManager(), null);
             new Handler().postDelayed(() -> view.setClickable(true), 500);
         });
     }
@@ -217,12 +217,12 @@ public class IdentificacionDniManualFragment extends Fragment {
             if (dniEntity.hasBasicData()) {
                 insertarDatosEnLaVista(dniEntity);
             } else {
-                ConfirmacionDialog.showDialog(IdentificacionDniManualFragment.this.getContext(), R.string.mensaje_error_escanear_dni, R.string.aceptar, (dialog, which) -> dialog.dismiss());
+                Dialogs.createMessageDialog(getContext(), R.string.mensaje_error_escanear_dni, R.string.aceptar, (dialog, which) -> dialog.dismiss());
             }
         });
         identificacionViewModel.getRegistrarUsuarioLiveData().observe(getViewLifecycleOwner(), eventoUnicoNavegacion -> {
-            if (eventoUnicoNavegacion.obtenerContenidoSiNoFueLanzado() != null) {
-                switch (eventoUnicoNavegacion.obtenerConenido()) {
+            if (eventoUnicoNavegacion.getOrNull() != null) {
+                switch (eventoUnicoNavegacion.get()) {
                     case IDENTIFICACION:
                         ((IdentificacionActivity) getActivity()).navegarAIdentificacionConfirmacionDatosFragment();
                         FcmIntentService.startActionFetchToken(getActivity());
@@ -246,8 +246,8 @@ public class IdentificacionDniManualFragment extends Fragment {
         });
 
         identificacionViewModel.getLimpiarLogin().observe(requireActivity(), booleanEventoUnico -> {
-            if (booleanEventoUnico.obtenerContenidoSiNoFueLanzado() != null) {
-                if (booleanEventoUnico.obtenerConenido()) {
+            if (booleanEventoUnico.getOrNull() != null) {
+                if (booleanEventoUnico.get()) {
                     limpiarVista();
                 }
             }
@@ -349,14 +349,12 @@ public class IdentificacionDniManualFragment extends Fragment {
     }
 
     private void crearDialogoInternet() {
-        final PantallaCompletaDialog dialog = PantallaCompletaDialog.newInstance(
+        FullScreenDialog.newInstance(
                 getString(R.string.hubo_error),
                 getString(R.string.no_hay_internet),
                 getString(R.string.cerrar).toUpperCase(),
                 R.drawable.ic_error
-        );
-        dialog.setAccionBoton(v -> dialog.dismiss());
-        dialog.show(getParentFragmentManager(), "TAG");
+        ).show(getParentFragmentManager(), "TAG");
     }
 
 }

@@ -1,19 +1,23 @@
 package ar.gob.coronavirus.flujos.pantallaprincipal
 
 import ar.gob.coronavirus.data.ConvertirClasesRemotasEnLocales.convertirUsuario
+import ar.gob.coronavirus.data.local.PermitsDao
 import ar.gob.coronavirus.data.local.UserDAO
 import ar.gob.coronavirus.data.local.modelo.LocalUser
+import ar.gob.coronavirus.data.local.modelo.UserWithPermits
 import ar.gob.coronavirus.data.remoto.AdviceService
 import ar.gob.coronavirus.data.remoto.Api
 import ar.gob.coronavirus.data.remoto.modelo.AdviceCount
 import ar.gob.coronavirus.utils.PreferencesManager
 import ar.gob.coronavirus.utils.extensions.applySchedulers
 import ar.gob.coronavirus.utils.many.APIConstants
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import timber.log.Timber
 import kotlin.random.Random
 
-class PantallaPrincipalRepository(private val api: Api, private val userDao: UserDAO, private val adviceService: AdviceService) {
+class PantallaPrincipalRepository(private val api: Api, private val userDao: UserDAO, private val permitsDao: PermitsDao, private val adviceService: AdviceService) {
 
     fun getAdviceUrl(): Single<String> {
         return Single.zip(adviceService.requestAdviceCount().onErrorReturnItem(AdviceCount(0, null)), userDao.select(), BiFunction<AdviceCount, LocalUser, String> { advices, user ->
@@ -28,28 +32,20 @@ class PantallaPrincipalRepository(private val api: Api, private val userDao: Use
             }.also {
                 PreferencesManager.saveWasLastShownAdviceNation(!PreferencesManager.wasLastShownAdviceNation())
             }
-        })
+        }).applySchedulers()
+    }
+
+    fun updateUser(): Single<UserWithPermits> {
+        return userDao.selectWithPermits()
+                .flatMap { (localUser, permits) ->
+                    api.getUserInformation(localUser.dni.toString(), localUser.gender)
+                            .map { convertirUsuario(it) }
+                            .doOnError { Timber.e(it) }
+                            .onErrorReturnItem(UserWithPermits(localUser, permits))
+                }
+                .flatMap { Completable.mergeArrayDelayError(userDao.update(it.user), permitsDao.save(it.permits)).doOnError { e -> Timber.e(e) }.toSingle { it } }
                 .applySchedulers()
     }
-
-    fun updateUser(): Single<LocalUser> {
-        return userDao.select().flatMap { localUser ->
-            Single.fromCallable {
-                api.getUserInformation(localUser.dni.toString(), localUser.gender)?.run {
-                    convertirUsuario(this)
-                } ?: localUser
-            }
-        }.flatMap { newUser ->
-            Single.fromCallable {
-                val userWasUpdated = userDao.update(newUser) > 0
-                if (userWasUpdated) {
-                    newUser
-                } else {
-                    throw Exception("Error updating local user")
-                }
-            }
-        }.applySchedulers()
-    }
-
-    fun loadUser() = userDao.select().applySchedulers()
+    
+    fun loadUser() = userDao.selectWithPermitsFlow().applySchedulers()
 }

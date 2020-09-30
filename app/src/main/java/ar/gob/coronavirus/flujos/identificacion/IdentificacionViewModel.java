@@ -1,20 +1,15 @@
 package ar.gob.coronavirus.flujos.identificacion;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.text.TextUtils;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ar.gob.coronavirus.BuildConfig;
 import ar.gob.coronavirus.data.DniEntity;
 import ar.gob.coronavirus.data.Localidad;
 import ar.gob.coronavirus.data.Localidades;
@@ -23,13 +18,12 @@ import ar.gob.coronavirus.data.Provincias;
 import ar.gob.coronavirus.data.UserStatus;
 import ar.gob.coronavirus.data.local.modelo.LocalAddress;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
-import ar.gob.coronavirus.data.repositorios.RepositorioLogout;
+import ar.gob.coronavirus.data.repositorios.LogoutRepository;
 import ar.gob.coronavirus.flujos.BaseViewModel;
-import ar.gob.coronavirus.utils.json.JsonUtileria;
-import ar.gob.coronavirus.utils.observables.EventoUnico;
-import io.reactivex.Completable;
-import io.reactivex.Single;
+import ar.gob.coronavirus.utils.json.AssetsUtils;
+import ar.gob.coronavirus.utils.observables.Event;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -38,18 +32,18 @@ public class IdentificacionViewModel extends BaseViewModel {
     private static final String CADENA_VACIA_PRESENTACION = " ";
 
     private MutableLiveData<LocalUser> usuarioliveData = new MutableLiveData<>();
-    private MutableLiveData<EventoUnico<NavegacionFragments>> registrarUsuarioRespuesta = new MutableLiveData<>();
-    private MutableLiveData<EventoUnico<Boolean>> actualizarUsuarioRespuesta = new MutableLiveData<>();
+    private MutableLiveData<Event<NavegacionFragments>> registrarUsuarioRespuesta = new MutableLiveData<>();
+    private MutableLiveData<Event<Boolean>> actualizarUsuarioRespuesta = new MutableLiveData<>();
     private MutableLiveData<DniEntity> dniEntidadMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Provincias> provinciasMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Localidad>> localidadesSpinnerLiveData = new MutableLiveData<>();
-    private MutableLiveData<EventoUnico<Boolean>> limpiarPantallaLogin = new MutableLiveData<>();
+    private MutableLiveData<Event<Boolean>> limpiarPantallaLogin = new MutableLiveData<>();
 
     private IdentificationRepository identificationRepository;
 
     private Localidades localidades;
     private LocalAddress localAddress;
-    private RepositorioLogout repositorioLogout;
+    private LogoutRepository logoutRepository;
 
     Provincia provinciaSeleccionado = null;
     Localidad localidad = null;
@@ -57,25 +51,24 @@ public class IdentificacionViewModel extends BaseViewModel {
 
     public IdentificacionViewModel(
             IdentificationRepository identificationRepository,
-            Resources resources,
-            RepositorioLogout repositorioLogout
+            LogoutRepository logoutRepository
     ) {
         super();
         this.identificationRepository = identificationRepository;
-        this.repositorioLogout = repositorioLogout;
-        this.localidades = crearObjetoLocalidadesDesdeString(resources);
-        crearObjetoProvinciaDesdeString(resources);
+        this.logoutRepository = logoutRepository;
+        this.localidades = AssetsUtils.loadFromAsset("localidades.json", Localidades.class);
+        loadProvincesFromAsset();
     }
 
     public LiveData<LocalUser> getUsuarioLiveData() {
         return usuarioliveData;
     }
 
-    public LiveData<EventoUnico<NavegacionFragments>> getRegistrarUsuarioLiveData() {
+    public LiveData<Event<NavegacionFragments>> getRegistrarUsuarioLiveData() {
         return registrarUsuarioRespuesta;
     }
 
-    public LiveData<EventoUnico<Boolean>> getActualizarUsuarioLiveData() {
+    public LiveData<Event<Boolean>> getActualizarUsuarioLiveData() {
         return actualizarUsuarioRespuesta;
     }
 
@@ -83,7 +76,7 @@ public class IdentificacionViewModel extends BaseViewModel {
         return dniEntidadMutableLiveData;
     }
 
-    public LiveData<EventoUnico<Boolean>> getLimpiarLogin() {
+    public LiveData<Event<Boolean>> getLimpiarLogin() {
         return limpiarPantallaLogin;
     }
 
@@ -102,28 +95,22 @@ public class IdentificacionViewModel extends BaseViewModel {
     }
 
     @SuppressLint("CheckResult")
-    public void registrarUsuario(final String dniNro, final String dniTramite, final String sexo) {
-        addDisposable(Single.fromCallable(() -> identificationRepository.authorizeUser(dniNro, sexo, dniTramite.replaceFirst("^0+(?!$)", "")))
-                .flatMap(success -> {
-                    if (success) {
-                        return identificationRepository.registerUser(dniNro, sexo);
-                    } else {
-                        throw new Exception("Error registering");
-                    }
-                })
+    public void registerUser(final String dniNro, final String identification, final String gender) {
+        addDisposable(identificationRepository.authorizeUser(dniNro, gender, identification.replaceFirst("^0+(?!$)", ""))
+                .flatMap(success -> identificationRepository.registerUser(dniNro, gender))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(localUser -> {
                     if (localUser.getAddress() == null || TextUtils.isEmpty(localUser.getAddress().getProvince())) {
-                        registrarUsuarioRespuesta.setValue(new EventoUnico(NavegacionFragments.IDENTIFICACION));
+                        registrarUsuarioRespuesta.setValue(new Event<>(NavegacionFragments.IDENTIFICACION));
                     } else if (localUser.getCurrentState().getUserStatus() == UserStatus.MUST_SELF_DIAGNOSE) {
-                        registrarUsuarioRespuesta.setValue(new EventoUnico(NavegacionFragments.AUTODIAGNOSTICO));
+                        registrarUsuarioRespuesta.setValue(new Event<>(NavegacionFragments.AUTODIAGNOSTICO));
                     } else {
-                        registrarUsuarioRespuesta.setValue(new EventoUnico(NavegacionFragments.PRINCIPAL));
+                        registrarUsuarioRespuesta.setValue(new Event<>(NavegacionFragments.PRINCIPAL));
                     }
                 }, throwable -> {
                     Timber.e(throwable, "Error logging in");
-                    registrarUsuarioRespuesta.setValue(new EventoUnico(NavegacionFragments.ERROR));
+                    registrarUsuarioRespuesta.setValue(new Event<>(NavegacionFragments.ERROR));
                 }));
     }
 
@@ -135,9 +122,9 @@ public class IdentificacionViewModel extends BaseViewModel {
                 nroTelefono,
                 localAddress,
                 null)
-                .subscribe(() -> actualizarUsuarioRespuesta.setValue(new EventoUnico<>(true)), throwable -> {
+                .subscribe(() -> actualizarUsuarioRespuesta.setValue(new Event<>(true)), throwable -> {
                     Timber.e(throwable, "Error logging in");
-                    actualizarUsuarioRespuesta.setValue(new EventoUnico<>(false));
+                    actualizarUsuarioRespuesta.setValue(new Event<>(false));
                 }));
     }
 
@@ -145,25 +132,8 @@ public class IdentificacionViewModel extends BaseViewModel {
         dniEntidadMutableLiveData.setValue(DniEntity.build(cadenaQr));
     }
 
-    public String obtenerLocalidadesDeAssets(Resources resources) {
-        return JsonUtileria.obtenerJsonDeAsset(resources, "localidades.json");
-    }
-
-    public String obtenerProvinciasDeAssets(Resources resources) {
-        return JsonUtileria.obtenerJsonDeAsset(resources, "provincias.json");
-    }
-
-    public Localidades crearObjetoLocalidadesDesdeString(Resources resources) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
-        Localidades localidades = gson.fromJson(obtenerLocalidadesDeAssets(resources), Localidades.class);
-        return localidades;
-    }
-
-    public void crearObjetoProvinciaDesdeString(Resources resources) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
-        Provincias provincias = gson.fromJson(obtenerProvinciasDeAssets(resources), Provincias.class);
+    public void loadProvincesFromAsset() {
+        Provincias provincias = AssetsUtils.loadFromAsset("provincias.json", Provincias.class);
         List<Provincia> sortedProvinces = new ArrayList<>(provincias.getProvincias());
         Collections.sort(sortedProvinces, (locality1, locality2) -> locality1.getNombre().compareToIgnoreCase(locality2.getNombre()));
         provincias.setProvincias(sortedProvinces);
@@ -219,12 +189,12 @@ public class IdentificacionViewModel extends BaseViewModel {
     }
 
     void logout() {
-        addDisposable((Completable.fromAction(() ->
-                repositorioLogout.logout()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> limpiarPantallaLogin.setValue(new EventoUnico(true)), throwable -> {
-                    if (BuildConfig.DEBUG)
-                        Timber.d("Error al desloguear");
-                })));
+        Disposable disposable = logoutRepository.logout()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> limpiarPantallaLogin.setValue(new Event<>(true)),
+                        throwable -> Timber.d("Error al desloguear"));
+        addDisposable(disposable);
     }
 
     public void localidadSeleccionada(Localidad localidadSeleccionada) {
@@ -234,9 +204,9 @@ public class IdentificacionViewModel extends BaseViewModel {
     public void navegarSiguientePantallaDependiendoDelEstado() {
         boolean debeAutodiagnosticarse = usuarioliveData.getValue().getCurrentState().getUserStatus() == UserStatus.MUST_SELF_DIAGNOSE;
         if (debeAutodiagnosticarse) {
-            registrarUsuarioRespuesta.setValue(new EventoUnico<>(NavegacionFragments.AUTODIAGNOSTICO));
+            registrarUsuarioRespuesta.setValue(new Event<>(NavegacionFragments.AUTODIAGNOSTICO));
         } else {
-            registrarUsuarioRespuesta.setValue(new EventoUnico<>(NavegacionFragments.PRINCIPAL));
+            registrarUsuarioRespuesta.setValue(new Event<>(NavegacionFragments.PRINCIPAL));
         }
     }
 }

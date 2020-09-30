@@ -15,18 +15,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.gob.coronavirus.GlobalAction;
+import ar.gob.coronavirus.GlobalActionsManager;
 import ar.gob.coronavirus.data.UserStatus;
 import ar.gob.coronavirus.data.local.modelo.LocalUser;
 import ar.gob.coronavirus.data.remoto.modelo.RemoteLocation;
 import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteAntecedents;
 import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSelfEvaluation;
 import ar.gob.coronavirus.data.remoto.modelo_autodiagnostico.RemoteSymptom;
-import ar.gob.coronavirus.data.repositorios.RepositorioAutoevaluacion;
-import ar.gob.coronavirus.data.repositorios.RepositorioLogout;
+import ar.gob.coronavirus.data.repositorios.LogoutRepository;
+import ar.gob.coronavirus.data.repositorios.SelfEvaluationRepository;
 import ar.gob.coronavirus.flujos.BaseViewModel;
 import ar.gob.coronavirus.flujos.identificacion.IdentificationRepository;
-import ar.gob.coronavirus.utils.observables.EventoUnico;
-import io.reactivex.Completable;
+import ar.gob.coronavirus.utils.observables.Event;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -36,16 +37,16 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    private final RepositorioAutoevaluacion repositorioAutoevaluacion;
+    private final SelfEvaluationRepository selfEvaluationRepository;
     private IdentificationRepository identificationRepository;
-    private final RepositorioLogout repositorioLogout;
+    private final LogoutRepository logoutRepository;
 
     private final RemoteSelfEvaluation remoteSelfEvaluation;
     private final Map<String, RemoteSymptom> sintomas = new HashMap<>();
     private final Map<String, RemoteAntecedents> antecedentes = new HashMap<>();
     private final MutableLiveData<LocalUser> userInformationLiveData = new MutableLiveData<>();
     final MutableLiveData<ScreenState> screenStateLiveData = new MutableLiveData<>();
-    final MutableLiveData<EventoUnico<EstadoAlPresionarBack>> estadoAlPresionarBack = new MutableLiveData<>();
+    final MutableLiveData<Event<EstadoAlPresionarBack>> estadoAlPresionarBack = new MutableLiveData<>();
     MutableLiveData<Boolean> obtuvoGeolocalizacion = new MutableLiveData<>();
 
     double temperatura = 37.0;
@@ -54,15 +55,15 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
     private RemoteLocation remoteLocation = null;
 
     public AutodiagnosticoViewModel(
-            RepositorioAutoevaluacion repositorioAutoevaluacion,
+            SelfEvaluationRepository selfEvaluationRepository,
             IdentificationRepository identificationRepository,
-            RepositorioLogout repositorioLogout,
+            LogoutRepository logoutRepository,
             FusedLocationProviderClient fusedLocationProviderClient
     ) {
         super();
-        this.repositorioAutoevaluacion = repositorioAutoevaluacion;
+        this.selfEvaluationRepository = selfEvaluationRepository;
         this.identificationRepository = identificationRepository;
-        this.repositorioLogout = repositorioLogout;
+        this.logoutRepository = logoutRepository;
         remoteSelfEvaluation = new RemoteSelfEvaluation(
                 0.0F,
                 new ArrayList<RemoteSymptom>(),
@@ -87,8 +88,8 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
         remoteSelfEvaluation.getSymptoms().clear();
         remoteSelfEvaluation.getSymptoms().addAll(sintomas.values());
 
-        compositeDisposable.add(repositorioAutoevaluacion
-                .confirmarAutoevaluacion(remoteSelfEvaluation)
+        compositeDisposable.add(selfEvaluationRepository
+                .confirmSelfEvaluation(remoteSelfEvaluation)
                 .subscribe(usuarioRemoto -> {
                     // Si luego de la autoevaluación se determino que es compatible covid-19
                     // luego de enviar el resultado se solicita confirmar el telefono para
@@ -104,13 +105,13 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
     }
 
     void manejarBotonBack() {
-        compositeDisposable.add(repositorioAutoevaluacion
-                .obtenerEstadoUsuario()
+        compositeDisposable.add(selfEvaluationRepository
+                .getUserStatus()
                 .subscribe(estadoUsuario -> {
                     if (estadoUsuario == UserStatus.MUST_SELF_DIAGNOSE) {
-                        estadoAlPresionarBack.setValue(new EventoUnico(EstadoAlPresionarBack.DebeDiagnosticarse));
+                        estadoAlPresionarBack.setValue(new Event(EstadoAlPresionarBack.DebeDiagnosticarse));
                     } else {
-                        estadoAlPresionarBack.setValue(new EventoUnico(EstadoAlPresionarBack.Diagnosticado));
+                        estadoAlPresionarBack.setValue(new Event(EstadoAlPresionarBack.Diagnosticado));
                     }
                 }, throwable -> {
                 }));
@@ -124,16 +125,16 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
         antecedentes.put(antecedente.getId(), antecedente);
     }
 
-    void modificarAntecedente(String descripcion, boolean valor) {
-        RemoteAntecedents remoteAntecedents = antecedentes.get(descripcion);
+    void modificarAntecedente(String id, boolean valor) {
+        RemoteAntecedents remoteAntecedents = antecedentes.get(id);
         if (remoteAntecedents != null) {
             remoteAntecedents.setValue(valor);
-            antecedentes.put(descripcion, remoteAntecedents);
+            antecedentes.put(id, remoteAntecedents);
         }
     }
 
-    RemoteAntecedents obtenerAntecedente(@NotNull String descripcion) {
-        return antecedentes.get(descripcion);
+    RemoteAntecedents getAntecedent(@NotNull Antecedents antecedent) {
+        return antecedentes.get(antecedent.getId());
     }
 
     boolean noTieneAntecedentes() {
@@ -144,8 +145,8 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
         remoteSelfEvaluation.setTemperature(temperatura);
     }
 
-    RemoteSymptom obtenerSintoma(@NonNull Symptoms tipoSintoma) {
-        return sintomas.get(tipoSintoma.getValue());
+    RemoteSymptom getSymptom(@NonNull Symptoms symptom) {
+        return sintomas.get(symptom.getValue());
     }
 
     public RemoteSelfEvaluation obtenerAutoevaluacion() {
@@ -182,13 +183,12 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
         Diagnosticado, DebeDiagnosticarse
     }
 
-    @SuppressLint("CheckResult")
     void logout() {
-        compositeDisposable.add(Completable
-                .fromAction(repositorioLogout::logout)
-                .subscribeOn(Schedulers.io()).subscribe(() ->
-                                Timber.d("Usuario deslogueado"),
-                        throwable -> Timber.d("Error al desloguear usuario")));
+        Disposable disposable = logoutRepository.logout()
+                .subscribeOn(Schedulers.io())
+                .subscribe(() -> GlobalActionsManager.INSTANCE.post(GlobalAction.LOGOUT),
+                        throwable -> Timber.d("Error al desloguear usuario"));
+        compositeDisposable.add(disposable);
     }
 
     @Override
@@ -212,26 +212,33 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
     }
 
     public boolean debePedirPermisoDeLocalizacion() {
-        boolean smellLoss = obtenerSintoma(Symptoms.S_PDO).getValue();
-        boolean tasteLoss = obtenerSintoma(Symptoms.S_PDG).getValue();
-        // Criterio 4
-        if (smellLoss || tasteLoss) {
-            return true;
-        }
+        boolean smellLoss = getSymptom(Symptoms.SMELL_LOSS).getValue();
+        boolean tasteLoss = getSymptom(Symptoms.TASTE_LOSS).getValue();
+
+        boolean diarrhea = getSymptom(Symptoms.DIARRHEA).getValue();
+        boolean vomit = getSymptom(Symptoms.VOMIT).getValue();
+
+        int diarrheaOrVomitCount = booleanToInt(diarrhea || vomit);
+        int headacheCount = booleanToInt(getSymptom(Symptoms.HEADACHE).getValue());
 
         // Criterio 2
         int count = booleanToInt(temperatura >= 37.5)
-                + booleanToInt(obtenerSintoma(Symptoms.S_DRE).getValue())
-                + booleanToInt(obtenerSintoma(Symptoms.S_TOS).getValue())
-                + booleanToInt(obtenerSintoma(Symptoms.S_DDG).getValue())
-                + booleanToInt(smellLoss || tasteLoss); // IDE warns always false, but for reading purposes...
+                + booleanToInt(getSymptom(Symptoms.BREATHING_DIFFICULTY).getValue())
+                + booleanToInt(getSymptom(Symptoms.COUGH).getValue())
+                + booleanToInt(getSymptom(Symptoms.SORE_THROAT).getValue())
+                + booleanToInt(getSymptom(Symptoms.MUSCLE_ACHE).getValue())
+                + booleanToInt(smellLoss || tasteLoss)
+                + headacheCount
+                + diarrheaOrVomitCount;
         if (count >= 2) {
             return true;
         }
 
+        // Dolor de cabeza, diarrea y vomito no cuentan como sintoms para contacto estrecho
+        count -= (headacheCount + diarrheaOrVomitCount);
         // Criterio 3
-        RemoteAntecedents antecedentContact1 = antecedentes.get(Antecedents.A_CE1.getId());
-        RemoteAntecedents antecedentContact2 = antecedentes.get(Antecedents.A_CE2.getId());
+        RemoteAntecedents antecedentContact1 = getAntecedent(Antecedents.A_CE1);
+        RemoteAntecedents antecedentContact2 = getAntecedent(Antecedents.A_CE2);
 
         return ((antecedentContact1 != null && antecedentContact1.getValue()) ||
                 (antecedentContact2 != null && antecedentContact2.getValue())) &&
@@ -243,8 +250,8 @@ public class AutodiagnosticoViewModel extends BaseViewModel {
     }
 
     public void obtenerInformacionDeUsuario() {
-        compositeDisposable.add(repositorioAutoevaluacion
-                .obtenerUsuario()
+        compositeDisposable.add(selfEvaluationRepository
+                .getUser()
                 .subscribe(userInformationLiveData::setValue,
                         throwable -> Timber.d("Error al obtener el último estado")));
     }

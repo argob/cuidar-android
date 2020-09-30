@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == TipoDePermisoDeUbicacion.SOLO_UBICACION) {
-            capturarUbicacionDeUsuario(requestCode, permissions, grantResults);
+            capturarUbicacionDeUsuario(grantResults);
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 CovidApplication.getInstance().getSharedUtils().putBoolean(Constantes.SHARED_KEY_DENY_SERVICE, true);
             }
@@ -39,12 +39,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    private void capturarUbicacionDeUsuario(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            PermisoDeUbicacion permisoDeUbicacion = PermisosUtileria.validarResultadoDePermisoDeUbicacionApi29(this, permissions, grantResults, requestCode);
-            viewModel.setResultadoDialogoCustomPermisoDeUbicacion(permisoDeUbicacion == PermisoDeUbicacion.SOLO_CON_LA_APLICACION_VISIBLE);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            viewModel.setResultadoDialogoCustomPermisoDeUbicacion(PermisosUtileria.tieneAccesoAUbicacion(grantResults));
+    private void capturarUbicacionDeUsuario(@NonNull int[] grantResults) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            viewModel.setPermissionDialogResult(PermisosUtileria.tieneAccesoAUbicacion(grantResults));
         }
     }
 
@@ -81,7 +78,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void mostrarDialogoDeUbicacion(final Integer tipoDePermisoDeUbicacion) {
-        PermisoDeUbicacion permisoDeUbicacion = PermisosUtileria.validarPermisoDeUbicacionGeneral(this, tipoDePermisoDeUbicacion);
+        PermisoDeUbicacion permisoDeUbicacion = PermisosUtileria.validarPermisoDeUbicacionGeneral(this);
         if (permisoDeUbicacion == PermisoDeUbicacion.SIN_PERMISO) {
             if (dialogoDePermisoDeUbicacion == null || !dialogoDePermisoDeUbicacion.isShowing()) {
                 crearDialogoParaSolicitarPermisosDeUbicacion(tipoDePermisoDeUbicacion);
@@ -110,14 +107,14 @@ public class BaseActivity extends AppCompatActivity {
             validarPermisoDeUbicacionActual(tipoDePermisoDeUbicacion);
         });
         builder.setNegativeButton(getString(R.string.cancelar), (dialog, which) -> {
-            viewModel.setResultadoDialogoCustomPermisoDeUbicacion(false);
+            viewModel.setPermissionDialogResult(false);
             dialog.dismiss();
         });
         dialogoDePermisoDeUbicacion = builder.show();
     }
 
     private void validarPermisoDeUbicacionActual(Integer tipoDePermisoDeUbicacion) {
-        PermisoDeUbicacion permisoDeUbicacion = PermisosUtileria.validarPermisoDeUbicacionGeneral(this, tipoDePermisoDeUbicacion);
+        PermisoDeUbicacion permisoDeUbicacion = PermisosUtileria.validarPermisoDeUbicacionGeneral(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if (permisoDeUbicacion == PermisoDeUbicacion.SIN_PERMISO) {
                 PermisosUtileria.solicitarPermisoDeUbicacionAndroidQ(this, tipoDePermisoDeUbicacion);
@@ -137,7 +134,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void observarPermisosDeUbicacionParaLanzarServicioDeRastreo() {
-        viewModel.obtenerLanzarDialogoPermisosLocalizacionLiveData().observe(this, tipoDePermisoDeUbicacion -> {
+        viewModel.getShowLocationPermissionDialogLiveData().observe(this, tipoDePermisoDeUbicacion -> {
             if (tipoDePermisoDeUbicacion == TipoDePermisoDeUbicacion.SOLO_UBICACION) {
                 mostrarDialogoDeUbicacion(tipoDePermisoDeUbicacion);
             }
